@@ -24,6 +24,11 @@
 		E9B3AD8A2A3083F70059C99D /* StartScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD892A3083F70059C99D /* StartScreenViewModel.swift */; };
 		E9B3AD8D2A30C8C40059C99D /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8C2A30C8C40059C99D /* LoginScreenView.swift */; };
 		E9B3AD8F2A30CF450059C99D /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8E2A30CF450059C99D /* LoginScreenViewModel.swift */; };
+		E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD912A30DCE00059C99D /* OnboardingViewModel.swift */; };
+		E9B3AD942A3139020059C99D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9B3AD932A3139020059C99D /* GoogleService-Info.plist */; };
+		E9B3AD962A313AEB0059C99D /* RegisterScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */; };
+		E9B3AD982A313B880059C99D /* RegisterScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */; };
+		E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD992A31420A0059C99D /* FirebaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +41,11 @@
 		E9B3AD892A3083F70059C99D /* StartScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewModel.swift; sourceTree = "<group>"; };
 		E9B3AD8C2A30C8C40059C99D /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenView.swift; sourceTree = "<group>"; };
 		E9B3AD8E2A30CF450059C99D /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
+		E9B3AD912A30DCE00059C99D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		E9B3AD932A3139020059C99D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenView.swift; sourceTree = "<group>"; };
+		E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenViewModel.swift; sourceTree = "<group>"; };
+		E9B3AD992A31420A0059C99D /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +88,13 @@
 			isa = PBXGroup;
 			children = (
 				E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */,
-				E9A46A3F2A3066B6008C50C7 /* Onboarding */,
+				E9B3AD992A31420A0059C99D /* FirebaseManager.swift */,
 				E9A46A3E2A3066A6008C50C7 /* StartScreen */,
+				E9A46A3F2A3066B6008C50C7 /* Onboarding */,
 				E9B3AD8B2A30A5AB0059C99D /* LoginScreen */,
+				E9B3AD902A30DB1B0059C99D /* RegisterScreen */,
 				E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */,
+				E9B3AD932A3139020059C99D /* GoogleService-Info.plist */,
 				E9A46A232A2FDBB1008C50C7 /* Preview Content */,
 			);
 			path = FitNote;
@@ -108,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				E9A46A402A3066D2008C50C7 /* OnboardingView.swift */,
+				E9B3AD912A30DCE00059C99D /* OnboardingViewModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -119,6 +133,15 @@
 				E9B3AD8E2A30CF450059C99D /* LoginScreenViewModel.swift */,
 			);
 			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		E9B3AD902A30DB1B0059C99D /* RegisterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */,
+				E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */,
+			);
+			path = RegisterScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +218,7 @@
 			files = (
 				E9A46A252A2FDBB1008C50C7 /* Preview Assets.xcassets in Resources */,
 				E9A46A222A2FDBB1008C50C7 /* Assets.xcassets in Resources */,
+				E9B3AD942A3139020059C99D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,9 +231,13 @@
 			files = (
 				E9B3AD8D2A30C8C40059C99D /* LoginScreenView.swift in Sources */,
 				E9A46A412A3066D2008C50C7 /* OnboardingView.swift in Sources */,
+				E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */,
 				E9B3AD8F2A30CF450059C99D /* LoginScreenViewModel.swift in Sources */,
+				E9B3AD962A313AEB0059C99D /* RegisterScreenView.swift in Sources */,
+				E9B3AD982A313B880059C99D /* RegisterScreenViewModel.swift in Sources */,
 				E9A46A202A2FDBAB008C50C7 /* StartScreenView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
+				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartScreenViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,8 +373,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -354,9 +383,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pz.FitNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -374,8 +406,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,9 +416,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pz.FitNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
