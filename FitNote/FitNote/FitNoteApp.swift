@@ -11,7 +11,7 @@ import SwiftUI
 struct FitNoteApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StartScreenView()
         }
     }
 }
