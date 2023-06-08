@@ -29,6 +29,8 @@
 		E9B3AD962A313AEB0059C99D /* RegisterScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */; };
 		E9B3AD982A313B880059C99D /* RegisterScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */; };
 		E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD992A31420A0059C99D /* FirebaseManager.swift */; };
+		E9B3AD9F2A31C5710059C99D /* AppRoleScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD9E2A31C5710059C99D /* AppRoleScreenView.swift */; };
+		E9B3ADA12A31DCBB0059C99D /* AppRoleScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3ADA02A31DCBB0059C99D /* AppRoleScreenViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenView.swift; sourceTree = "<group>"; };
 		E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenViewModel.swift; sourceTree = "<group>"; };
 		E9B3AD992A31420A0059C99D /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		E9B3AD9E2A31C5710059C99D /* AppRoleScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleScreenView.swift; sourceTree = "<group>"; };
+		E9B3ADA02A31DCBB0059C99D /* AppRoleScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleScreenViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,7 @@
 				E9A46A3F2A3066B6008C50C7 /* Onboarding */,
 				E9B3AD8B2A30A5AB0059C99D /* LoginScreen */,
 				E9B3AD902A30DB1B0059C99D /* RegisterScreen */,
+				E9B3AD9D2A31C52A0059C99D /* AppRoleScreen */,
 				E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */,
 				E9B3AD932A3139020059C99D /* GoogleService-Info.plist */,
 				E9A46A232A2FDBB1008C50C7 /* Preview Content */,
@@ -142,6 +147,15 @@
 				E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */,
 			);
 			path = RegisterScreen;
+			sourceTree = "<group>";
+		};
+		E9B3AD9D2A31C52A0059C99D /* AppRoleScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E9B3AD9E2A31C5710059C99D /* AppRoleScreenView.swift */,
+				E9B3ADA02A31DCBB0059C99D /* AppRoleScreenViewModel.swift */,
+			);
+			path = AppRoleScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,9 +249,11 @@
 				E9B3AD8F2A30CF450059C99D /* LoginScreenViewModel.swift in Sources */,
 				E9B3AD962A313AEB0059C99D /* RegisterScreenView.swift in Sources */,
 				E9B3AD982A313B880059C99D /* RegisterScreenViewModel.swift in Sources */,
+				E9B3AD9F2A31C5710059C99D /* AppRoleScreenView.swift in Sources */,
 				E9A46A202A2FDBAB008C50C7 /* StartScreenView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
+				E9B3ADA12A31DCBB0059C99D /* AppRoleScreenViewModel.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartScreenViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

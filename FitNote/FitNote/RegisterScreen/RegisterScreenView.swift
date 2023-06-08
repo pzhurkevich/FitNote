@@ -32,7 +32,7 @@ struct RegisterScreenView: View {
                     .font(.largeTitle)
                     .foregroundColor(.white)
                 
-                TextField("Name", text: $vm.name, prompt: Text("").foregroundColor(.white))
+                TextField("", text: $vm.name, prompt: Text("Name").foregroundColor(.white))
                     .foregroundColor(Color("mainGreen"))
                     .padding()
                     .overlay {
