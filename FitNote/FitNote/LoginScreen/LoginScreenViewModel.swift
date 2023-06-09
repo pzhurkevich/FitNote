@@ -14,7 +14,11 @@ final class LoginScreenViewModel: ObservableObject {
     
     @Published var email: String = ""
     @Published var password: String = ""
-    @Published var errorText: String = ""
+    @Published var errorText: String = "" {
+        didSet {
+            showingAlert = true
+        }
+    }
     @Published  var showingAlert = false
     @Published  var isLogged = false
     @Published  var openRegisterScreen = false
@@ -32,11 +36,7 @@ final class LoginScreenViewModel: ObservableObject {
                     self.isLogged = userData.email != nil
                 }
             } catch {
-                await MainActor.run {
-                    
                     self.errorText = error.localizedDescription.description
-                    self.showingAlert = self.errorText != ""
-                }
             }
         }
     }

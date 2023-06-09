@@ -25,7 +25,7 @@ struct OnboardingView: View {
                
                     Rectangle()
                     .frame(width: 1000, height: 400)
-                    .foregroundColor(Color.CustomColor.darkColor)
+                    .foregroundColor(Color.darkColor)
                     .rotationEffect(.degrees(160))
                     .offset(y: UIScreen.main.bounds.size.height / 2 )
 
@@ -45,7 +45,7 @@ struct OnboardingView: View {
                         .tint(.black)
                         .padding(.horizontal, 30)
                         .padding(.vertical, 20)
-                        .background(Color.CustomColor.greenColor)
+                        .background(Color.greenColor)
                         .clipShape(Capsule())
                     }
                     .padding(.bottom, 50)

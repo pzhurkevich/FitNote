@@ -15,10 +15,10 @@ struct LoginScreenView: View {
        
             ZStack {
                 
-                Color("mainDark").ignoresSafeArea(.all)
+                Color.darkColor.ignoresSafeArea()
                 
                 RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(Color.CustomColor.secondaryDark)
+                    .foregroundColor(Color.secondaryDark)
                     .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.65)
                 VStack{
                     
@@ -26,7 +26,7 @@ struct LoginScreenView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)
-                        .foregroundColor(Color.CustomColor.greenColor)
+                        .foregroundColor(Color.greenColor)
                         .padding()
                     
                     Text("Sign In")
@@ -34,7 +34,7 @@ struct LoginScreenView: View {
                         .foregroundColor(.white)
                     
                     TextField("", text: $vm.email, prompt: Text("Email").foregroundColor(.white))
-                        .foregroundColor(Color.CustomColor.greenColor)
+                        .foregroundColor(Color.greenColor)
                         .padding()
                         .overlay {
                             RoundedRectangle(cornerRadius: 24)
@@ -44,7 +44,7 @@ struct LoginScreenView: View {
                     
                     SecureField("", text: $vm.password, prompt: Text("Password").foregroundColor(.white))
                         .fixedSize(horizontal: false, vertical: true)
-                        .foregroundColor(Color.CustomColor.greenColor)
+                        .foregroundColor(Color.greenColor)
                         .padding()
                         .overlay {
                             RoundedRectangle(cornerRadius: 24)
@@ -62,7 +62,7 @@ struct LoginScreenView: View {
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.CustomColor.greenColor)
+                            .background(Color.greenColor)
                             .clipShape(Capsule())
                     }
                     
@@ -82,7 +82,7 @@ struct LoginScreenView: View {
                             vm.openRegisterScreen.toggle()
                         } label: {
                             Text("Register")
-                                .foregroundColor(Color.CustomColor.greenColor)
+                                .foregroundColor(Color.greenColor)
                         }
                         .fullScreenCover(isPresented: $vm.openRegisterScreen) {
                             RegisterScreenView()

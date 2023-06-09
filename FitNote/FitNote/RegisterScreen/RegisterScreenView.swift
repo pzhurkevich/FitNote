@@ -14,10 +14,10 @@ struct RegisterScreenView: View {
     var body: some View {
        ZStack {
             
-           Color.CustomColor.darkColor.ignoresSafeArea()
+           Color.darkColor.ignoresSafeArea()
             
             RoundedRectangle(cornerRadius: 25)
-               .foregroundColor(Color.CustomColor.secondaryDark)
+               .foregroundColor(Color.secondaryDark)
                 .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.85)
             VStack{
                 
@@ -25,7 +25,7 @@ struct RegisterScreenView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
-                    .foregroundColor(Color.CustomColor.greenColor)
+                    .foregroundColor(Color.greenColor)
                     .padding()
                 
                 Text("Registration")
@@ -33,7 +33,7 @@ struct RegisterScreenView: View {
                     .foregroundColor(.white)
                 
                 TextField("", text: $vm.name, prompt: Text("Name").foregroundColor(.white))
-                    .foregroundColor(Color.CustomColor.greenColor)
+                    .foregroundColor(Color.greenColor)
                     .padding()
                     .overlay {
                         RoundedRectangle(cornerRadius: 24)
@@ -42,7 +42,7 @@ struct RegisterScreenView: View {
                     .padding()
                 
                 TextField("", text: $vm.email, prompt: Text("Email").foregroundColor(.white))
-                    .foregroundColor(Color.CustomColor.greenColor)
+                    .foregroundColor(Color.greenColor)
                     .padding()
                     .overlay {
                         RoundedRectangle(cornerRadius: 24)
@@ -52,7 +52,7 @@ struct RegisterScreenView: View {
                 
                 SecureField("", text: $vm.password, prompt: Text("Password").foregroundColor(.white))
                     .fixedSize(horizontal: false, vertical: true)
-                    .foregroundColor(Color.CustomColor.greenColor)
+                    .foregroundColor(Color.greenColor)
                     .padding()
                     .overlay {
                         RoundedRectangle(cornerRadius: 24)
@@ -70,7 +70,7 @@ struct RegisterScreenView: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.CustomColor.greenColor)
+                        .background(Color.greenColor)
                         .clipShape(Capsule())
                 }
                 

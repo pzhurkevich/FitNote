@@ -14,7 +14,7 @@ struct AppRoleScreenView: View {
     var body: some View {
         ZStack {
             
-            Color("mainDark").ignoresSafeArea()
+            Color.darkColor.ignoresSafeArea()
          
         
             
@@ -28,7 +28,7 @@ struct AppRoleScreenView: View {
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
                     .padding(30)
-                }
+                }.padding(.top, 10)
                  
               
                 ZStack {
@@ -54,13 +54,13 @@ struct AppRoleScreenView: View {
                                     .fontWeight(.bold)
                                     .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(Color("mainGreen"))
+                                    .background(Color.greenColor)
                                     .clipShape(Capsule())
                             }.padding()
                            
                             Button {
                                 vm.customAlert.toggle()
-                                vm.textForAlert = vm.textForTrainers
+                                vm.textForAlert = .textForTrainers
                             } label: {
                                 Image(systemName: "info.circle")
                                     .resizable()
@@ -84,13 +84,13 @@ struct AppRoleScreenView: View {
                                     .fontWeight(.bold)
                                     .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(Color("mainGreen"))
+                                    .background(Color.greenColor)
                                     .clipShape(Capsule())
                             }.padding()
                             
                             Button {
                                 vm.customAlert.toggle()
-                                vm.textForAlert = vm.textForSelfTrain
+                                vm.textForAlert = .textForSelfTrain
                             } label: {
                                 Image(systemName: "info.circle")
                                     .resizable()
@@ -107,7 +107,7 @@ struct AppRoleScreenView: View {
             }
             
             if vm.customAlert {
-                CustomAlertView(show: $vm.customAlert, text: vm.textForAlert)
+                CustomAlertView(show: $vm.customAlert, text: vm.textForAlert.rawValue)
             }
             
             
@@ -145,7 +145,7 @@ struct CustomAlertView: View {
                 Image(systemName: "xmark.circle")
                     .font(.system(size: 20, weight: .semibold))
                   
-                    .foregroundColor(Color("mainGreen"))
+                    .foregroundColor(Color.greenColor)
             }
             .padding([.top, .trailing], 8)
           

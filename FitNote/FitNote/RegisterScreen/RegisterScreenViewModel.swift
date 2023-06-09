@@ -14,7 +14,12 @@ final class RegisterScreenViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var name: String = ""
-    @Published var errorText: String = ""
+    @Published var errorText: String = "" {
+        didSet {
+            showingAlert = true
+        }
+    }
+    
     
     @Published  var isRegistered = false
     @Published var showingAlert = false
@@ -35,10 +40,9 @@ final class RegisterScreenViewModel: ObservableObject {
                     }
                 
             } catch {
-                await MainActor.run {
+             
                     self.errorText = error.localizedDescription.description
-                    self.showingAlert = self.errorText != ""
-                }
+                
             }
         }
     }
