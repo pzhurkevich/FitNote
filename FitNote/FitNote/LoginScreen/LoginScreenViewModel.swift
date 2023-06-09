@@ -17,6 +17,7 @@ final class LoginScreenViewModel: ObservableObject {
     @Published var errorText: String = ""
     @Published  var showingAlert = false
     @Published  var isLogged = false
+    @Published  var openRegisterScreen = false
     
     var fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
@@ -32,8 +33,9 @@ final class LoginScreenViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    self.showingAlert = true
+                    
                     self.errorText = error.localizedDescription.description
+                    self.showingAlert = self.errorText != ""
                 }
             }
         }

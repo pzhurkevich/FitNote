@@ -15,7 +15,7 @@ struct StartScreenView: View {
     
     var body: some View {
         ZStack {
-            Color("mainDark").ignoresSafeArea()
+            Color.CustomColor.darkColor.ignoresSafeArea()
             VStack {
                 
                 Spacer()
@@ -29,13 +29,13 @@ struct StartScreenView: View {
                 
                 Text("FitNote")
                     .font(.system(size: 70, weight: .black, design: .serif))
-                    .foregroundColor(Color("mainGreen"))
+                    .foregroundColor(Color.CustomColor.greenColor)
                 
                 Spacer()
                 
                 ProgressView()
                     .scaleEffect(2)
-                    .tint(Color("mainGreen"))
+                    .tint(Color.CustomColor.greenColor)
                     .padding(.bottom, 30)
                 
                 

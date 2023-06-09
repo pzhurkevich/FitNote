@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B32A323BA2002E67DA /* Color+Extension.swift */; };
 		E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */; };
 		E9A46A202A2FDBAB008C50C7 /* StartScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1F2A2FDBAB008C50C7 /* StartScreenView.swift */; };
 		E9A46A222A2FDBB1008C50C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E91AE1B32A323BA2002E67DA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		E9A46A1A2A2FDBAB008C50C7 /* FitNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitNoteApp.swift; sourceTree = "<group>"; };
 		E9A46A1F2A2FDBAB008C50C7 /* StartScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E91AE1B22A323A27002E67DA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E91AE1B32A323BA2002E67DA /* Color+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E9A46A112A2FDBAB008C50C7 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +103,7 @@
 			children = (
 				E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */,
 				E9B3AD992A31420A0059C99D /* FirebaseManager.swift */,
+				E91AE1B22A323A27002E67DA /* Extensions */,
 				E9A46A3E2A3066A6008C50C7 /* StartScreen */,
 				E9A46A3F2A3066B6008C50C7 /* Onboarding */,
 				E9B3AD8B2A30A5AB0059C99D /* LoginScreen */,
@@ -255,6 +266,7 @@
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleScreenViewModel.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartScreenViewModel.swift in Sources */,
+				E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

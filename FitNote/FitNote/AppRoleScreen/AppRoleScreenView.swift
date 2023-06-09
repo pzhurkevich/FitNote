@@ -20,17 +20,26 @@ struct AppRoleScreenView: View {
             
             VStack {
                 
-                Text("Hello, user! How will you use the app?")
-                    .font(.largeTitle)
-                    .foregroundColor(.white)
+                VStack {
+                    Text("Hello, user! How will you use the app?")
+                       
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
                     .fontWeight(.semibold)
-                    .padding()
+                    .multilineTextAlignment(.center)
+                    .padding(30)
+                }
+                 
               
                 ZStack {
                     
-                    Image("role")
-                        .resizable()
+                    VStack {
+                        Spacer()
+                        Image("role")
+                            .resizable()
                         .scaledToFill()
+                        
+                    }.ignoresSafeArea()
                     
                     
                     VStack{
@@ -39,7 +48,7 @@ struct AppRoleScreenView: View {
                                
                             } label: {
                                 
-                                Text("I'm train others")
+                                Text("I train others")
                                     .foregroundColor(.black)
                                     .fontDesign(.rounded)
                                     .fontWeight(.bold)
@@ -51,7 +60,7 @@ struct AppRoleScreenView: View {
                            
                             Button {
                                 vm.customAlert.toggle()
-                                vm.textForAlert = "By choosing this app role you will be able to keep track of your clients, track their workouts and changes in their body parameters"
+                                vm.textForAlert = vm.textForTrainers
                             } label: {
                                 Image(systemName: "info.circle")
                                     .resizable()
@@ -69,7 +78,7 @@ struct AppRoleScreenView: View {
                                
                             } label: {
                                 
-                                Text("I'm train by myself")
+                                Text("I train by myself")
                                     .foregroundColor(.black)
                                     .fontDesign(.rounded)
                                     .fontWeight(.bold)
@@ -81,7 +90,7 @@ struct AppRoleScreenView: View {
                             
                             Button {
                                 vm.customAlert.toggle()
-                                vm.textForAlert = "By choosing this role of the app you will be able to keep records only of your workouts, monitor changes in your body parameters only"
+                                vm.textForAlert = vm.textForSelfTrain
                             } label: {
                                 Image(systemName: "info.circle")
                                     .resizable()

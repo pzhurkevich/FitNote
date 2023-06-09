@@ -12,13 +12,13 @@ struct LoginScreenView: View {
     @StateObject var vm = LoginScreenViewModel()
     
     var body: some View {
-        NavigationView {
+       
             ZStack {
                 
-                Color("mainDark").ignoresSafeArea()
+                Color("mainDark").ignoresSafeArea(.all)
                 
                 RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(Color("secondaryDark"))
+                    .foregroundColor(Color.CustomColor.secondaryDark)
                     .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.65)
                 VStack{
                     
@@ -26,7 +26,7 @@ struct LoginScreenView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)
-                        .foregroundColor(Color("mainGreen"))
+                        .foregroundColor(Color.CustomColor.greenColor)
                         .padding()
                     
                     Text("Sign In")
@@ -34,7 +34,7 @@ struct LoginScreenView: View {
                         .foregroundColor(.white)
                     
                     TextField("", text: $vm.email, prompt: Text("Email").foregroundColor(.white))
-                        .foregroundColor(Color("mainGreen"))
+                        .foregroundColor(Color.CustomColor.greenColor)
                         .padding()
                         .overlay {
                             RoundedRectangle(cornerRadius: 24)
@@ -44,7 +44,7 @@ struct LoginScreenView: View {
                     
                     SecureField("", text: $vm.password, prompt: Text("Password").foregroundColor(.white))
                         .fixedSize(horizontal: false, vertical: true)
-                        .foregroundColor(Color("mainGreen"))
+                        .foregroundColor(Color.CustomColor.greenColor)
                         .padding()
                         .overlay {
                             RoundedRectangle(cornerRadius: 24)
@@ -62,9 +62,7 @@ struct LoginScreenView: View {
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
-                        //                    .padding(.horizontal, 30)
-                        //                    .padding(.vertical, 10)
-                            .background(Color("mainGreen"))
+                            .background(Color.CustomColor.greenColor)
                             .clipShape(Capsule())
                     }
                     
@@ -79,12 +77,18 @@ struct LoginScreenView: View {
                     HStack {
                         Text("Need an account?")
                             .foregroundColor(.white)
-                        NavigationLink {
-                            RegisterScreenView()
+                        
+                        Button {
+                            vm.openRegisterScreen.toggle()
                         } label: {
                             Text("Register")
-                                .foregroundColor(Color("mainGreen"))
+                                .foregroundColor(Color.CustomColor.greenColor)
                         }
+                        .fullScreenCover(isPresented: $vm.openRegisterScreen) {
+                            RegisterScreenView()
+                        }
+
+
                         
                         
                         
@@ -96,7 +100,7 @@ struct LoginScreenView: View {
             .fullScreenCover(isPresented: $vm.isLogged) {
                 AppRoleScreenView()
             }
-        }
+        
     }
 }
 

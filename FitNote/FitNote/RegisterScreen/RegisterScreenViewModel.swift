@@ -37,7 +37,7 @@ final class RegisterScreenViewModel: ObservableObject {
             } catch {
                 await MainActor.run {
                     self.errorText = error.localizedDescription.description
-                    self.showingAlert = true
+                    self.showingAlert = self.errorText != ""
                 }
             }
         }

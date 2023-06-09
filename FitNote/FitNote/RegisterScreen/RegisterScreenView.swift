@@ -14,10 +14,10 @@ struct RegisterScreenView: View {
     var body: some View {
        ZStack {
             
-            Color("mainDark").ignoresSafeArea()
+           Color.CustomColor.darkColor.ignoresSafeArea()
             
             RoundedRectangle(cornerRadius: 25)
-                .foregroundColor(Color("secondaryDark"))
+               .foregroundColor(Color.CustomColor.secondaryDark)
                 .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.85)
             VStack{
                 
@@ -25,7 +25,7 @@ struct RegisterScreenView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
-                    .foregroundColor(Color("mainGreen"))
+                    .foregroundColor(Color.CustomColor.greenColor)
                     .padding()
                 
                 Text("Registration")
@@ -33,7 +33,7 @@ struct RegisterScreenView: View {
                     .foregroundColor(.white)
                 
                 TextField("", text: $vm.name, prompt: Text("Name").foregroundColor(.white))
-                    .foregroundColor(Color("mainGreen"))
+                    .foregroundColor(Color.CustomColor.greenColor)
                     .padding()
                     .overlay {
                         RoundedRectangle(cornerRadius: 24)
@@ -42,7 +42,7 @@ struct RegisterScreenView: View {
                     .padding()
                 
                 TextField("", text: $vm.email, prompt: Text("Email").foregroundColor(.white))
-                    .foregroundColor(Color("mainGreen"))
+                    .foregroundColor(Color.CustomColor.greenColor)
                     .padding()
                     .overlay {
                         RoundedRectangle(cornerRadius: 24)
@@ -52,26 +52,26 @@ struct RegisterScreenView: View {
                 
                 SecureField("", text: $vm.password, prompt: Text("Password").foregroundColor(.white))
                     .fixedSize(horizontal: false, vertical: true)
-                    .foregroundColor(Color("mainGreen"))
+                    .foregroundColor(Color.CustomColor.greenColor)
                     .padding()
                     .overlay {
                         RoundedRectangle(cornerRadius: 24)
-                        .stroke(Color(uiColor: .white), lineWidth: 2)
+                            .stroke(Color(uiColor: .white), lineWidth: 2)
                     }
                     .padding()
                 
                 Button {
                     vm.register()
                 } label: {
-                   
+                    
                     Text("Create Account")
                         .foregroundColor(.black)
                         .fontDesign(.rounded)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
                         .padding()
-                    .background(Color("mainGreen"))
-                    .clipShape(Capsule())
+                        .background(Color.CustomColor.greenColor)
+                        .clipShape(Capsule())
                 }
                 
                 .padding([.horizontal, .vertical], 16)
@@ -79,11 +79,10 @@ struct RegisterScreenView: View {
                 Spacer()
             }
             .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.65)
-        }
+       }
        .fullScreenCover(isPresented: $vm.isRegistered) {
            EmptyView()
-   }
-       .navigationBarHidden(true)
+       }
     }
 }
 
