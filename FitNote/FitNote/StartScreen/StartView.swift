@@ -1,5 +1,5 @@
 //
-//  StartScreenView.swift
+//  StartView.swift
 //  FitNote
 //
 //  Created by Pavel on 7.06.23.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct StartScreenView: View {
+struct StartView: View {
     
     
-    @StateObject var vm = StartScreenViewModel()
+    @StateObject var vm = StartViewViewModel()
     
     
     var body: some View {
@@ -53,6 +53,6 @@ struct StartScreenView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        StartScreenView()
+        StartView()
     }
 }

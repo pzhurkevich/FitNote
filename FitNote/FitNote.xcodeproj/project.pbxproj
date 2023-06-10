@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B32A323BA2002E67DA /* Color+Extension.swift */; };
+		E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B52A34B0E3002E67DA /* View+Extension.swift */; };
+		E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B82A34B3B6002E67DA /* CustomerView.swift */; };
+		E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1BA2A34B56D002E67DA /* CustomerViewViewModel.swift */; };
 		E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */; };
-		E9A46A202A2FDBAB008C50C7 /* StartScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1F2A2FDBAB008C50C7 /* StartScreenView.swift */; };
+		E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */; };
 		E9A46A222A2FDBB1008C50C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */; };
 		E9A46A252A2FDBB1008C50C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A46A242A2FDBB1008C50C7 /* Preview Assets.xcassets */; };
 		E9A46A2D2A2FE0FB008C50C7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E9A46A2C2A2FE0FB008C50C7 /* FirebaseAuth */; };
@@ -22,36 +25,39 @@
 		E9A46A3B2A2FE0FB008C50C7 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E9A46A3A2A2FE0FB008C50C7 /* FirebaseStorage */; };
 		E9A46A3D2A2FE0FB008C50C7 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = E9A46A3C2A2FE0FB008C50C7 /* FirebaseStorageCombine-Community */; };
 		E9A46A412A3066D2008C50C7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A402A3066D2008C50C7 /* OnboardingView.swift */; };
-		E9B3AD8A2A3083F70059C99D /* StartScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD892A3083F70059C99D /* StartScreenViewModel.swift */; };
-		E9B3AD8D2A30C8C40059C99D /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8C2A30C8C40059C99D /* LoginScreenView.swift */; };
-		E9B3AD8F2A30CF450059C99D /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8E2A30CF450059C99D /* LoginScreenViewModel.swift */; };
+		E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD892A3083F70059C99D /* StartViewViewModel.swift */; };
+		E9B3AD8D2A30C8C40059C99D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8C2A30C8C40059C99D /* LoginView.swift */; };
+		E9B3AD8F2A30CF450059C99D /* LoginViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8E2A30CF450059C99D /* LoginViewViewModel.swift */; };
 		E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD912A30DCE00059C99D /* OnboardingViewModel.swift */; };
 		E9B3AD942A3139020059C99D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9B3AD932A3139020059C99D /* GoogleService-Info.plist */; };
-		E9B3AD962A313AEB0059C99D /* RegisterScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */; };
-		E9B3AD982A313B880059C99D /* RegisterScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */; };
+		E9B3AD962A313AEB0059C99D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD952A313AEB0059C99D /* RegisterView.swift */; };
+		E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD972A313B880059C99D /* RegisterViewViewModel.swift */; };
 		E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD992A31420A0059C99D /* FirebaseManager.swift */; };
-		E9B3AD9F2A31C5710059C99D /* AppRoleScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD9E2A31C5710059C99D /* AppRoleScreenView.swift */; };
-		E9B3ADA12A31DCBB0059C99D /* AppRoleScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3ADA02A31DCBB0059C99D /* AppRoleScreenViewModel.swift */; };
+		E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */; };
+		E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E91AE1B32A323BA2002E67DA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		E91AE1B52A34B0E3002E67DA /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		E91AE1B82A34B3B6002E67DA /* CustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerView.swift; sourceTree = "<group>"; };
+		E91AE1BA2A34B56D002E67DA /* CustomerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerViewViewModel.swift; sourceTree = "<group>"; };
 		E9A46A1A2A2FDBAB008C50C7 /* FitNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitNoteApp.swift; sourceTree = "<group>"; };
-		E9A46A1F2A2FDBAB008C50C7 /* StartScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenView.swift; sourceTree = "<group>"; };
+		E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9A46A242A2FDBB1008C50C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E9A46A402A3066D2008C50C7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		E9B3AD892A3083F70059C99D /* StartScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewModel.swift; sourceTree = "<group>"; };
-		E9B3AD8C2A30C8C40059C99D /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenView.swift; sourceTree = "<group>"; };
-		E9B3AD8E2A30CF450059C99D /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
+		E9B3AD892A3083F70059C99D /* StartViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewViewModel.swift; sourceTree = "<group>"; };
+		E9B3AD8C2A30C8C40059C99D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E9B3AD8E2A30CF450059C99D /* LoginViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewViewModel.swift; sourceTree = "<group>"; };
 		E9B3AD912A30DCE00059C99D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		E9B3AD932A3139020059C99D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenView.swift; sourceTree = "<group>"; };
-		E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenViewModel.swift; sourceTree = "<group>"; };
+		E9B3AD952A313AEB0059C99D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		E9B3AD972A313B880059C99D /* RegisterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewViewModel.swift; sourceTree = "<group>"; };
 		E9B3AD992A31420A0059C99D /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		E9B3AD9E2A31C5710059C99D /* AppRoleScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleScreenView.swift; sourceTree = "<group>"; };
-		E9B3ADA02A31DCBB0059C99D /* AppRoleScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleScreenViewModel.swift; sourceTree = "<group>"; };
+		E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleView.swift; sourceTree = "<group>"; };
+		E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +84,18 @@
 			isa = PBXGroup;
 			children = (
 				E91AE1B32A323BA2002E67DA /* Color+Extension.swift */,
+				E91AE1B52A34B0E3002E67DA /* View+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E91AE1B72A34B2EB002E67DA /* CustomerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E91AE1B82A34B3B6002E67DA /* CustomerView.swift */,
+				E91AE1BA2A34B56D002E67DA /* CustomerViewViewModel.swift */,
+			);
+			path = CustomerScreen;
 			sourceTree = "<group>";
 		};
 		E9A46A112A2FDBAB008C50C7 = {
@@ -109,6 +125,7 @@
 				E9B3AD8B2A30A5AB0059C99D /* LoginScreen */,
 				E9B3AD902A30DB1B0059C99D /* RegisterScreen */,
 				E9B3AD9D2A31C52A0059C99D /* AppRoleScreen */,
+				E91AE1B72A34B2EB002E67DA /* CustomerScreen */,
 				E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */,
 				E9B3AD932A3139020059C99D /* GoogleService-Info.plist */,
 				E9A46A232A2FDBB1008C50C7 /* Preview Content */,
@@ -127,8 +144,8 @@
 		E9A46A3E2A3066A6008C50C7 /* StartScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E9A46A1F2A2FDBAB008C50C7 /* StartScreenView.swift */,
-				E9B3AD892A3083F70059C99D /* StartScreenViewModel.swift */,
+				E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */,
+				E9B3AD892A3083F70059C99D /* StartViewViewModel.swift */,
 			);
 			path = StartScreen;
 			sourceTree = "<group>";
@@ -145,8 +162,8 @@
 		E9B3AD8B2A30A5AB0059C99D /* LoginScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E9B3AD8C2A30C8C40059C99D /* LoginScreenView.swift */,
-				E9B3AD8E2A30CF450059C99D /* LoginScreenViewModel.swift */,
+				E9B3AD8C2A30C8C40059C99D /* LoginView.swift */,
+				E9B3AD8E2A30CF450059C99D /* LoginViewViewModel.swift */,
 			);
 			path = LoginScreen;
 			sourceTree = "<group>";
@@ -154,8 +171,8 @@
 		E9B3AD902A30DB1B0059C99D /* RegisterScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E9B3AD952A313AEB0059C99D /* RegisterScreenView.swift */,
-				E9B3AD972A313B880059C99D /* RegisterScreenViewModel.swift */,
+				E9B3AD952A313AEB0059C99D /* RegisterView.swift */,
+				E9B3AD972A313B880059C99D /* RegisterViewViewModel.swift */,
 			);
 			path = RegisterScreen;
 			sourceTree = "<group>";
@@ -163,8 +180,8 @@
 		E9B3AD9D2A31C52A0059C99D /* AppRoleScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E9B3AD9E2A31C5710059C99D /* AppRoleScreenView.swift */,
-				E9B3ADA02A31DCBB0059C99D /* AppRoleScreenViewModel.swift */,
+				E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */,
+				E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */,
 			);
 			path = AppRoleScreen;
 			sourceTree = "<group>";
@@ -254,19 +271,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9B3AD8D2A30C8C40059C99D /* LoginScreenView.swift in Sources */,
+				E9B3AD8D2A30C8C40059C99D /* LoginView.swift in Sources */,
 				E9A46A412A3066D2008C50C7 /* OnboardingView.swift in Sources */,
 				E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */,
-				E9B3AD8F2A30CF450059C99D /* LoginScreenViewModel.swift in Sources */,
-				E9B3AD962A313AEB0059C99D /* RegisterScreenView.swift in Sources */,
-				E9B3AD982A313B880059C99D /* RegisterScreenViewModel.swift in Sources */,
-				E9B3AD9F2A31C5710059C99D /* AppRoleScreenView.swift in Sources */,
-				E9A46A202A2FDBAB008C50C7 /* StartScreenView.swift in Sources */,
+				E9B3AD8F2A30CF450059C99D /* LoginViewViewModel.swift in Sources */,
+				E9B3AD962A313AEB0059C99D /* RegisterView.swift in Sources */,
+				E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */,
+				E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */,
+				E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */,
+				E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
-				E9B3ADA12A31DCBB0059C99D /* AppRoleScreenViewModel.swift in Sources */,
-				E9B3AD8A2A3083F70059C99D /* StartScreenViewModel.swift in Sources */,
+				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
+				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
+				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,
 				E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */,
+				E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

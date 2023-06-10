@@ -23,7 +23,7 @@ struct FitNoteApp: App {
 
     var body: some Scene {
         WindowGroup {
-            StartScreenView()
+            StartView()
         }
     }
 }

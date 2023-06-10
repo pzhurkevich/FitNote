@@ -1,5 +1,5 @@
 //
-//  StartScreenViewModel.swift
+//  StartViewViewModel.swift
 //  FitNote
 //
 //  Created by Pavel on 7.06.23.
@@ -8,7 +8,7 @@
 import Foundation
 
 
-final class StartScreenViewModel: ObservableObject {
+final class StartViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
     

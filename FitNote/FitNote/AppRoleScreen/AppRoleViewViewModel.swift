@@ -1,5 +1,5 @@
 //
-//  AppRoleScreenViewModel.swift
+//  AppRoleViewViewModel.swift
 //  FitNote
 //
 //  Created by Pavel on 8.06.23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AppRoleScreenViewModel: ObservableObject {
+final class AppRoleViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
     
