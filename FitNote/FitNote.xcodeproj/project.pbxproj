@@ -35,6 +35,8 @@
 		E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD992A31420A0059C99D /* FirebaseManager.swift */; };
 		E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */; };
 		E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */; };
+		E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C936F12A352A23009D4256 /* WorkoutView.swift */; };
+		E9C936F52A35E06F009D4256 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E9C936F42A35E06F009D4256 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,7 @@
 		E9B3AD992A31420A0059C99D /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleView.swift; sourceTree = "<group>"; };
 		E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleViewViewModel.swift; sourceTree = "<group>"; };
+		E9C936F12A352A23009D4256 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,7 @@
 				E9A46A2D2A2FE0FB008C50C7 /* FirebaseAuth in Frameworks */,
 				E9A46A392A2FE0FB008C50C7 /* FirebaseFirestoreSwift in Frameworks */,
 				E9A46A372A2FE0FB008C50C7 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				E9C936F52A35E06F009D4256 /* Alamofire in Frameworks */,
 				E9A46A3B2A2FE0FB008C50C7 /* FirebaseStorage in Frameworks */,
 				E9A46A352A2FE0FB008C50C7 /* FirebaseFirestore in Frameworks */,
 				E9A46A3D2A2FE0FB008C50C7 /* FirebaseStorageCombine-Community in Frameworks */,
@@ -126,6 +130,8 @@
 				E9B3AD902A30DB1B0059C99D /* RegisterScreen */,
 				E9B3AD9D2A31C52A0059C99D /* AppRoleScreen */,
 				E91AE1B72A34B2EB002E67DA /* CustomerScreen */,
+				E9C936EF2A3529C7009D4256 /* WorkoutScreen */,
+				E9C936F02A3529E7009D4256 /* ExerciseScreen */,
 				E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */,
 				E9B3AD932A3139020059C99D /* GoogleService-Info.plist */,
 				E9A46A232A2FDBB1008C50C7 /* Preview Content */,
@@ -186,6 +192,21 @@
 			path = AppRoleScreen;
 			sourceTree = "<group>";
 		};
+		E9C936EF2A3529C7009D4256 /* WorkoutScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E9C936F12A352A23009D4256 /* WorkoutView.swift */,
+			);
+			path = WorkoutScreen;
+			sourceTree = "<group>";
+		};
+		E9C936F02A3529E7009D4256 /* ExerciseScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExerciseScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -212,6 +233,7 @@
 				E9A46A382A2FE0FB008C50C7 /* FirebaseFirestoreSwift */,
 				E9A46A3A2A2FE0FB008C50C7 /* FirebaseStorage */,
 				E9A46A3C2A2FE0FB008C50C7 /* FirebaseStorageCombine-Community */,
+				E9C936F42A35E06F009D4256 /* Alamofire */,
 			);
 			productName = FitNote;
 			productReference = E9A46A1A2A2FDBAB008C50C7 /* FitNote.app */;
@@ -243,6 +265,7 @@
 			mainGroup = E9A46A112A2FDBAB008C50C7;
 			packageReferences = (
 				E9A46A2B2A2FE0FB008C50C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E9C936F32A35E06F009D4256 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = E9A46A1B2A2FDBAB008C50C7 /* Products */;
 			projectDirPath = "";
@@ -280,6 +303,7 @@
 				E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */,
 				E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */,
 				E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */,
+				E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
@@ -505,6 +529,14 @@
 				minimumVersion = 10.10.0;
 			};
 		};
+		E9C936F32A35E06F009D4256 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -552,6 +584,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E9A46A2B2A2FE0FB008C50C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		E9C936F42A35E06F009D4256 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C936F32A35E06F009D4256 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
