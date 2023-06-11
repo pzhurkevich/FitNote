@@ -135,7 +135,7 @@ struct CustomerView: View {
                 }
                 .padding(.bottom, 30)
             }
-        }.accentColor(Color.greenColor)
+        }.accentColor(Color.greenColor) //для кнопки "back"
             
             
     }

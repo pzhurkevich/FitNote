@@ -37,6 +37,12 @@
 		E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */; };
 		E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C936F12A352A23009D4256 /* WorkoutView.swift */; };
 		E9C936F52A35E06F009D4256 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E9C936F42A35E06F009D4256 /* Alamofire */; };
+		E9C936FF2A35F02C009D4256 /* AlamofireProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C936FE2A35F02C009D4256 /* AlamofireProvider.swift */; };
+		E9C937022A35F04D009D4256 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937012A35F04D009D4256 /* Exercises.swift */; };
+		E9C937042A366E3B009D4256 /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937032A366E3B009D4256 /* ExercisesView.swift */; };
+		E9C937062A366E58009D4256 /* ExercisesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937052A366E58009D4256 /* ExercisesViewViewModel.swift */; };
+		E9C937082A366ED7009D4256 /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937072A366ED7009D4256 /* ExerciseDetailView.swift */; };
+		E9C9370A2A366F06009D4256 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937092A366F06009D4256 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +67,12 @@
 		E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleView.swift; sourceTree = "<group>"; };
 		E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleViewViewModel.swift; sourceTree = "<group>"; };
 		E9C936F12A352A23009D4256 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		E9C936FE2A35F02C009D4256 /* AlamofireProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireProvider.swift; sourceTree = "<group>"; };
+		E9C937012A35F04D009D4256 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
+		E9C937032A366E3B009D4256 /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
+		E9C937052A366E58009D4256 /* ExercisesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewViewModel.swift; sourceTree = "<group>"; };
+		E9C937072A366ED7009D4256 /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
+		E9C937092A366F06009D4256 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +134,9 @@
 			isa = PBXGroup;
 			children = (
 				E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */,
-				E9B3AD992A31420A0059C99D /* FirebaseManager.swift */,
+				E9C937092A366F06009D4256 /* Constants.swift */,
+				E9C937002A35F033009D4256 /* Models */,
+				E9C936FD2A35EFEF009D4256 /* Managers */,
 				E91AE1B22A323A27002E67DA /* Extensions */,
 				E9A46A3E2A3066A6008C50C7 /* StartScreen */,
 				E9A46A3F2A3066B6008C50C7 /* Onboarding */,
@@ -203,8 +217,28 @@
 		E9C936F02A3529E7009D4256 /* ExerciseScreen */ = {
 			isa = PBXGroup;
 			children = (
+				E9C937032A366E3B009D4256 /* ExercisesView.swift */,
+				E9C937052A366E58009D4256 /* ExercisesViewViewModel.swift */,
+				E9C937072A366ED7009D4256 /* ExerciseDetailView.swift */,
 			);
 			path = ExerciseScreen;
+			sourceTree = "<group>";
+		};
+		E9C936FD2A35EFEF009D4256 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E9B3AD992A31420A0059C99D /* FirebaseManager.swift */,
+				E9C936FE2A35F02C009D4256 /* AlamofireProvider.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		E9C937002A35F033009D4256 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E9C937012A35F04D009D4256 /* Exercises.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,20 +329,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9B3AD8D2A30C8C40059C99D /* LoginView.swift in Sources */,
+				E9C936FF2A35F02C009D4256 /* AlamofireProvider.swift in Sources */,
 				E9A46A412A3066D2008C50C7 /* OnboardingView.swift in Sources */,
 				E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */,
 				E9B3AD8F2A30CF450059C99D /* LoginViewViewModel.swift in Sources */,
 				E9B3AD962A313AEB0059C99D /* RegisterView.swift in Sources */,
+				E9C9370A2A366F06009D4256 /* Constants.swift in Sources */,
 				E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */,
 				E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */,
+				E9C937042A366E3B009D4256 /* ExercisesView.swift in Sources */,
 				E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */,
 				E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */,
+				E9C937022A35F04D009D4256 /* Exercises.swift in Sources */,
 				E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
 				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,
+				E9C937062A366E58009D4256 /* ExercisesViewViewModel.swift in Sources */,
+				E9C937082A366ED7009D4256 /* ExerciseDetailView.swift in Sources */,
 				E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */,
 				E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */,
 			);

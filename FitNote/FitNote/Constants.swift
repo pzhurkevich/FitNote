@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+
+struct Constants {
+    static var imgDB = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/"
+    static var dbURL = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json"
+}

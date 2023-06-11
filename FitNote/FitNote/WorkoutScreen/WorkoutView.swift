@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WorkoutView: View {
+    @State var isPresented = false
     var body: some View {
         ZStack {
             Color.darkColor.ignoresSafeArea()
@@ -20,7 +21,7 @@ struct WorkoutView: View {
                 
                 
                 Button {
-                    //action
+                    self.isPresented.toggle()
                 } label: {
                     HStack {
                         Text("New Exercise")
@@ -50,6 +51,9 @@ struct WorkoutView: View {
                         .font(.largeTitle)
                         .foregroundColor(.greenColor)
                 }
+            }
+            .sheet(isPresented: $isPresented) {
+                ExercisesView()
             }
     }
 }
