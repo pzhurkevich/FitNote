@@ -10,68 +10,172 @@ import SwiftUI
 struct ExercisesView: View {
     
     @StateObject var vm = ExercisesViewViewModel()
-    
+   
     
     var body: some View {
         
-        NavigationView {
+    //    NavigationView {
             List(vm.searchResults, id: \.id) { exercise in
                 
-//                NavigationLink(destination: ExerciseDetailView(exercise: exercise), label: {
+                if vm.tapped == true, vm.tappedID == exercise.id {
                     
-                    HStack(spacing: 10) {
+                    VStack {
                         
-                        AsyncImage(url: URL(string: "\(Constants.imgDB)\(exercise.images[0])")) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 70)
-                                .cornerRadius(5)
-                        } placeholder: {
-                            ProgressView()
-                                .frame(width: 100, height: 70, alignment: .center)
-                        }
-                        
-                        
-                        VStack (alignment: .leading, spacing: 5) {
-                            Text(exercise.name)
-                                .foregroundColor(.white)
-                                .fontWeight(.semibold)
-                                .lineLimit(2)
-                                .minimumScaleFactor(0.5)
+                        HStack(spacing: 10) {
                             
-                            Text(exercise.primaryMuscles[0].rawValue)
-                                .foregroundColor(.greenColor)
+                            Button {
+                                
+                                vm.tapped.toggle()
+                                vm.tappedID = exercise.id
+                                
+                                
+                            } label: {
+                                
+                                HStack(spacing: 20) {
+                                    AsyncImage(url: vm.imageURL(source: exercise)) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 70)
+                                            .cornerRadius(5)
+                                    } placeholder: {
+                                        ProgressView()
+                                            .frame(width: 100, height: 70, alignment: .center)
+                                    }
+                                    
+                                    
+                                    VStack (alignment: .leading, spacing: 5) {
+                                        Text(exercise.name)
+                                            .foregroundColor(.white)
+                                            .fontWeight(.semibold)
+                                            .lineLimit(2)
+                                            .minimumScaleFactor(0.5)
+                                        
+                                        Text(exercise.primaryMuscles.first?.rawValue ?? "-")
+                                            .foregroundColor(.greenColor)
+                                        
+                                    }
+                                }
+                                
+                            }
+                            .padding(.leading, 20)
+                           
+                            
+                            Spacer()
+                            
+                            Button {
+                                print("dobavil")
+                            } label: {
+                                Image(systemName: "plus.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 30)
+                                    .foregroundColor(.greenColor)
+                            }
+                            
                             
                         }
-                        .padding(.leading, 30)
-                        
-                    Spacer()
-                        
-                        Image(systemName: "chevron.right")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 7)
-                            .foregroundColor(.greenColor)
+                        .buttonStyle(PlainButtonStyle())
+                 // доп инструкции
+                        VStack {
+                            
+                            Text("Instructions:")
+                                .padding()
+                            
+                            VStack(alignment: .leading, spacing: 0 )  {
+                                
+                           
+                                
+                                ForEach(exercise.instructions, id: \.self) { text in
+                                    Text(text)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .padding(.horizontal, 10)
+                        }
+                   
                         
                         
                     }
-                    .background(
-                        NavigationLink(destination: ExerciseDetailView(exercise: exercise)) {}
-                            .navigationBarTitleDisplayMode(.inline)
-                            .opacity(0)
-                    )
                     .padding(5)
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 20)
+                            .background(.clear)
+                            .foregroundColor(.secondaryDark)
+                            .padding([.top, .bottom], 10)
+                            .listRowSeparator(.hidden)
+                    )
                     
                     
-                //})
+                } else {
+                    HStack(spacing: 10) {
+                        
+                        Button {
+                            
+                            vm.tapped.toggle()
+                            vm.tappedID = exercise.id
+                            
+                            
+                        } label: {
+                            
+                            HStack(spacing: 20) {
+                                AsyncImage(url: vm.imageURL(source: exercise)) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 70)
+                                        .cornerRadius(5)
+                                } placeholder: {
+                                    ProgressView()
+                                        .frame(width: 100, height: 70, alignment: .center)
+                                }
+                                
+                                
+                                VStack (alignment: .leading, spacing: 5) {
+                                    Text(exercise.name)
+                                        .foregroundColor(.white)
+                                        .fontWeight(.semibold)
+                                        .lineLimit(2)
+                                        .minimumScaleFactor(0.5)
+                                    
+                                    Text(exercise.primaryMuscles.first?.rawValue ?? "-")
+                                        .foregroundColor(.greenColor)
+                                    
+                                }
+                            }
+                            
+                        }
+                        .padding(.leading, 20)
+                       
+                        
+                        Spacer()
+                        
+                        Button {
+                            print("dobavil")
+                        } label: {
+                            Image(systemName: "plus.circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30)
+                                .foregroundColor(.greenColor)
+                        }
+                        
+                        
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                
+                
+                .padding(5)
                 .listRowBackground(
-                RoundedRectangle(cornerRadius: 20)
-                    .background(.clear)
-                    .foregroundColor(.secondaryDark)
-                    .padding([.top, .bottom], 10)
-                    .listRowSeparator(.hidden)
+                    RoundedRectangle(cornerRadius: 20)
+                        .background(.clear)
+                        .foregroundColor(.secondaryDark)
+                        .padding([.top, .bottom], 10)
+                        .listRowSeparator(.hidden)
                 )
+                }
+                
+
 
             }
             .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always))
@@ -87,9 +191,12 @@ struct ExercisesView: View {
             //.navigationTitle("Exercise Database")
             
             .onAppear {
-                vm.fetchExercises()
+                Task {
+                        await vm.fetchExercises()
+                }
+                
             }
-        } .accentColor(Color.greenColor) 
+    //    } .accentColor(Color.greenColor)
     }
 }
 

@@ -26,11 +26,13 @@ final class ExercisesViewViewModel: ObservableObject {
     
     @Published var exercise: Exercise?
     @Published var searchText = ""
+    @Published var tappedID: UUID?
+    @Published var tapped = false
     
     
 // MARK:  - Methods -
-    @MainActor
-    func fetchExercises() {
+    
+    func fetchExercises() async {
         Task { [weak self] in
             guard let self = self else { return }
           
@@ -38,6 +40,14 @@ final class ExercisesViewViewModel: ObservableObject {
            
         }
      
+    }
+    
+    
+    func imageURL(source: Exercise) -> URL? {
+        guard let previewImage = source.images.first,
+              let url = URL(string: "\(Constants.imgDB)\(previewImage)") else { return nil }
+   
+        return url
     }
     
 }

@@ -41,7 +41,6 @@
 		E9C937022A35F04D009D4256 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937012A35F04D009D4256 /* Exercises.swift */; };
 		E9C937042A366E3B009D4256 /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937032A366E3B009D4256 /* ExercisesView.swift */; };
 		E9C937062A366E58009D4256 /* ExercisesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937052A366E58009D4256 /* ExercisesViewViewModel.swift */; };
-		E9C937082A366ED7009D4256 /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937072A366ED7009D4256 /* ExerciseDetailView.swift */; };
 		E9C9370A2A366F06009D4256 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C937092A366F06009D4256 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +70,6 @@
 		E9C937012A35F04D009D4256 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
 		E9C937032A366E3B009D4256 /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
 		E9C937052A366E58009D4256 /* ExercisesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewViewModel.swift; sourceTree = "<group>"; };
-		E9C937072A366ED7009D4256 /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		E9C937092A366F06009D4256 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,7 +217,6 @@
 			children = (
 				E9C937032A366E3B009D4256 /* ExercisesView.swift */,
 				E9C937052A366E58009D4256 /* ExercisesViewViewModel.swift */,
-				E9C937072A366ED7009D4256 /* ExerciseDetailView.swift */,
 			);
 			path = ExerciseScreen;
 			sourceTree = "<group>";
@@ -348,7 +345,6 @@
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
 				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,
 				E9C937062A366E58009D4256 /* ExercisesViewViewModel.swift in Sources */,
-				E9C937082A366ED7009D4256 /* ExerciseDetailView.swift in Sources */,
 				E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */,
 				E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */,
 			);
