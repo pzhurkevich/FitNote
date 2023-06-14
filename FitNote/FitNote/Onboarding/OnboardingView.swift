@@ -53,7 +53,7 @@ struct OnboardingView: View {
             }
             .ignoresSafeArea(edges: [.top, .bottom])
             .fullScreenCover(isPresented: $vm.isPresented) {
-                LoginScreenView()
+                LoginView()
         }
     }
         

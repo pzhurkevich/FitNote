@@ -1,5 +1,5 @@
 //
-//  AppRoleScreenView.swift
+//  AppRoleView.swift
 //  FitNote
 //
 //  Created by Pavel on 8.06.23.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct AppRoleScreenView: View {
+struct AppRoleView: View {
     
-    @StateObject var vm = AppRoleScreenViewModel()
+    @StateObject var vm = AppRoleViewViewModel()
     
     var body: some View {
         ZStack {
@@ -75,7 +75,7 @@ struct AppRoleScreenView: View {
                         
                         HStack {
                             Button {
-                               
+                                vm.openCustomerView.toggle()
                             } label: {
                                 
                                 Text("I train by myself")
@@ -112,12 +112,15 @@ struct AppRoleScreenView: View {
             
             
         }
+        .fullScreenCover(isPresented: $vm.openCustomerView) {
+                                           CustomerView()
+                                       }
     }
 }
 
 struct AppRoleScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        AppRoleScreenView()
+        AppRoleView()
     }
 }
 

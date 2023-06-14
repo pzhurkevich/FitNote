@@ -1,5 +1,5 @@
 //
-//  RegisterScreenView.swift
+//  RegisterView.swift
 //  FitNote
 //
 //  Created by Pavel on 8.06.23.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RegisterScreenView: View {
+struct RegisterView: View {
     
-    @StateObject var vm = RegisterScreenViewModel()
+    @StateObject var vm = RegisterViewViewModel()
     
     var body: some View {
        ZStack {
@@ -88,6 +88,6 @@ struct RegisterScreenView: View {
 
 struct RegisterScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterScreenView()
+        RegisterView()
     }
 }

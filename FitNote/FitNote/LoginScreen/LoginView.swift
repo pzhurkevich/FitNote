@@ -1,5 +1,5 @@
 //
-//  LoginScreenView.swift
+//  LoginView.swift
 //  FitNote
 //
 //  Created by Pavel on 7.06.23.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct LoginScreenView: View {
+struct LoginView: View {
     
-    @StateObject var vm = LoginScreenViewModel()
+    @StateObject var vm = LoginViewViewModel()
     
     var body: some View {
        
@@ -85,7 +85,7 @@ struct LoginScreenView: View {
                                 .foregroundColor(Color.greenColor)
                         }
                         .fullScreenCover(isPresented: $vm.openRegisterScreen) {
-                            RegisterScreenView()
+                            RegisterView()
                         }
 
 
@@ -98,7 +98,7 @@ struct LoginScreenView: View {
                 }
             }
             .fullScreenCover(isPresented: $vm.isLogged) {
-                AppRoleScreenView()
+                AppRoleView()
             }
         
     }
@@ -106,6 +106,6 @@ struct LoginScreenView: View {
 
 struct LoginScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginScreenView()
+        LoginView()
     }
 }
