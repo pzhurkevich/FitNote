@@ -24,20 +24,26 @@ final class ExercisesViewViewModel: ObservableObject {
                 }
     }
     
-    @Published var exercise: Exercise?
     @Published var searchText = ""
     @Published var tappedID: UUID?
-    @Published var tapped = false
+   
     
     
 // MARK:  - Methods -
     
     func fetchExercises() async {
-        Task { [weak self] in
-            guard let self = self else { return }
-          
-                self.exercises  =  try await  self.apiProvider.getAllExercise()
+        do {
            
+              let data  =  try await self.apiProvider.getAllExercise()
+          
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                
+                self.exercises = data
+            }
+                
+        } catch {
+            print("error while fetching exercises")
         }
      
     }
