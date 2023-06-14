@@ -36,9 +36,7 @@ final class ExercisesViewViewModel: ObservableObject {
            
               let data  =  try await self.apiProvider.getAllExercise()
           
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else {return}
-                
+            await MainActor.run {
                 self.exercises = data
             }
                 
