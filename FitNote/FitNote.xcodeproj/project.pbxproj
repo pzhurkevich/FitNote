@@ -114,6 +114,13 @@
 			path = CustomerScreen;
 			sourceTree = "<group>";
 		};
+		E94299F62A3CE3690064686C /* Clients Screen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Clients Screen";
+			sourceTree = "<group>";
+		};
 		E9A46A112A2FDBAB008C50C7 = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +142,7 @@
 			children = (
 				E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */,
 				E9C937092A366F06009D4256 /* Constants.swift */,
+				E94299F62A3CE3690064686C /* Clients Screen */,
 				E9C937002A35F033009D4256 /* Models */,
 				E9C936FD2A35EFEF009D4256 /* Managers */,
 				E91AE1B22A323A27002E67DA /* Extensions */,
