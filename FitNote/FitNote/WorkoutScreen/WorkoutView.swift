@@ -10,11 +10,10 @@ import SwiftUI
 struct WorkoutView: View {
     
     
-    @State var isPresented = false
+   
     @StateObject var vm = WorkoutViewViewModel()
-    @State var repetitions = [""]
-    @State var weights = [""]
-    @State var currentDate = Date().formatted(date: .complete, time: .omitted)
+    
+    
     
     @State var textFieldIsDisabled = false
     
@@ -23,7 +22,7 @@ struct WorkoutView: View {
             Color.darkColor.ignoresSafeArea()
             VStack {
                 
-                Text("Today is \(currentDate)")
+                Text("Today is \(vm.currentDate)")
                     .foregroundColor(.white)
                 //exercises
                 if vm.workout.isEmpty {
@@ -88,7 +87,7 @@ struct WorkoutView: View {
                                         
                                         
                                         VStack {
-                                            ForEach(repetitions.indices, id: \.self) { index in
+                                            ForEach(vm.repetitions.indices, id: \.self) { index in
                                                 
                                                 
                                                 
@@ -103,7 +102,7 @@ struct WorkoutView: View {
                                                         
                                                         Text("Reps")
                                                             .foregroundColor(.white)
-                                                        TextField("repetitions", text: $repetitions[index])
+                                                        TextField("repetitions", text: $vm.repetitions[index])
                                                             .disabled(textFieldIsDisabled)
                                                             .foregroundColor(Color.greenColor)
                                                             .padding(5)
@@ -125,13 +124,13 @@ struct WorkoutView: View {
                                         
                                         
                                         VStack {
-                                            ForEach(weights.indices, id: \.self) { index in
+                                            ForEach(vm.weights.indices, id: \.self) { index in
                                                 
                                                 
                                                 VStack (alignment: .leading)  {
                                                     Text("Weight")
                                                         .foregroundColor(.white)
-                                                    TextField("weight", text: $weights[index])
+                                                    TextField("weight", text: $vm.weights[index])
                                                         .disabled(textFieldIsDisabled)
                                                         .foregroundColor(Color.greenColor)
                                                         .padding(5)
@@ -150,8 +149,8 @@ struct WorkoutView: View {
                                     
                                     Button(action: {
                                         
-                                        weights.append("")
-                                        repetitions.append("")
+                                        vm.weights.append("")
+                                        vm.repetitions.append("")
                                         
                                         
                                     }) {
@@ -186,11 +185,9 @@ struct WorkoutView: View {
                 
                 
                 Button {
-                    self.isPresented.toggle()
+                    vm.isPresented.toggle()
                     self.textFieldIsDisabled = false
                     
-                    repetitions = [""]
-                    weights = [""]
                     
                 } label: {
                     HStack {
@@ -222,7 +219,7 @@ struct WorkoutView: View {
                         .foregroundColor(.greenColor)
                 }
             }
-            .sheet(isPresented: $isPresented) {
+            .sheet(isPresented: $vm.isPresented) {
                 ExercisesView(vm: vm.exerciseListVM)
             }
     }

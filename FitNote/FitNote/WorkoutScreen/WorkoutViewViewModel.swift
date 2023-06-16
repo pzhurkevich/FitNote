@@ -13,15 +13,14 @@ final class WorkoutViewViewModel: ObservableObject {
     // MARK:  - Variables -
     
     @Published var exerciseListVM = ExercisesViewViewModel()
-    
-    @Published var workout: [Exercise] = []
-
-    
     private var cancellable =  Set<AnyCancellable>()
     
-    @Published var repetitions: String = ""
-    @Published var weight: String = ""
+    @Published var workout: [Exercise] = []
     
+    @Published var repetitions = [""]
+    @Published var weights = [""]
+    @Published var currentDate = Date().formatted(date: .complete, time: .omitted)
+    @Published var isPresented = false
     
     // MARK:  - Methods -
  
