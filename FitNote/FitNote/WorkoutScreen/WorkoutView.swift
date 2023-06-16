@@ -8,20 +8,192 @@
 import SwiftUI
 
 struct WorkoutView: View {
+    
+    
     @State var isPresented = false
+    @StateObject var vm = WorkoutViewViewModel()
+    @State var repetitions = [""]
+    @State var weights = [""]
+    @State var currentDate = Date().formatted(date: .complete, time: .omitted)
+    
+    @State var textFieldIsDisabled = false
+    
     var body: some View {
         ZStack {
             Color.darkColor.ignoresSafeArea()
             VStack {
                 
-                Text("Today is \(Date().formatted(date: .complete, time: .omitted))")
+                Text("Today is \(currentDate)")
                     .foregroundColor(.white)
+                //exercises
+                if vm.workout.isEmpty {
+                    Spacer()
+                    Text("Please add new exercise")
+                        .foregroundColor(.white)
+                } else {
+                    Spacer()
+                    
+        
+                    ForEach(Array(vm.workout.enumerated()), id: \.element.id) { index, element in
+                        
+                        
+                        VStack {
+                            HStack {
+                                
+                                Text("\(index + 1).")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                
+                                HStack {
+                                    Text(element.name)
+                                        .font(.title)
+                                        .foregroundColor(.white)
+                                    
+                                    Spacer()
+                                    
+                                    Button {
+                                        
+                                        textFieldIsDisabled.toggle()
+                                      
+                                    } label: {
+                                        
+                                        Text("End Exercise")
+                                            .foregroundColor(.black)
+                                            .fontDesign(.rounded)
+                                            .fontWeight(.bold)
+                                        //.frame(maxWidth: .infinity)
+                                            .padding(5)
+                                            .background(Color.greenColor)
+                                            .clipShape(Capsule())
+                                    }
+                                    .padding(5)
+                                }
+                                .padding()
+                                Spacer()
+                                
+                                
+                                
+                            }
+                            
+                            
+                            Divider()
+                                .background(.white)
+                                .padding(.bottom, 10)
+                            
+                            // сеты
+                            
+                            VStack {
+                                
+                                HStack (spacing: 40) {
+                                    
+                                    
+                                    VStack {
+                                        ForEach(repetitions.indices, id: \.self) { index in
+                                            
+                                            
+                                            
+                                            HStack (alignment: .lastTextBaseline) {
+                                                
+                                                Text("Set \(index + 1)")
+                                                    .foregroundColor(.greenColor)
+                                                    .padding(5)
+                                                
+                                                VStack (alignment: .center) {
+                                                    
+                                                    
+                                                    Text("Reps")
+                                                        .foregroundColor(.white)
+                                                    TextField("repetitions", text: $repetitions[index])
+                                                        .disabled(textFieldIsDisabled)
+                                                        .foregroundColor(Color.greenColor)
+                                                        .padding(5)
+                                                        .overlay {
+                                                            RoundedRectangle(cornerRadius: 24)
+                                                                .stroke(Color(uiColor: .white), lineWidth: 1)
+                                                        }
+                                                    
+                                                    
+                                                    
+                                                }
+                                                .padding(.leading, 10)
+                                            }
+                                        }
+                                    }
+                                    .padding(.leading, 20)
+                                    
+                                    
+                                    
+                                    
+                                    VStack {
+                                        ForEach(weights.indices, id: \.self) { index in
+                                            
+                                            
+                                            VStack (alignment: .leading)  {
+                                                Text("Weight")
+                                                    .foregroundColor(.white)
+                                                TextField("weight", text: $weights[index])
+                                                    .disabled(textFieldIsDisabled)
+                                                    .foregroundColor(Color.greenColor)
+                                                    .padding(5)
+                                                    .overlay {
+                                                        RoundedRectangle(cornerRadius: 24)
+                                                            .stroke(Color(uiColor: .white), lineWidth: 1)
+                                                    }
+                                            }
+                                            .padding(.trailing, 40)
+                                        }
+                                    }
+                                    
+                                    
+                                    
+                                }
+                                
+                                Button(action: {
+                                   
+                                    weights.append("")
+                                    repetitions.append("")
+                                   
+                                    
+                                }) {
+                                    HStack {
+                                        Text("Next Set")
+                                        Image(systemName: "plus.circle")
+                                            .foregroundColor(Color.greenColor)
+                                    }.tint(Color.greenColor)
+                                }
+                                .padding()
+                            }
+                            
+                            
+                            
+                            
+                            
+                        }
+                        
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                            
+                                .foregroundColor(.secondaryDark)
+                                .padding([.top, .bottom], 10)
+                        )
+                        .padding()
+                    }
+                    
+                }
+                
                 
                 Spacer()
                 
                 
                 Button {
                     self.isPresented.toggle()
+                    self.textFieldIsDisabled = false
+                  
+//                    repetitions = [""]
+//                    weights = [""]
+                    
                 } label: {
                     HStack {
                         Text("New Exercise")
@@ -36,7 +208,7 @@ struct WorkoutView: View {
                             .padding(.leading, 10)
                     }
                     .tint(.black)
-                   // .frame(maxWidth: .infinity)
+                    // .frame(maxWidth: .infinity)
                     .padding(20)
                     .background(Color.greenColor)
                     .clipShape(Capsule())
@@ -53,7 +225,7 @@ struct WorkoutView: View {
                 }
             }
             .sheet(isPresented: $isPresented) {
-                ExercisesView()
+                ExercisesView(vm: vm.exerciseListVM)
             }
     }
 }

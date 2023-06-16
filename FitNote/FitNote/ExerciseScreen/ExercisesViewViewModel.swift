@@ -15,6 +15,7 @@ final class ExercisesViewViewModel: ObservableObject {
     var apiProvider: ProviderProtocol = AlamofireProvider()
     
     @Published var exercises: [Exercise] = []
+    @Published var workoutExercises: [Exercise] = []
     
     var searchResults: [Exercise] {
         if searchText.isEmpty {
@@ -27,7 +28,6 @@ final class ExercisesViewViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var tappedID: UUID?
    
-    
     
 // MARK:  - Methods -
     
@@ -54,4 +54,8 @@ final class ExercisesViewViewModel: ObservableObject {
         return url
     }
     
+    
+    func addToWorkout(exercise: Exercise) {
+        workoutExercises.append(exercise)
+    }
 }
