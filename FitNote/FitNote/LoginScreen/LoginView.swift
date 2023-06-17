@@ -11,6 +11,7 @@ struct LoginView: View {
     
     @StateObject var vm = LoginViewViewModel()
     
+    
     var body: some View {
        
             ZStack {
@@ -98,7 +99,7 @@ struct LoginView: View {
                 }
             }
             .fullScreenCover(isPresented: $vm.isLogged) {
-                AppRoleView()
+                vm.nextView()
             }
           
         

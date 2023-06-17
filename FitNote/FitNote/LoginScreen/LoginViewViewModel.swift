@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 final class LoginViewViewModel: ObservableObject {
@@ -22,6 +23,7 @@ final class LoginViewViewModel: ObservableObject {
     @Published  var showingAlert = false
     @Published  var isLogged = false
     @Published  var openRegisterScreen = false
+  
     
     var fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
@@ -32,8 +34,13 @@ final class LoginViewViewModel: ObservableObject {
             guard let self = self else {return}
             do {
                 let userData = try await fireBaseManager.login(mail: email, password: password)
+                let registeredUser = try await fireBaseManager.fetchAppUser()
                 await MainActor.run {
                     self.isLogged = userData.email != nil
+                    if let user = registeredUser {
+                        Constants.currentState = Constants.State(rawValue: user.appRole)
+                        UserDefaults.standard.set(user.appRole, forKey: "appState")
+                    }
                 }
             } catch {
                     self.errorText = error.localizedDescription.description
@@ -41,5 +48,20 @@ final class LoginViewViewModel: ObservableObject {
         }
     }
     
+    
+    @ViewBuilder
+    func nextView() -> some View {
+        switch Constants.currentState {
+        case .notLogged:
+           LoginView()
+        case .loggedAsSelf:
+            CustomerView()
+        case .loggedAsTrainer:
+            EmptyView()
+        case .none:
+            OnboardingView()
+        }
+
+    }
     
 }

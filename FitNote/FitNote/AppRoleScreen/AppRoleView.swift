@@ -46,6 +46,11 @@ struct AppRoleView: View {
                         HStack {
                             Button {
                                
+                                Constants.currentState = .loggedAsTrainer
+                                if let appRole = Constants.currentState {
+                                    vm.updateRoleForUser(role: appRole.rawValue)
+                                }
+                                
                             } label: {
                                 
                                 Text("I train others")
@@ -76,8 +81,10 @@ struct AppRoleView: View {
                         HStack {
                             Button {
                                 vm.openCustomerView.toggle()
-                                vm.appRole(role: "selfTrain")
-                                vm.updateRoleForUser(role: "selfTrain")
+                                Constants.currentState = .loggedAsSelf
+                                if let appRole = Constants.currentState {
+                                    vm.updateRoleForUser(role: appRole.rawValue)
+                                }
                             } label: {
                                 
                                 Text("I train by myself")
