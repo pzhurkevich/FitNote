@@ -11,24 +11,25 @@ struct CustomerView: View {
     
     @StateObject var vm = CustomerViewViewModel()
     
+    
     var body: some View {
         NavigationView {
             ZStack {
                 
-              Color.darkColor.ignoresSafeArea()
-              
-      
+                Color.darkColor.ignoresSafeArea()
+                
+                
                 GeometryReader { geometry in
                     
                     VStack {
                         Spacer()
-                    
-                            Rectangle()
-                                .frame(maxHeight: geometry.size.height * 0.85)
-                                .foregroundColor(Color.secondaryDark)
+                        
+                        Rectangle()
+                            .frame(maxHeight: geometry.size.height * 0.85)
+                            .foregroundColor(Color.secondaryDark)
                             .specificCornersRadius(radius: 30, coners: [.topLeft, .topRight])
                     } .ignoresSafeArea(edges: .bottom)
-                  
+                    
                     VStack {
                         ZStack(alignment: .center) {
                             
@@ -36,32 +37,61 @@ struct CustomerView: View {
                             Circle()
                                 .foregroundColor(Color.secondaryDark)
                             
-                          
-                           
+                            
+                            
                             
                             
                             Button {
-                                //action photo choose
-                            } label: {
-                                Image("user")
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                    
-                                    .foregroundColor(.white)
-                                   
-                              
-                                    .overlay(Circle()
-                                            .stroke(Color.greenColor, lineWidth: 10))
-                                    .clipShape(Circle())
-                            }
-                                .padding()
+                             
+                                vm.openCameraRoll = true
+                               
                                 
+                                
+                            } label: {
+                                
+                          
+                                    AsyncImage(url: vm.imageURL) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                            .foregroundColor(.white)
+                                            .overlay(Circle()
+                                                .stroke(Color.greenColor, lineWidth: 10))
+                                            .clipShape(Circle())
+                                           
+                                        
+                                    } placeholder: {
+                                        Image("user")
+                                            .renderingMode(.template)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                        
+                                            .foregroundColor(.white)
+                                        
+                                        
+                                            .overlay(Circle()
+                                                .stroke(Color.greenColor, lineWidth: 10))
+                                            .clipShape(Circle())
+                                    }
+                                    .onChange(of: vm.changeProfileImage, perform: { newValue in
+                                        Task {
+                                            await vm.addImageToUser()
+                                        }
+                                    })
+
+                            }
+                            
+                            .padding()
+                            .sheet(isPresented: $vm.openCameraRoll) {
+                                ImagePicker(imageUrl: $vm.imageURL, changeProfileImage: $vm.changeProfileImage, sourceType: .photoLibrary)
+                            }
+                            
                         }
                         
-                      .padding(.horizontal, geometry.size.width / 5)
-                      .padding(.top, 20)
+                        .padding(.horizontal, geometry.size.width / 5)
+                        .padding(.top, 20)
                         
                         Text(vm.name)
                             .foregroundColor(.white)
@@ -72,8 +102,8 @@ struct CustomerView: View {
                         
                         
                     }
-                  
-                   
+                    
+                    
                     
                 }
                 HStack {
@@ -88,17 +118,17 @@ struct CustomerView: View {
                     } label: {
                         Text("Delete Account")
                     }
-
+                    
                 }
-               
-              Spacer()
+                
+                Spacer()
                 
                 VStack(spacing: 20) {
                     
                     Spacer()
                     
                     
-             
+                    
                     Button {
                         //action
                     } label: {
@@ -157,7 +187,7 @@ struct CustomerView: View {
                         .clipShape(Capsule())
                     }
                     .padding(.horizontal, 20)
-                  
+                    
                 }
                 .padding(.bottom, 30)
             }
@@ -166,7 +196,7 @@ struct CustomerView: View {
         .task {
             await vm.fetchAppUserinfo()
         }
-            
+        
     }
 }
 

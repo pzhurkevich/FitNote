@@ -19,7 +19,7 @@ protocol FirebaseManagerProtocol {
     func login(mail: String, password: String) async throws -> User
     func fetchAppUser() async throws -> AppUser?
     func updateUser(role: String)
-    
+    func saveImage(imageURL: String) async throws
 }
 
 
@@ -73,12 +73,48 @@ class FirebaseManager: FirebaseManagerProtocol {
     func updateUser(role: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Firestore.firestore().collection("appUsers").document(uid).setData( ["appRole": role], merge: true)
-      
-        
-        
-//        let appUser = AppUser(id: result.user.uid, name: name, email: mail, imageURL: "", appRole: "")
-//        let encodedUser = try Firestore.Encoder().encode(appUser)
-//        try aFirestore.firestore().collection("appUsers").document(appUser.id).setData(encodedUser)
     }
+    
+    func saveImage(imageURL: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        print(uid)
+        let photoName = UUID().uuid
+        
+        let storageRef = Storage.storage().reference().child("\(uid)/\(photoName).jpeg")
+       
+        guard let dataURL = URL(string: imageURL) else {return}
+
+        let imageData = try Data(contentsOf: dataURL)
+        
+        guard let image = UIImage(data: imageData)?.jpegData(compressionQuality: 0.2) else {
+            print("error while creating image")
+            return
+        }
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        var imageURLString = ""
+   
+        do {
+            let _ = try await storageRef.putDataAsync(image, metadata: metadata)
+            print("image saved")
+            
+            do {
+                let imageDownloadURL = try await storageRef.downloadURL()
+                imageURLString = imageDownloadURL.absoluteString
+            } catch {
+                print("error while getting image URL")
+            }
+            
+        } catch {
+            print("error while uploading image to firebase")
+        }
+        
+        try await Firestore.firestore().collection("appUsers").document(uid).setData( ["imageURL": imageURLString], merge: true)
+        
+    }
+    
+    
+    
     
 }

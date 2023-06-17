@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 final class CustomerViewViewModel: ObservableObject {
@@ -16,6 +17,13 @@ final class CustomerViewViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var name: String = ""
     
+    @Published var changeProfileImage = false
+    
+    @Published var openCameraRoll = false
+    
+    @Published var imageSelected = UIImage()
+    
+    @Published var imageURL:  URL?
     
 // MARK:  - Methods -
     
@@ -27,6 +35,12 @@ final class CustomerViewViewModel: ObservableObject {
             await MainActor.run {
                 self.email = data.email
                 self.name = data.name
+                
+                if data.imageURL != "" {
+                   
+                    imageURL = URL(string: data.imageURL)
+                    
+                }
             }
                 
         } catch {
@@ -36,7 +50,14 @@ final class CustomerViewViewModel: ObservableObject {
      
     }
     
-    
+    func addImageToUser() async {
+        guard let url = imageURL else { return }
+        do {
+            try await fireBaseManager.saveImage(imageURL: url.absoluteString)
+        } catch {
+            print("error while saving image from customer view")
+        }
+    }
 
 }
 
