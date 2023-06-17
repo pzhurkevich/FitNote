@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 final class StartViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
-    
+   
     @Published  var isPresented = false
     
 // MARK:  - Methods -
@@ -22,4 +23,23 @@ final class StartViewViewModel: ObservableObject {
             self.isPresented = true
         }
     }
+    
+    
+    @ViewBuilder
+    func nextView() -> some View {
+        switch Constants.currentState {
+        case .notLogged:
+           LoginView()
+        case .loggedAsSelf:
+            CustomerView()
+        case .loggedAsTrainer:
+            EmptyView()
+        case .none:
+            OnboardingView()
+        }
+
+    }
+    
+    
+
 }

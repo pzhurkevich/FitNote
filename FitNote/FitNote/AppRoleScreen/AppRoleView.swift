@@ -76,6 +76,8 @@ struct AppRoleView: View {
                         HStack {
                             Button {
                                 vm.openCustomerView.toggle()
+                                vm.appRole(role: "selfTrain")
+                                vm.updateRoleForUser(role: "selfTrain")
                             } label: {
                                 
                                 Text("I train by myself")

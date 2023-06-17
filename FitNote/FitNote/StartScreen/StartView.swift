@@ -42,7 +42,11 @@ struct StartView: View {
             }
         }
         .fullScreenCover(isPresented: $vm.isPresented) {
-            OnboardingView()
+           
+            vm.nextView()
+            
+            
+            
         }
         .onAppear {
             vm.timeCountForStartScreen()

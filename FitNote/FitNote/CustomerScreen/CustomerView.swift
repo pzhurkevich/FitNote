@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct CustomerView: View {
+    
+    @StateObject var vm = CustomerViewViewModel()
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -60,12 +63,35 @@ struct CustomerView: View {
                       .padding(.horizontal, geometry.size.width / 5)
                       .padding(.top, 20)
                         
+                        Text(vm.name)
+                            .foregroundColor(.white)
+                        Text(vm.email)
+                            .foregroundColor(.white)
+                        
                         Spacer()
+                        
+                        
                     }
-     
+                  
+                   
+                    
                 }
-                
-              
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Text("Sign Out")
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Delete Account")
+                    }
+
+                }
+               
+              Spacer()
                 
                 VStack(spacing: 20) {
                     
@@ -135,8 +161,11 @@ struct CustomerView: View {
                 }
                 .padding(.bottom, 30)
             }
-        }.accentColor(Color.greenColor) //для кнопки "back"
-            
+        }
+        .accentColor(Color.greenColor) //для кнопки "back"
+        .task {
+            await vm.fetchAppUserinfo()
+        }
             
     }
 }

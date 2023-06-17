@@ -100,6 +100,7 @@ struct LoginView: View {
             .fullScreenCover(isPresented: $vm.isLogged) {
                 AppRoleView()
             }
+          
         
     }
 }

@@ -33,7 +33,7 @@ final class RegisterViewViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else {return}
             do {
-                let userData = try await fireBaseManager.register(mail: email, password: password)
+                let userData = try await fireBaseManager.register(mail: email, password: password, name: name)
                     
                     await MainActor.run {
                         self.isRegistered = userData.email != nil

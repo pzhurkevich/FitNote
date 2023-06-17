@@ -33,6 +33,8 @@ struct OnboardingView: View {
                     Spacer()
                     Button {
                         vm.isPresented.toggle()
+                        vm.firstOpen()
+                        
                     } label: {
                         HStack {
                             Text("Start Now")

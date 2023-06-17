@@ -81,7 +81,7 @@ struct RegisterView: View {
             .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.65)
        }
        .fullScreenCover(isPresented: $vm.isRegistered) {
-           EmptyView()
+           AppRoleView()
        }
     }
 }
