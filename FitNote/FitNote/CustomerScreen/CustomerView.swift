@@ -93,10 +93,14 @@ struct CustomerView: View {
                         .padding(.horizontal, geometry.size.width / 5)
                         .padding(.top, 20)
                         
-                        Text(vm.name)
+                        Text("Hello, \(vm.name)!")
                             .foregroundColor(.white)
-                        Text(vm.email)
+                            .font(.title)
+                            .fontWeight(.semibold)
+                        
+                        Text("your e-mail: \(vm.email)")
                             .foregroundColor(.white)
+                            .padding(8)
                         
                         Spacer()
                         
@@ -113,17 +117,48 @@ struct CustomerView: View {
                         vm.signOutAppUser()
                         
                     } label: {
-                        Text("Sign Out")
+                        HStack {
+                            Image(systemName: "arrow.left.circle")
+                                .foregroundColor(.red)
+                            Text("Sign Out")
+                        }
+                        .minimumScaleFactor(0.05)
+                        .lineLimit(1)
+                        .padding(8)
+                        .frame(maxWidth:.infinity)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                        }
                     }
+                    .padding(10)
                     .fullScreenCover(isPresented: $vm.openloginView) {
                         LoginView()
                     }
                     
+                    
+                    
+                    
                     Button {
                         
+                        vm.deleteAppUser()
+                        
                     } label: {
-                        Text("Delete Account")
+                        HStack {
+                            Image(systemName: "xmark.circle")
+                                .foregroundColor(.red)
+                            Text("Delete Account")
+                        }
+                        .minimumScaleFactor(0.05)
+                        .lineLimit(1)
+                        .padding(8)
+                        .frame(maxWidth:.infinity)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                        }
                     }
+                    .padding(10)
                     
                 }
                 

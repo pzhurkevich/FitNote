@@ -21,7 +21,7 @@ protocol FirebaseManagerProtocol {
     func updateUserRole(role: String)
     func signOut()
     func saveImage(imageURL: String) async throws
-    
+    func deleteAppUser() async
 }
 
 
@@ -125,5 +125,17 @@ class FirebaseManager: FirebaseManagerProtocol {
         }
     }
     
+    func deleteAppUser() async {
+        guard let user = Auth.auth().currentUser else { return }
+        do {
+            try await user.delete()
+            try await Firestore.firestore().collection("appUsers").document(user.uid).delete()
+            Constants.currentState = .notLogged
+            UserDefaults.standard.set(Constants.currentState?.rawValue, forKey: "appState")
+            
+        } catch {
+            print("error while deleting account")
+        }
+    }
     
 }

@@ -64,6 +64,19 @@ final class CustomerViewViewModel: ObservableObject {
         self.openloginView = true
     }
     
+    func deleteAppUser() {
+        Task { [weak self] in
+            guard let self = self else {return}
+            
+           await fireBaseManager.deleteAppUser()
+            
+            await MainActor.run {
+              self.openloginView = true
+            }
+            
+        }
+    }
+    
 }
 
 
