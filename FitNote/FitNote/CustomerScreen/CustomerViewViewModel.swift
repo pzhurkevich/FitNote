@@ -24,7 +24,7 @@ final class CustomerViewViewModel: ObservableObject {
     @Published var imageSelected = UIImage()
     
     @Published var imageURL:  URL?
-    
+    @Published var openloginView: Bool = false
 // MARK:  - Methods -
     
     func fetchAppUserinfo() async {
@@ -59,6 +59,11 @@ final class CustomerViewViewModel: ObservableObject {
         }
     }
 
+    func signOutAppUser() {
+        fireBaseManager.signOut()
+        self.openloginView = true
+    }
+    
 }
 
 

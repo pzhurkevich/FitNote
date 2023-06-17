@@ -107,10 +107,16 @@ struct CustomerView: View {
                     
                 }
                 HStack {
+                    
                     Button {
+                        
+                        vm.signOutAppUser()
                         
                     } label: {
                         Text("Sign Out")
+                    }
+                    .fullScreenCover(isPresented: $vm.openloginView) {
+                        LoginView()
                     }
                     
                     Button {

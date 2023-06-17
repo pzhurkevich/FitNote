@@ -18,8 +18,10 @@ protocol FirebaseManagerProtocol {
     func register(mail: String, password: String, name: String) async throws -> User
     func login(mail: String, password: String) async throws -> User
     func fetchAppUser() async throws -> AppUser?
-    func updateUser(role: String)
+    func updateUserRole(role: String)
+    func signOut()
     func saveImage(imageURL: String) async throws
+    
 }
 
 
@@ -68,9 +70,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         }
     }
     
-    
-    
-    func updateUser(role: String) {
+    func updateUserRole(role: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Firestore.firestore().collection("appUsers").document(uid).setData( ["appRole": role], merge: true)
     }
@@ -114,7 +114,16 @@ class FirebaseManager: FirebaseManagerProtocol {
         
     }
     
-    
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            Constants.currentState = .notLogged
+            UserDefaults.standard.set(Constants.currentState?.rawValue, forKey: "appState")
+            
+        } catch {
+            print("failed to signOut")
+        }
+    }
     
     
 }

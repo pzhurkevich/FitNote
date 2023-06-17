@@ -28,6 +28,6 @@ final class AppRoleViewViewModel: ObservableObject {
     
     func updateRoleForUser(role: String) {
         UserDefaults.standard.set(role, forKey: "appState")
-        fireBaseManager.updateUser(role: role)
+        fireBaseManager.updateUserRole(role: role)
     }
 }

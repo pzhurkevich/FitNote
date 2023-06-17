@@ -122,8 +122,8 @@ struct AppRoleView: View {
             
         }
         .fullScreenCover(isPresented: $vm.openCustomerView) {
-                                           CustomerView()
-                                       }
+            CustomerView()
+        }
     }
 }
 
