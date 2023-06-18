@@ -23,9 +23,9 @@ final class LoginViewViewModel: ObservableObject {
     @Published  var showingAlert = false
     @Published  var isLogged = false
     @Published  var openRegisterScreen = false
-  
+    @Published var isLoading = false
     
-    var fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
 // MARK:  - Methods -
     
@@ -33,35 +33,27 @@ final class LoginViewViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else {return}
             do {
+                await MainActor.run {
+                    self.isLoading = true
+                }
                 let userData = try await fireBaseManager.login(mail: email, password: password)
                 let registeredUser = try await fireBaseManager.fetchAppUser()
                 await MainActor.run {
                     self.isLogged = userData.email != nil
                     if let user = registeredUser {
                         Constants.currentState = Constants.State(rawValue: user.appRole)
-                        UserDefaults.standard.set(user.appRole, forKey: "appState")
                     }
+                    
                 }
             } catch {
+                await MainActor.run {
+                    self.isLoading = false
                     self.errorText = error.localizedDescription.description
+                }
+                    
             }
         }
     }
     
-    
-    @ViewBuilder
-    func nextView() -> some View {
-        switch Constants.currentState {
-        case .notLogged:
-           LoginView()
-        case .loggedAsSelf:
-            CustomerView()
-        case .loggedAsTrainer:
-            EmptyView()
-        case .none:
-            OnboardingView()
-        }
-
-    }
     
 }

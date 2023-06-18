@@ -21,6 +21,6 @@ struct Constants {
        
     }
     
-    static var currentState = State(rawValue: UserDefaults.standard.string(forKey: "appState") ?? "")
+    static var currentState: State?
     
 }

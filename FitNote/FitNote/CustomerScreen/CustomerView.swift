@@ -75,12 +75,6 @@ struct CustomerView: View {
                                                 .stroke(Color.greenColor, lineWidth: 10))
                                             .clipShape(Circle())
                                     }
-                                    .onChange(of: vm.changeProfileImage, perform: { newValue in
-                                        Task {
-                                            await vm.addImageToUser()
-                                        }
-                                    })
-
                             }
                             
                             .padding()

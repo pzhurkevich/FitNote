@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StartView: View {
     
-    
+
     @StateObject var vm = StartViewViewModel()
     
     
@@ -43,13 +43,23 @@ struct StartView: View {
         }
         .fullScreenCover(isPresented: $vm.isPresented) {
            
-            vm.nextView()
-            
-            
+            switch Constants.currentState {
+            case .notLogged:
+               LoginView()
+            case .loggedAsSelf:
+                CustomerView()
+            case .loggedAsTrainer:
+                EmptyView()
+            case .none:
+                OnboardingView()
+            }
             
         }
         .onAppear {
             vm.timeCountForStartScreen()
+        }
+        .task {
+            await vm.screenToOpen()
         }
             
     }

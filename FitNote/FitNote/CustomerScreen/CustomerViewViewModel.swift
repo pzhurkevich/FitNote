@@ -7,12 +7,15 @@
 
 import Foundation
 import UIKit
+import Combine
 
 
 final class CustomerViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
-    var fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    
+    private var cancellable =  Set<AnyCancellable>()
     
     @Published var email: String = ""
     @Published var name: String = ""
@@ -26,6 +29,23 @@ final class CustomerViewViewModel: ObservableObject {
     @Published var imageURL:  URL?
     @Published var openloginView: Bool = false
 // MARK:  - Methods -
+    
+    init() {
+        $changeProfileImage
+            .sink { [weak self] _ in
+                
+                    guard let self = self else { return }
+                Task {
+                    await self.addImageToUser()
+                }
+            }
+            .store(in: &cancellable)
+    }
+
+    deinit {
+            cancellable.removeAll()
+        }
+    
     
     func fetchAppUserinfo() async {
         do {

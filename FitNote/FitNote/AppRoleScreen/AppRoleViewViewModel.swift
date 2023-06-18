@@ -20,14 +20,13 @@ final class AppRoleViewViewModel: ObservableObject {
     @Published  var openCustomerView = false
     @Published  var customAlert = false
     @Published  var textForAlert: InfoText = .textForTrainers
-    var fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
 // MARK:  - Methods -
     
    
     
-    func updateRoleForUser(role: String) {
-        UserDefaults.standard.set(role, forKey: "appState")
-        fireBaseManager.updateUserRole(role: role)
+    func updateRoleForUser(role: Constants.State) {
+        fireBaseManager.updateUserRole(role: role.rawValue)
     }
 }

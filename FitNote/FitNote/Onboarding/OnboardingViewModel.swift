@@ -16,10 +16,5 @@ final class OnboardingViewModel: ObservableObject {
     
 // MARK:  - Methods -
     
-    func firstOpen() {
-        
-        UserDefaults.standard.set("notLogged", forKey: "appState")
-        
-      
-    }
+
 }

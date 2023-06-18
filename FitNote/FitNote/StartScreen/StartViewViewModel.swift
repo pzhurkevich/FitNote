@@ -14,7 +14,7 @@ final class StartViewViewModel: ObservableObject {
 // MARK:  - Variables -
    
     @Published  var isPresented = false
-    
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
 // MARK:  - Methods -
     
     func timeCountForStartScreen() {
@@ -24,21 +24,30 @@ final class StartViewViewModel: ObservableObject {
         }
     }
     
-    
-    @ViewBuilder
-    func nextView() -> some View {
-        switch Constants.currentState {
-        case .notLogged:
-           LoginView()
-        case .loggedAsSelf:
-            CustomerView()
-        case .loggedAsTrainer:
-            EmptyView()
-        case .none:
-            OnboardingView()
+    func screenToOpen() async {
+        
+        do {
+            let registeredUser = try await fireBaseManager.fetchAppUser()
+            
+            if registeredUser == nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
+                
+                Constants.currentState = .none
+            } else {
+                
+                await MainActor.run {
+                    
+                    if let user = registeredUser {
+                        Constants.currentState = Constants.State(rawValue: user.appRole)
+                    } else {
+                        Constants.currentState = .notLogged
+                    }
+                }
+            }
+        } catch {
+            print("error fetching user")
         }
-
     }
+    
     
     
 
