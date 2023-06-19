@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+final class ClientsListViewViewModel: ObservableObject {
+    @Published var clients = ["Lisa", "Vika", "Anton", "Natasha", "John"]
+}

@@ -34,6 +34,8 @@ class FirebaseManager: FirebaseManagerProtocol {
     
 // MARK: - Registration and Login Methods -
     
+  // MARK: - Functions for App User-
+    
     func register(mail: String, password: String, name: String) async throws -> User {
         do {
             let result =  try await Auth.auth().createUser(withEmail: mail, password: password)
@@ -75,6 +77,48 @@ class FirebaseManager: FirebaseManagerProtocol {
         Firestore.firestore().collection("appUsers").document(uid).setData( ["appRole": role], merge: true)
     }
     
+   
+    
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            Constants.currentState = .notLogged
+            UserDefaults.standard.set(Constants.currentState?.rawValue, forKey: "appState")
+            
+        } catch {
+            print("failed to signOut")
+        }
+    }
+    
+    func deleteAppUser() async {
+        guard let user = Auth.auth().currentUser else { return }
+        do {
+            try await user.delete()
+            try await Firestore.firestore().collection("appUsers").document(user.uid).delete()
+            Constants.currentState = .notLogged
+            UserDefaults.standard.set(Constants.currentState?.rawValue, forKey: "appState")
+            
+        } catch {
+            print("error while deleting account")
+        }
+    }
+    
+    // MARK: - Functions for Clients -
+    
+    func addClient(name: String, instURL: String, phoneNumber: String, imageURL: String) async {
+        do {
+            let client = Client(name: name, instURL: instURL, number: "", imageURL: "")
+            let encodedClient = try Firestore.Encoder().encode(client)
+            try await Firestore.firestore().collection("clients").document(client.id.description).setData(encodedClient)
+            
+        } catch {
+            print (error.localizedDescription)
+      
+        }
+    }
+    
+    //MARK: - Other functions -
+    
     func saveImage(imageURL: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         print(uid)
@@ -112,30 +156,6 @@ class FirebaseManager: FirebaseManagerProtocol {
         
         try await Firestore.firestore().collection("appUsers").document(uid).setData( ["imageURL": imageURLString], merge: true)
         
-    }
-    
-    func signOut() {
-        do {
-            try Auth.auth().signOut()
-            Constants.currentState = .notLogged
-            UserDefaults.standard.set(Constants.currentState?.rawValue, forKey: "appState")
-            
-        } catch {
-            print("failed to signOut")
-        }
-    }
-    
-    func deleteAppUser() async {
-        guard let user = Auth.auth().currentUser else { return }
-        do {
-            try await user.delete()
-            try await Firestore.firestore().collection("appUsers").document(user.uid).delete()
-            Constants.currentState = .notLogged
-            UserDefaults.standard.set(Constants.currentState?.rawValue, forKey: "appState")
-            
-        } catch {
-            print("error while deleting account")
-        }
     }
     
 }

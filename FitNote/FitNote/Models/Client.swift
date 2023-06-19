@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct Client: Identifiable, Codable {
+    let id = UUID()
+    let name: String
+    let instURL: String
+    let number: String
+    let imageURL: String
+   
+}

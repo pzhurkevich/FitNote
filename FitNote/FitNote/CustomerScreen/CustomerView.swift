@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomerView: View {
     
     @StateObject var vm = CustomerViewViewModel()
-    
+    @State var clientData : Client
     
     var body: some View {
         NavigationView {
@@ -89,67 +89,121 @@ struct CustomerView: View {
                         
                         VStack(spacing: 0) {
                             
-                            Text("Hello, \(vm.name)!")
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .fontWeight(.semibold)
-                            
-                            Text("your e-mail: \(vm.email)")
-                                .foregroundColor(.white)
-                                .padding(8)
-                            
-                            
-                            HStack {
-                                
-                                Button {
+                            if vm.isClient {
+                                VStack {
                                     
-                                    vm.signOutAppUser()
+                                    Text(clientData.name)
+                                        .foregroundColor(.white)
+                                        .font(.title)
+                                        .fontWeight(.semibold)
                                     
-                                } label: {
                                     HStack {
-                                        Image(systemName: "arrow.left.circle")
-                                            .foregroundColor(.red)
-                                        Text("Sign Out")
+                                        HStack {
+                                            
+                                            Image("inst")
+                                                .resizable()
+                                                .renderingMode(.template)
+                                                .foregroundColor(.greenColor)
+                                                .frame(width: 30, height: 30)
+                                            
+                                            Text("pasha.zhur")
+                                                .font(.system(size: 25))
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.5)
+                                                .foregroundColor(.white)
+                                                .fontWeight(.semibold)
+        
+                                        }
+                                       
+                                        Spacer()
+                                        
+                                        HStack {
+                                            
+                                            Image(systemName: "phone")
+                                                .resizable()
+                                                .renderingMode(.template)
+                                                .foregroundColor(.greenColor)
+                                                .frame(width: 30, height: 30)
+                                                
+                                            
+                                            Text("+375294324182")
+                                                .font(.system(size: 25))
+                                                
+                                                .minimumScaleFactor(0.5)
+                                                .lineLimit(1)
+                                                .foregroundColor(.white)
+                                                .fontWeight(.semibold)
+                                                
+                                            
+                                        }
                                     }
-                                    .minimumScaleFactor(0.05)
-                                    .lineLimit(1)
+                                    .padding([.horizontal, .bottom], 20)
+                                }
+                            } else {
+                                
+                                Text("Hello, \(vm.name)!")
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                
+                                Text("your e-mail: \(vm.email)")
+                                    .foregroundColor(.white)
                                     .padding(8)
-                                    .frame(maxWidth:.infinity)
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 24)
-                                            .stroke(Color(uiColor: .white), lineWidth: 2)
-                                    }
-                                }
-                                .padding(10)
-                                .fullScreenCover(isPresented: $vm.openloginView) {
-                                    LoginView()
-                                }
                                 
-                                
-                                
-                                
-                                Button {
+                                HStack {
                                     
-                                    vm.deleteAppUser()
+                                    Button {
+                                        
+                                        vm.signOutAppUser()
+                                        
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "arrow.left.circle")
+                                                .foregroundColor(.red)
+                                            Text("Sign Out")
+                                        }
+                                        .minimumScaleFactor(0.05)
+                                        .lineLimit(1)
+                                        .padding(8)
+                                        .frame(maxWidth:.infinity)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 24)
+                                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                                        }
+                                    }
+                                    .padding(10)
+                                    .fullScreenCover(isPresented: $vm.openloginView) {
+                                        LoginView()
+                                    }
                                     
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "xmark.circle")
-                                            .foregroundColor(.red)
-                                        Text("Delete Account")
+                                    
+                                    
+                                    
+                                    Button {
+                                        
+                                        vm.deleteAppUser()
+                                        
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "xmark.circle")
+                                                .foregroundColor(.red)
+                                            Text("Delete Account")
+                                        }
+                                        .minimumScaleFactor(0.05)
+                                        .lineLimit(1)
+                                        .padding(8)
+                                        .frame(maxWidth:.infinity)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 24)
+                                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                                        }
                                     }
-                                    .minimumScaleFactor(0.05)
-                                    .lineLimit(1)
-                                    .padding(8)
-                                    .frame(maxWidth:.infinity)
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 24)
-                                            .stroke(Color(uiColor: .white), lineWidth: 2)
-                                    }
+                                    .padding(.horizontal, 10)
+                                    
                                 }
-                                .padding(.horizontal, 10)
-                                
                             }
+                            
+                            
                             
                             Divider()
                                 .background(.white)
@@ -230,6 +284,7 @@ struct CustomerView: View {
 
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()
@@ -240,6 +295,6 @@ struct CustomerView: View {
 
 struct CustomerView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomerView()
+        CustomerView(clientData: .init(name: "Alisa", instURL: "", number: "", imageURL: ""))
     }
 }

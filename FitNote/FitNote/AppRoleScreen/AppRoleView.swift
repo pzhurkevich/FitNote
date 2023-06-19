@@ -120,7 +120,7 @@ struct AppRoleView: View {
         .fullScreenCover(item: $vm.roleScreen) { item in
             switch item {
             case .customer:
-                CustomerView()
+                CustomerView(clientData: .init(name: "Alisa", instURL: "", number: "", imageURL: ""))
             case .trainer:
                 TrainerView()
             }

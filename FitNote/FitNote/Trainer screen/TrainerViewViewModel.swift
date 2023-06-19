@@ -19,13 +19,8 @@ final class TrainerViewViewModel: ObservableObject {
     
     @Published var email: String = ""
     @Published var name: String = ""
-    
     @Published var changeProfileImage = false
-    
     @Published var openCameraRoll = false
-    
-    @Published var imageSelected = UIImage()
-    
     @Published var imageURL:  URL?
     @Published var openloginView: Bool = false
 // MARK:  - Methods -

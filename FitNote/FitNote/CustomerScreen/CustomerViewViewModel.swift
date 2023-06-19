@@ -19,15 +19,11 @@ final class CustomerViewViewModel: ObservableObject {
     
     @Published var email: String = ""
     @Published var name: String = ""
-    
     @Published var changeProfileImage = false
-    
     @Published var openCameraRoll = false
-    
-    @Published var imageSelected = UIImage()
-    
     @Published var imageURL:  URL?
     @Published var openloginView: Bool = false
+    @Published var isClient = Constants.currentState == .loggedAsTrainer ? true : false
 // MARK:  - Methods -
     
     init() {

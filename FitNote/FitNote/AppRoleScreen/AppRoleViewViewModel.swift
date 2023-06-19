@@ -14,8 +14,14 @@ final class AppRoleViewViewModel: ObservableObject {
     enum RoleSwitch: Identifiable {
         case trainer, customer
         var id: Int {
-            hashValue
-        }
+               switch self {
+               case .trainer:
+                   return 0
+               case .customer:
+                   return 1
+               }
+           }
+
     }
   
     

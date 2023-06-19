@@ -160,7 +160,7 @@ struct TrainerView: View {
                                 Spacer()
                                 
                                 NavigationLink {
-                              
+                                    ClientsListView()
                                 } label: {
                                     HStack {
                                         Text("Your clients")
