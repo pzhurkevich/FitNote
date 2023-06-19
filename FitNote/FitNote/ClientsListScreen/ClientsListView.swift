@@ -19,15 +19,19 @@ struct ClientsListView: View {
             
             VStack {
                 
-                List(vm.clients, id: \.self) { client in
+                if vm.clients.isEmpty {
+                 Text("Add new clients using button")
+                } else {
                     
-                    NavigationLink {
-                        CustomerView(clientData: .init(name: "John", instURL: "", number: "", imageURL: ""))
-                    } label: {
+                    List(vm.clients, id: \.id) { client in
                         
-                        HStack(spacing: 20) {
+                        NavigationLink {
+                            CustomerView(clientData: client)
+                        } label: {
                             
-                           
+                            HStack(spacing: 20) {
+                                
+                                
                                 
                                 HStack(spacing: 20) {
                                     Image("user")
@@ -39,35 +43,35 @@ struct ClientsListView: View {
                                     
                                     
                                     
-                                    Text(client)
+                                    Text(client.name)
                                         .font(Font.title)
                                         .foregroundColor(.white)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
                                         .minimumScaleFactor(0.5)
-                   
+                                    
+                                }
+                                
+                                
                             }
-            
+                            // .buttonStyle(PlainButtonStyle())
                             
                         }
-                       // .buttonStyle(PlainButtonStyle())
+                        .padding(5)
+                        .listRowBackground(
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundColor(.secondaryDark)
+                                .padding([.top, .bottom], 10)
+                                .listRowSeparator(.hidden)
+                        )
                         
+                        
+                        //end list
                     }
-                    .padding(5)
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(.secondaryDark)
-                            .padding([.top, .bottom], 10)
-                            .listRowSeparator(.hidden)
-                    )
-
-                   
-                    //end list
-                }
-                .blendMode(vm.clients.isEmpty ? .destinationOver: .normal)
-                .background(Color.darkColor)
-                .scrollContentBackground(.hidden)
-                .navigationBarTitleDisplayMode(.large)
+                    .blendMode(vm.clients.isEmpty ? .destinationOver: .normal)
+                    .background(Color.darkColor)
+                    .scrollContentBackground(.hidden)
+                    .navigationBarTitleDisplayMode(.large)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
                             Text("Your clients")
@@ -75,11 +79,12 @@ struct ClientsListView: View {
                                 .foregroundColor(.greenColor)
                         }
                         
+                    }
+                    .toolbarBackground(Color.darkColor)
                 }
-                 .toolbarBackground(Color.darkColor)
-                
+                    
                 Button {
-                   
+                    vm.showingAlert.toggle()
                 } label: {
                     HStack {
                         Text("New Client")
@@ -102,6 +107,15 @@ struct ClientsListView: View {
                 
             }
         }
+        .alert("Add client", isPresented: $vm.showingAlert) {
+            TextField("name", text: $vm.newClientName)
+            Button("Add", action: vm.addNewClient)
+              } message: {
+                  Text("Enter only client name to continue")
+              }
+              .task {
+                  await vm.fetchClients()
+              }
     }
 }
 

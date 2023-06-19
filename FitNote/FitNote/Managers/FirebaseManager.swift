@@ -22,6 +22,8 @@ protocol FirebaseManagerProtocol {
     func signOut()
     func saveImage(imageURL: String) async throws
     func deleteAppUser() async
+    func addClient(name: String, instURL: String, phoneNumber: String, imageURL: String) async
+    func fetchClients() async -> [Client]
 }
 
 
@@ -106,15 +108,36 @@ class FirebaseManager: FirebaseManagerProtocol {
     // MARK: - Functions for Clients -
     
     func addClient(name: String, instURL: String, phoneNumber: String, imageURL: String) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         do {
             let client = Client(name: name, instURL: instURL, number: "", imageURL: "")
             let encodedClient = try Firestore.Encoder().encode(client)
-            try await Firestore.firestore().collection("clients").document(client.id.description).setData(encodedClient)
+            try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(client.id.description).setData(encodedClient)
             
         } catch {
             print (error.localizedDescription)
       
         }
+    }
+    
+    
+    func fetchClients() async -> [Client] {
+        guard let uid = Auth.auth().currentUser?.uid else { return [] }
+        var allClients: [Client] = []
+        do {
+            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").getDocuments()
+            
+           try snapshot.documents.forEach { doc in
+               let client = try doc.data(as: Client.self)
+               allClients.append(client)
+            }
+
+        } catch {
+            print("Can't fetch clients Data")
+           
+        }
+       
+        return allClients
     }
     
     //MARK: - Other functions -
