@@ -45,7 +45,9 @@ struct AppRoleView: View {
                     VStack{
                         HStack {
                             Button {
-                               
+                                
+                                vm.updateRoleForUser(role: .loggedAsTrainer)
+                                
                             } label: {
                                 
                                 Text("I train others")
@@ -76,6 +78,9 @@ struct AppRoleView: View {
                         HStack {
                             Button {
                                 vm.openCustomerView.toggle()
+                               
+                                vm.updateRoleForUser(role: .loggedAsSelf)
+                               
                             } label: {
                                 
                                 Text("I train by myself")
@@ -113,8 +118,8 @@ struct AppRoleView: View {
             
         }
         .fullScreenCover(isPresented: $vm.openCustomerView) {
-                                           CustomerView()
-                                       }
+            CustomerView()
+        }
     }
 }
 

@@ -23,9 +23,9 @@ final class RegisterViewViewModel: ObservableObject {
     
     @Published  var isRegistered = false
     @Published var showingAlert = false
+    @Published  var isLoading = false
     
-    
-    var fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
 // MARK:  - Methods -
     
@@ -33,7 +33,10 @@ final class RegisterViewViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else {return}
             do {
-                let userData = try await fireBaseManager.register(mail: email, password: password)
+                await MainActor.run {
+                    self.isLoading = true
+                }
+                let userData = try await fireBaseManager.register(mail: email, password: password, name: name)
                     
                     await MainActor.run {
                         self.isRegistered = userData.email != nil
@@ -41,8 +44,10 @@ final class RegisterViewViewModel: ObservableObject {
                 
             } catch {
              
+                await MainActor.run {
+                    self.isLoading = false
                     self.errorText = error.localizedDescription.description
-                
+                }
             }
         }
     }

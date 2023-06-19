@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @AppStorage("onboardingSkip") var skip = false
     
     @StateObject var vm = OnboardingViewModel()
     
@@ -33,6 +34,7 @@ struct OnboardingView: View {
                     Spacer()
                     Button {
                         vm.isPresented.toggle()
+                        skip.toggle()
                     } label: {
                         HStack {
                             Text("Start Now")

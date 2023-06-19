@@ -11,6 +11,7 @@ struct LoginView: View {
     
     @StateObject var vm = LoginViewViewModel()
     
+    
     var body: some View {
        
             ZStack {
@@ -53,7 +54,10 @@ struct LoginView: View {
                         .padding()
                     
                     Button {
+                        
                         vm.logIn()
+                        
+                        
                     } label: {
                         
                         Text("Enter")
@@ -88,18 +92,37 @@ struct LoginView: View {
                             RegisterView()
                         }
 
-
-                        
-                        
-                        
-                        
                     }
                     .padding()
                 }
+                if vm.isLoading {
+                    ProgressView {
+                                   Text("Loading")
+                                       .foregroundColor(.black)
+                                       .bold()
+                    }
+                    .padding(20)
+                    .background(Color.greenColor.opacity(0.6))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .frame(maxWidth: .infinity,  maxHeight: .infinity )
+                    .background(Color.black.opacity(0.6))
+                    .edgesIgnoringSafeArea(.all)
+                }
+                
             }
             .fullScreenCover(isPresented: $vm.isLogged) {
-                AppRoleView()
+                switch Constants.currentState {
+                case .notLogged:
+                   LoginView()
+                case .loggedAsSelf:
+                    CustomerView()
+                case .loggedAsTrainer:
+                    EmptyView()
+                case .none:
+                    OnboardingView()
+                }
             }
+          
         
     }
 }
