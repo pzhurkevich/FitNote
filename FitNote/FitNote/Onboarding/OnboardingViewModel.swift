@@ -16,5 +16,5 @@ final class OnboardingViewModel: ObservableObject {
     
 // MARK:  - Methods -
     
-   
+
 }

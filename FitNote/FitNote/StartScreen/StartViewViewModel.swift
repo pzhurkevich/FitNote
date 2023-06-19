@@ -6,20 +6,51 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 final class StartViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
-    
+   
     @Published  var isPresented = false
-    
+    @Published var isLoading = false
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
 // MARK:  - Methods -
     
-    func timeCountForStartScreen() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            guard let self = self else {return}
-            self.isPresented = true
+    
+    func screenToOpen() async {
+        
+        do {
+            await MainActor.run {
+                self.isLoading = true
+            }
+            let registeredUser = try await fireBaseManager.fetchAppUser()
+            
+            if registeredUser == nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
+                
+                Constants.currentState = .none
+                await MainActor.run {
+                    self.isPresented = true
+                }
+            } else {
+                
+                await MainActor.run {
+                    
+                    if let user = registeredUser {
+                        Constants.currentState = Constants.State(rawValue: user.appRole)
+                    } else {
+                        Constants.currentState = .notLogged
+                    }
+                    self.isPresented = true
+                }
+            }
+        } catch {
+            print("error fetching user")
         }
     }
+    
+    
+    
+
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StartView: View {
     
-    
+
     @StateObject var vm = StartViewViewModel()
     
     
@@ -32,20 +32,32 @@ struct StartView: View {
                     .foregroundColor(Color.greenColor)
                 
                 Spacer()
-                
-                ProgressView()
-                    .scaleEffect(2)
-                    .tint(Color.greenColor)
-                    .padding(.bottom, 30)
-                
+                if vm.isLoading {
+                    
+                    ProgressView()
+                        .scaleEffect(2)
+                        .tint(Color.greenColor)
+                        .padding(.bottom, 30)
+                }
                 
             }
         }
         .fullScreenCover(isPresented: $vm.isPresented) {
-            OnboardingView()
+           
+            switch Constants.currentState {
+            case .notLogged:
+               LoginView()
+            case .loggedAsSelf:
+                CustomerView()
+            case .loggedAsTrainer:
+                EmptyView()
+            case .none:
+                OnboardingView()
+            }
+            
         }
-        .onAppear {
-            vm.timeCountForStartScreen()
+        .task {
+            await vm.screenToOpen()
         }
             
     }
