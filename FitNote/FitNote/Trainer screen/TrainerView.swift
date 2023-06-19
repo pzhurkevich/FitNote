@@ -1,16 +1,15 @@
 //
-//  CustomerView.swift
+//  TrainerView.swift
 //  FitNote
 //
-//  Created by Pavel on 10.06.23.
+//  Created by Pavel on 19.06.23.
 //
 
 import SwiftUI
 
-struct CustomerView: View {
+struct TrainerView: View {
     
-    @StateObject var vm = CustomerViewViewModel()
-    
+    @StateObject var vm = TrainerViewViewModel()
     
     var body: some View {
         NavigationView {
@@ -147,99 +146,77 @@ struct CustomerView: View {
                                             .stroke(Color(uiColor: .white), lineWidth: 2)
                                     }
                                 }
-                                .padding(.horizontal, 10)
+                                .padding(10)
                                 
                             }
-                            
+                          
                             Divider()
                                 .background(.white)
                                 .padding(.horizontal, 20)
-                                .padding(.top, 10)
-                            
+                                .padding(.top, 20)
                             
                             VStack(spacing: 20) {
                                 
-                            Spacer()
-                                
-                                NavigationLink {
-                                    WorkoutView()
-                                } label: {
-                                    HStack {
-                                        Text("New workout")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                Button {
-                                    //action
-                                } label: {
-                                    HStack {
-                                        Text("Workouts history")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                Button {
-                                    //action
-                                } label: {
-                                    HStack {
-                                        Text("Your statistic")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                                                
                                 Spacer()
                                 
-                            }.padding(.bottom, 10)
+                                NavigationLink {
+                              
+                                } label: {
+                                    HStack {
+                                        Text("Your clients")
+                                            .fontDesign(.rounded)
+                                            .fontWeight(.bold)
+                                        
+                                        Image(systemName: "chevron.forward")
+                                            .fontWeight(.bold)
+                                    }
+                                    .tint(.black)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 20)
+                                    .background(Color.greenColor)
+                                    .clipShape(Capsule())
+                                }
+                                .padding(.horizontal, 20)
+                                
+                                Button {
+                                    //action
+                                } label: {
+                                    HStack {
+                                        Text("Clients workouts planner")
+                                            .fontDesign(.rounded)
+                                            .fontWeight(.bold)
+                                        
+                                        Image(systemName: "chevron.forward")
+                                            .fontWeight(.bold)
+                                    }
+                                    .tint(.black)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 20)
+                                    .background(Color.greenColor)
+                                    .clipShape(Capsule())
+                                }
+                                .padding(.horizontal, 20)
+                                
+                                Spacer()
+                            }
                             
                         }
                         
                     }
-                     
+                    
                 }
-
+                
             }
         }
         .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()
         }
-        
     }
 }
 
-struct CustomerView_Previews: PreviewProvider {
+struct TrainerView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomerView()
+        TrainerView()
     }
 }
