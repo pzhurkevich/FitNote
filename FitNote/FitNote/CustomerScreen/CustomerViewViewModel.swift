@@ -34,10 +34,8 @@ final class CustomerViewViewModel: ObservableObject {
         $changeProfileImage
             .sink { [weak self] _ in
                 
-                    guard let self = self else { return }
-                Task {
-                    await self.addImageToUser()
-                }
+                guard let self = self else { return }
+                self.addImageToUser()
             }
             .store(in: &cancellable)
     }
@@ -70,12 +68,14 @@ final class CustomerViewViewModel: ObservableObject {
      
     }
     
-    func addImageToUser() async {
+    func addImageToUser() {
         guard let url = imageURL else { return }
-        do {
-            try await fireBaseManager.saveImage(imageURL: url.absoluteString)
-        } catch {
-            print("error while saving image from customer view")
+        Task {
+            do {
+                try await fireBaseManager.saveImage(imageURL: url.absoluteString)
+            } catch {
+                print("error while saving image from customer view")
+            }
         }
     }
 

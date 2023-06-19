@@ -32,12 +32,13 @@ struct StartView: View {
                     .foregroundColor(Color.greenColor)
                 
                 Spacer()
-                
-                ProgressView()
-                    .scaleEffect(2)
-                    .tint(Color.greenColor)
-                    .padding(.bottom, 30)
-                
+                if vm.isLoading {
+                    
+                    ProgressView()
+                        .scaleEffect(2)
+                        .tint(Color.greenColor)
+                        .padding(.bottom, 30)
+                }
                 
             }
         }
@@ -54,9 +55,6 @@ struct StartView: View {
                 OnboardingView()
             }
             
-        }
-        .onAppear {
-            vm.timeCountForStartScreen()
         }
         .task {
             await vm.screenToOpen()

@@ -162,26 +162,22 @@ struct CustomerView: View {
                     
                     Spacer()
                     
-                    
-                    
-                    Button {
-                        //action
+                    NavigationLink {
+                        WorkoutView()
                     } label: {
-                        NavigationLink(destination: WorkoutView()) {
-                            HStack {
-                                Text("New workout")
-                                    .fontDesign(.rounded)
-                                    .fontWeight(.bold)
-                                
-                                Image(systemName: "chevron.forward")
-                                    .fontWeight(.bold)
-                            }
-                            .tint(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 20)
-                            .background(Color.greenColor)
-                            .clipShape(Capsule())
+                        HStack {
+                            Text("New workout")
+                                .fontDesign(.rounded)
+                                .fontWeight(.bold)
+                            
+                            Image(systemName: "chevron.forward")
+                                .fontWeight(.bold)
                         }
+                        .tint(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 20)
+                        .background(Color.greenColor)
+                        .clipShape(Capsule())
                     }
                     .padding(.horizontal, 20)
                     
