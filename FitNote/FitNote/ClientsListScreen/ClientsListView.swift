@@ -14,13 +14,13 @@ struct ClientsListView: View {
     var body: some View {
         
         ZStack {
-          
+            
             Color.darkColor.ignoresSafeArea()
             
             VStack {
                 
                 if vm.clients.isEmpty {
-                 Text("Add new clients using button")
+                    Text("Add new clients using button")
                         .font(.title)
                         .foregroundColor(.white)
                 } else {
@@ -42,13 +42,13 @@ struct ClientsListView: View {
                                         AsyncImage(url: URL(string: client.imageURL)) { image in
                                             image
                                                 .resizable()
-                                                .scaledToFit()
+                                                .scaledToFill()
                                                 .frame(width: 100, height: 100)
                                                 .foregroundColor(.white)
                                                 .overlay(Circle()
                                                     .stroke(Color.greenColor, lineWidth: 10))
                                                 .clipShape(Circle())
-                                               
+                                            
                                             
                                         } placeholder: {
                                             Image("user")
@@ -58,24 +58,11 @@ struct ClientsListView: View {
                                                 .frame(width: 100, height: 100)
                                             
                                                 .foregroundColor(.white)
-         
+                                            
                                                 .overlay(Circle()
                                                     .stroke(Color.greenColor, lineWidth: 10))
                                                 .clipShape(Circle())
                                         }
-                                        
-                                        
-                                        
-                                        
-                                        
-    //                                    Image("user")
-    //                                        .resizable()
-    //                                        .scaledToFit()
-    //                                        .frame(width: 100, height: 70)
-    //                                        .cornerRadius(5)
-    //
-    //
-                                        
                                         
                                         Text(client.name)
                                             .font(Font.title)
@@ -83,15 +70,11 @@ struct ClientsListView: View {
                                             .fontWeight(.semibold)
                                             .lineLimit(2)
                                             .minimumScaleFactor(0.5)
-                                        
                                     }
                                     
-                                    
                                 }
-                            
                                 
                             }
-                            
                             .padding(5)
                             .listRowBackground(
                                 RoundedRectangle(cornerRadius: 20)
@@ -100,18 +83,11 @@ struct ClientsListView: View {
                                     .listRowSeparator(.hidden))
                             
                         }.onDelete { indexSet in
-                           
+                            
                             let index = indexSet[indexSet.startIndex]
-                            print(vm.clients.count)
                             vm.deletClient(id: vm.clients[index].id)
                             vm.clients.remove(atOffsets: indexSet)
                         }
-                        
-                        
-                       
-                        
-                        
-                        
                         
                         //end list
                     }
@@ -131,7 +107,7 @@ struct ClientsListView: View {
                     .toolbarBackground(Color.darkColor)
                 }
                 
-                    
+                
                 Button {
                     vm.showingAlert.toggle()
                 } label: {
@@ -148,7 +124,6 @@ struct ClientsListView: View {
                             .padding(.leading, 10)
                     }
                     .tint(.black)
-                   // .frame(maxWidth: .infinity)
                     .padding(20)
                     .background(Color.greenColor)
                     .clipShape(Capsule())
@@ -158,13 +133,14 @@ struct ClientsListView: View {
         }
         .alert("Add client", isPresented: $vm.showingAlert) {
             TextField("name", text: $vm.newClientName)
+                .disableAutocorrection(true)
             Button("Add", action: vm.addNewClient)
-              } message: {
-                  Text("Enter only client name to continue")
-              }
-              .task {
-                  await vm.fetchClients()
-              }
+        } message: {
+            Text("Enter only client name to continue")
+        }
+        .task {
+            await vm.fetchClients()
+        }
     }
 }
 

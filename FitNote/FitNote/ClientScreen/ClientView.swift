@@ -11,11 +11,6 @@ struct ClientView: View {
     
     @ObservedObject var vm : ClientViewViewModel
     
-//    @State var nameInEditMode = false
-//    @State var name = "Mr. Foo Bar"
-//    @State var phoneInEditMode = false
-//    @State var phone = "+234235345645"
-    
     var body: some View {
         
         NavigationView {
@@ -125,7 +120,7 @@ struct ClientView: View {
                                                 .foregroundColor(.white)
                                                 .fontWeight(.semibold)
                                         }
-  
+                                        
                                         Spacer()
                                         
                                         Button(action: {
@@ -161,7 +156,7 @@ struct ClientView: View {
                                                 .foregroundColor(.white)
                                                 .fontWeight(.semibold)
                                         }
-  
+                                        
                                         Spacer()
                                         Button(action: {
                                             vm.phoneInEditMode.toggle()
@@ -173,7 +168,7 @@ struct ClientView: View {
                                                 .foregroundColor(.greenColor)
                                         }
                                     }
-                                     
+                                    
                                 }
                                 .padding(.horizontal, 30)
                             }

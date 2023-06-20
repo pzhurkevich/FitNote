@@ -24,9 +24,9 @@ final class ClientViewViewModel: ObservableObject {
     @Published var clientData: Client
     
     @Published var instInEditMode = false
-    @Published var inst = "Mr. Foo Bar"
+    @Published var inst = ""
     @Published var phoneInEditMode = false
-    @Published var phone = "+234235345645"
+    @Published var phone = ""
     
 
 // MARK:  - Methods -
