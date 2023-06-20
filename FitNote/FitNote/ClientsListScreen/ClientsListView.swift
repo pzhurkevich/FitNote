@@ -21,49 +21,96 @@ struct ClientsListView: View {
                 
                 if vm.clients.isEmpty {
                  Text("Add new clients using button")
+                        .font(.title)
+                        .foregroundColor(.white)
                 } else {
                     
-                    List(vm.clients, id: \.id) { client in
+                    List {
                         
-                        NavigationLink {
-                            CustomerView(clientData: client)
-                        } label: {
-                            
-                            HStack(spacing: 20) {
-                                
-                                
+                        ForEach(vm.clients, id: \.id) { client in
+                            NavigationLink {
+                                ClientView(vm: ClientViewViewModel(clientData: client))
+                            } label: {
                                 
                                 HStack(spacing: 20) {
-                                    Image("user")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 100, height: 70)
-                                        .cornerRadius(5)
                                     
                                     
                                     
+                                    HStack(spacing: 20) {
+                                        
+                                        
+                                        AsyncImage(url: URL(string: client.imageURL)) { image in
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 100, height: 100)
+                                                .foregroundColor(.white)
+                                                .overlay(Circle()
+                                                    .stroke(Color.greenColor, lineWidth: 10))
+                                                .clipShape(Circle())
+                                               
+                                            
+                                        } placeholder: {
+                                            Image("user")
+                                                .renderingMode(.template)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 100, height: 100)
+                                            
+                                                .foregroundColor(.white)
+         
+                                                .overlay(Circle()
+                                                    .stroke(Color.greenColor, lineWidth: 10))
+                                                .clipShape(Circle())
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+    //                                    Image("user")
+    //                                        .resizable()
+    //                                        .scaledToFit()
+    //                                        .frame(width: 100, height: 70)
+    //                                        .cornerRadius(5)
+    //
+    //
+                                        
+                                        
+                                        Text(client.name)
+                                            .font(Font.title)
+                                            .foregroundColor(.white)
+                                            .fontWeight(.semibold)
+                                            .lineLimit(2)
+                                            .minimumScaleFactor(0.5)
+                                        
+                                    }
                                     
-                                    Text(client.name)
-                                        .font(Font.title)
-                                        .foregroundColor(.white)
-                                        .fontWeight(.semibold)
-                                        .lineLimit(2)
-                                        .minimumScaleFactor(0.5)
                                     
                                 }
-                                
+                            
                                 
                             }
-                            // .buttonStyle(PlainButtonStyle())
                             
+                            .padding(5)
+                            .listRowBackground(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .foregroundColor(.secondaryDark)
+                                    .padding([.top, .bottom], 10)
+                                    .listRowSeparator(.hidden))
+                            
+                        }.onDelete { indexSet in
+                           
+                            let index = indexSet[indexSet.startIndex]
+                            print(vm.clients.count)
+                            vm.deletClient(id: vm.clients[index].id)
+                            vm.clients.remove(atOffsets: indexSet)
                         }
-                        .padding(5)
-                        .listRowBackground(
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.secondaryDark)
-                                .padding([.top, .bottom], 10)
-                                .listRowSeparator(.hidden)
-                        )
+                        
+                        
+                       
+                        
+                        
                         
                         
                         //end list
@@ -71,6 +118,7 @@ struct ClientsListView: View {
                     .blendMode(vm.clients.isEmpty ? .destinationOver: .normal)
                     .background(Color.darkColor)
                     .scrollContentBackground(.hidden)
+                    
                     .navigationBarTitleDisplayMode(.large)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
@@ -82,6 +130,7 @@ struct ClientsListView: View {
                     }
                     .toolbarBackground(Color.darkColor)
                 }
+                
                     
                 Button {
                     vm.showingAlert.toggle()

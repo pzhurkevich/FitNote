@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomerView: View {
     
     @StateObject var vm = CustomerViewViewModel()
-    @State var clientData : Client
+   
     
     var body: some View {
         NavigationView {
@@ -92,7 +92,7 @@ struct CustomerView: View {
                             if vm.isClient {
                                 VStack {
                                     
-                                    Text(clientData.name)
+                                    Text("clientData.name")
                                         .foregroundColor(.white)
                                         .font(.title)
                                         .fontWeight(.semibold)
@@ -295,6 +295,6 @@ struct CustomerView: View {
 
 struct CustomerView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomerView(clientData: .init(name: "Alisa", instURL: "", number: "", imageURL: ""))
+        CustomerView()
     }
 }

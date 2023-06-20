@@ -48,7 +48,7 @@ struct StartView: View {
             case .notLogged:
                LoginView()
             case .loggedAsSelf:
-                CustomerView(clientData: .init(name: "Alisa", instURL: "", number: "", imageURL: ""))
+                CustomerView()
             case .loggedAsTrainer:
                TrainerView()
             case .none:

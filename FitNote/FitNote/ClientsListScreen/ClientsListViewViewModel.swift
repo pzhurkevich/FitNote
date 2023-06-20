@@ -21,7 +21,7 @@ final class ClientsListViewViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else {return}
             
-           await fireBaseManager.addClient(name: newClientName, instURL: "", phoneNumber: "", imageURL: "")
+           await fireBaseManager.addClient(name: newClientName, instURL: "-", phoneNumber: "-", imageURL: "")
             let clientsFromServer = await fireBaseManager.fetchClients()
             await MainActor.run {
                 self.clients = clientsFromServer
@@ -30,6 +30,13 @@ final class ClientsListViewViewModel: ObservableObject {
         
         print("new client created")
     }
+    
+    func deletClient(id: String) {
+      
+            fireBaseManager.deleteClientData(docId: id)
+        
+    }
+    
     func fetchClients() async {
 
            
@@ -40,5 +47,11 @@ final class ClientsListViewViewModel: ObservableObject {
             }
       
     }
+    
+    
+    func delete(at offsets: IndexSet, id: String) {
+           clients.remove(atOffsets: offsets)
+        fireBaseManager.deleteClientData(docId: id)
+       }
     
 }
