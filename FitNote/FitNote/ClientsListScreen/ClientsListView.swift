@@ -84,9 +84,8 @@ struct ClientsListView: View {
                             
                         }.onDelete { indexSet in
                             
-                            let index = indexSet[indexSet.startIndex]
-                            vm.deletClient(id: vm.clients[index].id)
-                            vm.clients.remove(atOffsets: indexSet)
+                            vm.deleteClient(indexSet: indexSet)
+                            
                         }
                         
                         //end list

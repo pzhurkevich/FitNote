@@ -88,59 +88,7 @@ struct CustomerView: View {
                         .padding(.top, 20)
                         
                         VStack(spacing: 0) {
-                            
-                            if vm.isClient {
-                                VStack {
-                                    
-                                    Text("clientData.name")
-                                        .foregroundColor(.white)
-                                        .font(.title)
-                                        .fontWeight(.semibold)
-                                    
-                                    HStack {
-                                        HStack {
-                                            
-                                            Image("inst")
-                                                .resizable()
-                                                .renderingMode(.template)
-                                                .foregroundColor(.greenColor)
-                                                .frame(width: 30, height: 30)
-                                            
-                                            Text("pasha.zhur")
-                                                .font(.system(size: 25))
-                                                .lineLimit(1)
-                                                .minimumScaleFactor(0.5)
-                                                .foregroundColor(.white)
-                                                .fontWeight(.semibold)
-        
-                                        }
-                                       
-                                        Spacer()
-                                        
-                                        HStack {
-                                            
-                                            Image(systemName: "phone")
-                                                .resizable()
-                                                .renderingMode(.template)
-                                                .foregroundColor(.greenColor)
-                                                .frame(width: 30, height: 30)
-                                                
-                                            
-                                            Text("+375294324182")
-                                                .font(.system(size: 25))
-                                                
-                                                .minimumScaleFactor(0.5)
-                                                .lineLimit(1)
-                                                .foregroundColor(.white)
-                                                .fontWeight(.semibold)
-                                                
-                                            
-                                        }
-                                    }
-                                    .padding([.horizontal, .bottom], 20)
-                                }
-                            } else {
-                                
+      
                                 Text("Hello, \(vm.name)!")
                                     .foregroundColor(.white)
                                     .font(.title)
@@ -201,10 +149,7 @@ struct CustomerView: View {
                                     .padding(.horizontal, 10)
                                     
                                 }
-                            }
-                            
-                            
-                            
+
                             Divider()
                                 .background(.white)
                                 .padding(.horizontal, 20)

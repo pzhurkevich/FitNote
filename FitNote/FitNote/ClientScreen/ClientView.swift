@@ -127,7 +127,9 @@ struct ClientView: View {
                                             vm.instInEditMode.toggle()
                                             vm.updateClientInfo()
                                         }) {
-                                            Text(vm.instInEditMode ? "Done" : "Edit").font(.system(size: 20)).fontWeight(.light)
+                                            Text(vm.instInEditMode ? "Done" : "Edit")
+                                                .font(.system(size: 20))
+                                                .fontWeight(.light)
                                                 .foregroundColor(.greenColor)
                                         }
                                     }

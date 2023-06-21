@@ -107,7 +107,7 @@ class FirebaseManager: FirebaseManagerProtocol {
     
     func saveImage(imageURL: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        print(uid)
+       
         let photoName = UUID().uuid
         
         let storageRef = Storage.storage().reference().child("\(uid)/\(photoName).jpeg")
@@ -150,7 +150,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let id = UUID().uuidString
         do {
-            let client = Client(id: id, name: name, instURL: instURL, number: "", imageURL: "")
+            let client = Client(id: id, name: name, instURL: instURL, number: "-", imageURL: "")
             let encodedClient = try Firestore.Encoder().encode(client)
             try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(id).setData(encodedClient)
             
@@ -170,7 +170,7 @@ class FirebaseManager: FirebaseManagerProtocol {
            try snapshot.documents.forEach { doc in
                let client = try doc.data(as: Client.self)
                allClients.append(client)
-               print("Id при загрузке - \(client.id)")
+             
             }
 
         } catch {

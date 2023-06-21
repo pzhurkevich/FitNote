@@ -65,7 +65,7 @@ final class ClientViewViewModel: ObservableObject {
     }
     
     func addImageToUser() {
-        print(clientData.id)
+      
         guard let url = imageURL else { return }
         Task {
             do {

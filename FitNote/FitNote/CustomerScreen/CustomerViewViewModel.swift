@@ -23,7 +23,7 @@ final class CustomerViewViewModel: ObservableObject {
     @Published var openCameraRoll = false
     @Published var imageURL:  URL?
     @Published var openloginView: Bool = false
-    @Published var isClient = Constants.currentState == .loggedAsTrainer ? true : false
+   
 // MARK:  - Methods -
     
     init() {
