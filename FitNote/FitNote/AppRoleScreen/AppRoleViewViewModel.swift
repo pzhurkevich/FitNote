@@ -11,13 +11,27 @@ final class AppRoleViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
     
+    enum RoleSwitch: Identifiable {
+        case trainer, customer
+        var id: Int {
+               switch self {
+               case .trainer:
+                   return 0
+               case .customer:
+                   return 1
+               }
+           }
+
+    }
+  
+    
     enum InfoText: String {
         
         case textForTrainers = "By choosing this app role you will be able to keep track of your clients, track their workouts and changes in their body parameters"
         
         case textForSelfTrain = "By choosing this role of the app you will be able to keep records only of your workouts, monitor changes in your body parameters only"
     }
-    @Published  var openCustomerView = false
+    @Published var roleScreen: RoleSwitch?
     @Published  var customAlert = false
     @Published  var textForAlert: InfoText = .textForTrainers
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
