@@ -11,9 +11,11 @@
 		E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B52A34B0E3002E67DA /* View+Extension.swift */; };
 		E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B82A34B3B6002E67DA /* CustomerView.swift */; };
 		E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1BA2A34B56D002E67DA /* CustomerViewViewModel.swift */; };
+		E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299F22A3B8E340064686C /* WorkoutViewViewModel.swift */; };
 		E94299FA2A3D8B790064686C /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299F92A3D8B790064686C /* AppUser.swift */; };
 		E94299FC2A3DCBC80064686C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299FB2A3DCBC80064686C /* ImagePicker.swift */; };
-		E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299F22A3B8E340064686C /* WorkoutViewViewModel.swift */; };
+		E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2182A4625E20060A277 /* OneExercise.swift */; };
+		E94CF21B2A4625F90060A277 /* OneSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF21A2A4625F90060A277 /* OneSet.swift */; };
 		E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */; };
 		E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */; };
 		E9A46A222A2FDBB1008C50C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */; };
@@ -52,9 +54,11 @@
 		E91AE1B52A34B0E3002E67DA /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E91AE1B82A34B3B6002E67DA /* CustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerView.swift; sourceTree = "<group>"; };
 		E91AE1BA2A34B56D002E67DA /* CustomerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerViewViewModel.swift; sourceTree = "<group>"; };
+		E94299F22A3B8E340064686C /* WorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewViewModel.swift; sourceTree = "<group>"; };
 		E94299F92A3D8B790064686C /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		E94299FB2A3DCBC80064686C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		E94299F22A3B8E340064686C /* WorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewViewModel.swift; sourceTree = "<group>"; };
+		E94CF2182A4625E20060A277 /* OneExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneExercise.swift; sourceTree = "<group>"; };
+		E94CF21A2A4625F90060A277 /* OneSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneSet.swift; sourceTree = "<group>"; };
 		E9A46A1A2A2FDBAB008C50C7 /* FitNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitNoteApp.swift; sourceTree = "<group>"; };
 		E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 			children = (
 				E9C937012A35F04D009D4256 /* Exercises.swift */,
 				E94299F92A3D8B790064686C /* AppUser.swift */,
+				E94CF2182A4625E20060A277 /* OneExercise.swift */,
+				E94CF21A2A4625F90060A277 /* OneSet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -352,12 +358,14 @@
 				E9C9370A2A366F06009D4256 /* Constants.swift in Sources */,
 				E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */,
 				E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */,
+				E94CF21B2A4625F90060A277 /* OneSet.swift in Sources */,
 				E9C937042A366E3B009D4256 /* ExercisesView.swift in Sources */,
 				E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */,
 				E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */,
 				E9C937022A35F04D009D4256 /* Exercises.swift in Sources */,
 				E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
+				E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */,
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
 				E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,

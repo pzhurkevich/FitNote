@@ -15,7 +15,10 @@ final class WorkoutViewViewModel: ObservableObject {
     @Published var exerciseListVM = ExercisesViewViewModel()
     private var cancellable =  Set<AnyCancellable>()
     
-    @Published var workout: [Exercise] = []
+    @Published var workout1: [OneExersice] = []
+    
+    
+    @Published var oneExerciseForWorkout: Exercise?
     
     @Published var repetitions = [""]
     @Published var weights = [""]
@@ -24,19 +27,27 @@ final class WorkoutViewViewModel: ObservableObject {
     
     // MARK:  - Methods -
  
-    
+    func addSet(exercise: inout OneExersice) {
+        guard !exercise.newItem2.isEmpty, !exercise.newItem.isEmpty else { return }
+        exercise.sets.append(OneSet(rep: exercise.newItem, ves: exercise.newItem2))
+//        exercise.newItem = ""
+//        exercise.newItem2 = ""
+       
+    }
   
     
     init() {
         
-        exerciseListVM.$workoutExercises
-           
+        exerciseListVM.$workoutExercise
             .sink { [weak self] item in
                 guard let self = self else {return}
-                self.workout = item
-               
+                self.oneExerciseForWorkout = item
                 
+                if oneExerciseForWorkout != nil {
+                    self.workout1.append(OneExersice(name: "\(oneExerciseForWorkout?.name ?? "error")", sets: []))
+                }
             }
+            
             .store(in: &cancellable)
     }
     

@@ -64,7 +64,7 @@ struct ExercisesView: View {
                         Spacer()
                         
                         Button {
-                            vm.addToWorkout(exercise: exercise)
+                            vm.workoutExercise = exercise
                             dismiss()
                         } label: {
                             Image(systemName: "plus.circle")
