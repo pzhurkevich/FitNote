@@ -13,6 +13,15 @@ final class PlannerViewViewModel: ObservableObject {
     @Published var currentDate: Date = Date()
     @Published var currentMonth: Int = 0
     @Published var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    @Published var tasks: [ClientTaskData] = [
+        ClientTaskData(task: [
+        ClientTask(client: "Sasha"),
+        ClientTask(client: "Vika"),
+        ClientTask(client: "Artem")
+        ], taskDate: getSampleDate(offset: 1)),
+    
+        ClientTaskData(task: [ClientTask(client: "Anna")], taskDate: getSampleDate(offset: -1))
+    ]
 // MARK:  - Methods -
     
     
@@ -32,7 +41,6 @@ final class PlannerViewViewModel: ObservableObject {
             return DateInCalendar(day: day, date: date)
         }
         let firstWeekday = calendar.component(.weekday, from: monthDays.first?.date ?? Date())
-        print(firstWeekday)
         for _ in 0..<firstWeekday - 1 {
             monthDays.insert(DateInCalendar(day: 0, date: Date()), at: 0)
         }
@@ -49,5 +57,12 @@ final class PlannerViewViewModel: ObservableObject {
         let date = formatter.string(from: currentDate)
         return date.components(separatedBy: " ")
     }
+    
+    func checkDay(date1: Date, date2: Date) -> Bool {
+        let calendar = Calendar.current
+        
+        return calendar.isDate(date1, inSameDayAs: date2)
+    }
+    
         
 }

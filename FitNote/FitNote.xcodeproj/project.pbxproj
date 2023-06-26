@@ -17,6 +17,7 @@
 		E94CF2222A4997F40060A277 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2212A4997F40060A277 /* DatePicker.swift */; };
 		E94CF2242A499EE20060A277 /* DateCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2232A499EE20060A277 /* DateCalendar.swift */; };
 		E94CF2272A499F720060A277 /* PlannerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2262A499F720060A277 /* PlannerViewViewModel.swift */; };
+		E94CF2292A4A21E90060A277 /* ClientTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2282A4A21E90060A277 /* ClientTask.swift */; };
 		E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */; };
 		E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */; };
 		E9A46A222A2FDBB1008C50C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		E94CF2212A4997F40060A277 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		E94CF2232A499EE20060A277 /* DateCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCalendar.swift; sourceTree = "<group>"; };
 		E94CF2262A499F720060A277 /* PlannerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewViewModel.swift; sourceTree = "<group>"; };
+		E94CF2282A4A21E90060A277 /* ClientTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTask.swift; sourceTree = "<group>"; };
 		E9A46A1A2A2FDBAB008C50C7 /* FitNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitNoteApp.swift; sourceTree = "<group>"; };
 		E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				E94CF2232A499EE20060A277 /* DateCalendar.swift */,
+				E94CF2282A4A21E90060A277 /* ClientTask.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				E9B3B2152A40A4E5008BC653 /* Client.swift in Sources */,
 				E9B3B2132A407EBF008BC653 /* TrainerViewViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
+				E94CF2292A4A21E90060A277 /* ClientTask.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
 				E94CF2202A4996C60060A277 /* Planner.swift in Sources */,
 				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,
