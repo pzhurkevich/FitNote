@@ -117,7 +117,7 @@ struct LoginView: View {
                 case .loggedAsSelf:
                     CustomerView()
                 case .loggedAsTrainer:
-                    EmptyView()
+                    TrainerView()
                 case .none:
                     OnboardingView()
                 }

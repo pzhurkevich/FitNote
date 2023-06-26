@@ -40,6 +40,13 @@
 		E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD992A31420A0059C99D /* FirebaseManager.swift */; };
 		E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */; };
 		E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */; };
+		E9B3B2112A407D20008BC653 /* TrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B2102A407D20008BC653 /* TrainerView.swift */; };
+		E9B3B2132A407EBF008BC653 /* TrainerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B2122A407EBF008BC653 /* TrainerViewViewModel.swift */; };
+		E9B3B2152A40A4E5008BC653 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B2142A40A4E5008BC653 /* Client.swift */; };
+		E9B3B2182A40AC2D008BC653 /* ClientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B2172A40AC2D008BC653 /* ClientsListView.swift */; };
+		E9B3B21A2A40ADEA008BC653 /* ClientsListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B2192A40ADEA008BC653 /* ClientsListViewViewModel.swift */; };
+		E9B3B21D2A418F78008BC653 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B21C2A418F78008BC653 /* ClientView.swift */; };
+		E9B3B21F2A418FAE008BC653 /* ClientViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B21E2A418FAD008BC653 /* ClientViewViewModel.swift */; };
 		E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C936F12A352A23009D4256 /* WorkoutView.swift */; };
 		E9C936F52A35E06F009D4256 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E9C936F42A35E06F009D4256 /* Alamofire */; };
 		E9C936FF2A35F02C009D4256 /* AlamofireProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C936FE2A35F02C009D4256 /* AlamofireProvider.swift */; };
@@ -75,6 +82,13 @@
 		E9B3AD992A31420A0059C99D /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		E9B3AD9E2A31C5710059C99D /* AppRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleView.swift; sourceTree = "<group>"; };
 		E9B3ADA02A31DCBB0059C99D /* AppRoleViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoleViewViewModel.swift; sourceTree = "<group>"; };
+		E9B3B2102A407D20008BC653 /* TrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerView.swift; sourceTree = "<group>"; };
+		E9B3B2122A407EBF008BC653 /* TrainerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerViewViewModel.swift; sourceTree = "<group>"; };
+		E9B3B2142A40A4E5008BC653 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		E9B3B2172A40AC2D008BC653 /* ClientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsListView.swift; sourceTree = "<group>"; };
+		E9B3B2192A40ADEA008BC653 /* ClientsListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsListViewViewModel.swift; sourceTree = "<group>"; };
+		E9B3B21C2A418F78008BC653 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
+		E9B3B21E2A418FAD008BC653 /* ClientViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewViewModel.swift; sourceTree = "<group>"; };
 		E9C936F12A352A23009D4256 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		E9C936FE2A35F02C009D4256 /* AlamofireProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireProvider.swift; sourceTree = "<group>"; };
 		E9C937012A35F04D009D4256 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
@@ -151,7 +165,9 @@
 			children = (
 				E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */,
 				E9C937092A366F06009D4256 /* Constants.swift */,
-				E94299F62A3CE3690064686C /* Clients Screen */,
+				E9B3B21B2A418F5A008BC653 /* ClientScreen */,
+				E9B3B2162A40ABF9008BC653 /* ClientsListScreen */,
+				E9B3B20F2A407AF0008BC653 /* Trainer screen */,
 				E9C937002A35F033009D4256 /* Models */,
 				E9C936FD2A35EFEF009D4256 /* Managers */,
 				E91AE1B22A323A27002E67DA /* Extensions */,
@@ -223,6 +239,33 @@
 			path = AppRoleScreen;
 			sourceTree = "<group>";
 		};
+		E9B3B20F2A407AF0008BC653 /* Trainer screen */ = {
+			isa = PBXGroup;
+			children = (
+				E9B3B2102A407D20008BC653 /* TrainerView.swift */,
+				E9B3B2122A407EBF008BC653 /* TrainerViewViewModel.swift */,
+			);
+			path = "Trainer screen";
+			sourceTree = "<group>";
+		};
+		E9B3B2162A40ABF9008BC653 /* ClientsListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E9B3B2172A40AC2D008BC653 /* ClientsListView.swift */,
+				E9B3B2192A40ADEA008BC653 /* ClientsListViewViewModel.swift */,
+			);
+			path = ClientsListScreen;
+			sourceTree = "<group>";
+		};
+		E9B3B21B2A418F5A008BC653 /* ClientScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E9B3B21C2A418F78008BC653 /* ClientView.swift */,
+				E9B3B21E2A418FAD008BC653 /* ClientViewViewModel.swift */,
+			);
+			path = ClientScreen;
+			sourceTree = "<group>";
+		};
 		E9C936EF2A3529C7009D4256 /* WorkoutScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +298,7 @@
 			children = (
 				E9C937012A35F04D009D4256 /* Exercises.swift */,
 				E94299F92A3D8B790064686C /* AppUser.swift */,
+				E9B3B2142A40A4E5008BC653 /* Client.swift */,
 				E94CF2182A4625E20060A277 /* OneExercise.swift */,
 				E94CF21A2A4625F90060A277 /* OneSet.swift */,
 			);
@@ -360,19 +404,26 @@
 				E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */,
 				E94CF21B2A4625F90060A277 /* OneSet.swift in Sources */,
 				E9C937042A366E3B009D4256 /* ExercisesView.swift in Sources */,
+				E9B3B21D2A418F78008BC653 /* ClientView.swift in Sources */,
 				E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */,
 				E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */,
+				E9B3B2182A40AC2D008BC653 /* ClientsListView.swift in Sources */,
 				E9C937022A35F04D009D4256 /* Exercises.swift in Sources */,
 				E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
-				E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */,
+				E9B3B21A2A40ADEA008BC653 /* ClientsListViewViewModel.swift in Sources */,
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
+				E9B3B2152A40A4E5008BC653 /* Client.swift in Sources */,
+				E9B3B2132A407EBF008BC653 /* TrainerViewViewModel.swift in Sources */,
+				E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */,
 				E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
 				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,
 				E9C937062A366E58009D4256 /* ExercisesViewViewModel.swift in Sources */,
+				E9B3B2112A407D20008BC653 /* TrainerView.swift in Sources */,
 				E94299FC2A3DCBC80064686C /* ImagePicker.swift in Sources */,
+				E9B3B21F2A418FAE008BC653 /* ClientViewViewModel.swift in Sources */,
 				E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */,
 				E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */,
 			);

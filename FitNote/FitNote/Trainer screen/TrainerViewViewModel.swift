@@ -1,8 +1,8 @@
 //
-//  CustomerViewViewModel.swift
+//  TrainerViewViewModel.swift
 //  FitNote
 //
-//  Created by Pavel on 10.06.23.
+//  Created by Pavel on 19.06.23.
 //
 
 import Foundation
@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 
-final class CustomerViewViewModel: ObservableObject {
+final class TrainerViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
@@ -23,7 +23,6 @@ final class CustomerViewViewModel: ObservableObject {
     @Published var openCameraRoll = false
     @Published var imageURL:  URL?
     @Published var openloginView: Bool = false
-   
 // MARK:  - Methods -
     
     init() {
@@ -94,7 +93,3 @@ final class CustomerViewViewModel: ObservableObject {
     }
     
 }
-
-
-
-
