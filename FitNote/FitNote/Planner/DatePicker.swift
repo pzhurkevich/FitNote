@@ -63,6 +63,7 @@ struct DatePicker: View {
             //дни в месяце
             HStack(spacing: 0) {
                 ForEach(vm.days, id: \.self) {day in
+                    
                     Text(day)
                         .font(.callout)
                         .fontWeight(.semibold)
@@ -74,8 +75,13 @@ struct DatePicker: View {
             //тут даты
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 15) {
                 ForEach(vm.fillDates()) { item in
-                    Text("\(item.day)")
-                        .font(.title3.bold())
+
+                    VStack {
+                        Text(item.day != 0 ? "\(item.day)" : "")
+                            .font(.title3.bold())
+                    }
+                    .padding(.vertical, 8)
+                   // .frame(height: 60, alignment: .top)
                     
                 }
             }
@@ -102,10 +108,9 @@ extension Date {
         guard let startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) else {return []}
         
         guard var period = calendar.range(of: .day, in: .month, for: startDate) else { return [] }
-        period.removeLast()
         
         return period.compactMap { day -> Date in
-            guard let datesForCalendar = calendar.date(byAdding: .day, value: day == 1 ? 0 : day, to: startDate) else { return Date()}
+            guard let datesForCalendar = calendar.date(byAdding: .day, value: day - 1, to: startDate) else { return Date()}
             return datesForCalendar
         }
     }

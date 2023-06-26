@@ -12,7 +12,7 @@ final class PlannerViewViewModel: ObservableObject {
 // MARK:  - Variables -
     @Published var currentDate: Date = Date()
     @Published var currentMonth: Int = 0
-    @Published var days: [String] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    @Published var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 // MARK:  - Methods -
     
     
@@ -27,11 +27,16 @@ final class PlannerViewViewModel: ObservableObject {
         
         let currentMonth = getCurrentMonth()
         
-        let monthToReturn = currentMonth.getAllDates().compactMap { date -> DateInCalendar in
+        var monthDays = currentMonth.getAllDates().compactMap { date -> DateInCalendar in
             let day = calendar.component(.day, from: date)
             return DateInCalendar(day: day, date: date)
         }
-        return monthToReturn
+        let firstWeekday = calendar.component(.weekday, from: monthDays.first?.date ?? Date())
+        print(firstWeekday)
+        for _ in 0..<firstWeekday - 1 {
+            monthDays.insert(DateInCalendar(day: 0, date: Date()), at: 0)
+        }
+        return monthDays
     }
     
     func displayData() -> [String] {
@@ -42,7 +47,6 @@ final class PlannerViewViewModel: ObservableObject {
 //            return []
 //        }
         let date = formatter.string(from: currentDate)
-        print(date)
         return date.components(separatedBy: " ")
     }
         
