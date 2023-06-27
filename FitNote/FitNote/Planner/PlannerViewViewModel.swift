@@ -12,18 +12,10 @@ final class PlannerViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
     @Published var currentDate: Date = Date()
-    @Published var selectedDate: Date?
+    @Published var selectedDate: Date = Date()
     @Published var currentMonth: Int = 0
     @Published var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-//    @Published var tasks: [ClientTaskData] = [
-//        ClientTaskData(task: [
-//        ClientTask(client: "Sasha"),
-//        ClientTask(client: "Vika"),
-//        ClientTask(client: "Artem")
-//        ], taskDate: getSampleDate(offset: 1)),
-//
-//        ClientTaskData(task: [ClientTask(client: "Anna")], taskDate: getSampleDate(offset: -1))
-//    ]
+
     @Published var isShown = false
     @Published var newClientName = ""
     
@@ -71,23 +63,26 @@ final class PlannerViewViewModel: ObservableObject {
         return calendar.isDate(date1, inSameDayAs: date2)
     }
     
-    func addClientToPlanner(date: Date) {
-   
-        let client = ClientTask(clientName: "User - \(Int.random(in: 0..<10))", time: date)
+    func addClientToPlanner() {
+//        guard let dateFromPicker = selectedDate else {
+//            print("no data from picker")
+//            return
+//        }
+        let client = ClientTask(clientName: newClientName, time: selectedDate)
 
         if tasks.isEmpty {
            
             
             var taskToDisplay: [ClientTask] = []
             taskToDisplay.append(client)
-            tasks.append(ClientTaskData(task: taskToDisplay, taskDate: date))
+            tasks.append(ClientTaskData(task: taskToDisplay, taskDate: selectedDate))
         } else {
             
             for i in 0..<tasks.count {
                 var clientTaskData = tasks[i]
                 let calendar = Calendar.current
                 let componentsClient = calendar.dateComponents([.month, .year, .day], from: clientTaskData.taskDate)
-                let componentsDate = calendar.dateComponents([.month, .year, .day], from: date)
+                let componentsDate = calendar.dateComponents([.month, .year, .day], from: selectedDate)
                 
                 if componentsClient == componentsDate {
                     clientTaskData.addTask(newClient: client)
@@ -97,13 +92,14 @@ final class PlannerViewViewModel: ObservableObject {
                     
                     var taskToDisplay: [ClientTask] = []
                     taskToDisplay.append(client)
-                    tasks.append(ClientTaskData(task: taskToDisplay, taskDate: date))
+                    tasks.append(ClientTaskData(task: taskToDisplay, taskDate: selectedDate))
                 }
             }
             
         }
         
         print(tasks)
+       // self.isShown = false
     }
     
     func showDatePickerAlert() {
@@ -113,7 +109,7 @@ final class PlannerViewViewModel: ObservableObject {
 
             let okAction = UIAlertAction(title: "OK", style: .default) { _ in
                 self.selectedDate = datePicker.date
-                self.addClientToPlanner(date: datePicker.date)
+              //  self.addClientToPlanner(date: datePicker.date)
             }
             alertVC.addAction(okAction)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)

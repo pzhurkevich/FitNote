@@ -18,8 +18,29 @@ struct Planner: View {
             
             VStack(spacing: 20) {
         
+            
                 
-                
+                HStack {
+        
+                    Text("Clients Planner")
+                        .foregroundColor(.white)
+                        .font(.title2.bold())
+                        .padding()
+                    
+                        Spacer()
+                    //кнопка добавить клиента
+                            Button {
+                                vm.isShown.toggle()
+                            } label: {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.greenColor)
+                            }
+                            .padding()
+
+                        
+                }
                 
                 HStack(spacing: 20){
                     
@@ -45,6 +66,7 @@ struct Planner: View {
                     } label: {
                         Image(systemName: "chevron.left")
                             .font(.title2)
+                            .foregroundColor(.greenColor)
                         
                     }
                     
@@ -57,7 +79,7 @@ struct Planner: View {
                     } label: {
                         Image(systemName: "chevron.right")
                             .font(.title2)
-                        
+                            .foregroundColor(.greenColor)
                     }
                     
                     
@@ -170,27 +192,28 @@ struct Planner: View {
                     
                 }
              
-                Button {
-                    
-                   // vm.showDatePickerAlert()
-                    
-                    vm.isShown.toggle()
-                } label: {
-                    
-                    Text("Add client")
-                        .foregroundColor(.black)
-                        .fontDesign(.rounded)
-                        .fontWeight(.bold)
-//                        .frame(maxWidth: .infinity)
-                        .padding(8)
-                        .padding(.horizontal, 20)
-                        .background(Color.greenColor)
-                        .clipShape(Capsule())
-                }.padding(5)
+//                Button {
+//
+//                   // vm.showDatePickerAlert()
+//
+//                    vm.isShown.toggle()
+//                } label: {
+//
+//                    Text("Add client")
+//                        .foregroundColor(.black)
+//                        .fontDesign(.rounded)
+//                        .fontWeight(.bold)
+////                        .frame(maxWidth: .infinity)
+//                        .padding(8)
+//                        .padding(.horizontal, 20)
+//                        .background(Color.greenColor)
+//                        .clipShape(Capsule())
+//                }.padding(5)
 
             }.onChange(of: vm.currentMonth) { newValue in
                 vm.currentDate = vm.getCurrentMonth()
             }
+
            
         }
         .sheet(isPresented: $vm.isShown) {
