@@ -70,7 +70,7 @@ final class PlannerViewViewModel: ObservableObject {
         let id = UUID().uuidString
         let idData = UUID().uuidString
         
-        guard !newClientName.trimmingCharacters(in: .whitespaces).isEmpty else {
+        guard !newClientName.isEmpty else {
             showAlert.toggle()
             return
             
@@ -83,7 +83,6 @@ final class PlannerViewViewModel: ObservableObject {
         
         if tasks.isEmpty {
            
-           // var taskToDisplay: [ClientTask] = []
             taskToDisplay.append(client)
             tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
         } else {
@@ -119,15 +118,11 @@ final class PlannerViewViewModel: ObservableObject {
     
     func fetchTasksToPlanner() async {
 
-           
             let clientsTasksFromServer  =  await self.fireBaseManager.fetchClientsToPlanner()
           
             await MainActor.run {
                 self.tasks = clientsTasksFromServer
             }
-      
     }
-    
-    
     
 }

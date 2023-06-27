@@ -16,7 +16,7 @@ struct Planner: View {
             
             Color.darkColor.ignoresSafeArea()
             
-            VStack(spacing: 20) {
+            VStack(spacing: 0) {
         
             
                 
@@ -25,7 +25,7 @@ struct Planner: View {
                     Text("Clients Planner")
                         .foregroundColor(.white)
                         .font(.title2.bold())
-                        .padding()
+                        .padding(10)
                     
                         Spacer()
                     //кнопка добавить клиента
@@ -37,7 +37,7 @@ struct Planner: View {
                                     .frame(width: 30, height: 30)
                                     .foregroundColor(.greenColor)
                             }
-                            .padding()
+                            .padding(10)
 
                         
                 }
@@ -54,6 +54,7 @@ struct Planner: View {
                             .font(.title.bold())
                             .foregroundColor(.white)
                     }
+                    .padding(.bottom, 10)
                     
                     Spacer()
                  //кнопки листать месяцы
@@ -154,14 +155,14 @@ struct Planner: View {
                         .foregroundColor(.greenColor)
                         .font(.title2.bold())
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 10)
+                        .padding([.vertical, .horizontal], 10)
                     
                     
                     if let task = vm.tasks.first(where: { task in
                         return vm.checkDay(date1: task.taskDate, date2: vm.currentDate)
                     }) {
                         
-                       ScrollView {
+                       List {
                            ForEach(task.task.sorted()) { task in
                                 
                                 VStack(alignment: .leading, spacing: 10) {
@@ -172,16 +173,16 @@ struct Planner: View {
                                         .font(.title2.bold())
                                         .foregroundColor(.greenColor)
                                 }
-                                .padding(.vertical, 10)
-                                .padding(.horizontal)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(
-                                  Color.secondaryDark
-                                      .opacity(0.5)
-                                      .cornerRadius(20)
-                                )
-                            }
-                        }
+                                .listRowBackground(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .foregroundColor(.secondaryDark)
+                                        .padding([.top, .bottom], 5)
+                                        .listRowSeparator(.hidden))
+                           }
+                       }
+                       .background(Color.darkColor)
+                       .scrollContentBackground(.hidden)
+
                         
                         Spacer()
                     } else {
@@ -199,7 +200,6 @@ struct Planner: View {
         .sheet(isPresented: $vm.isShown) {
             CustomDatePicker(vm: vm)
         }
-       
         .task {
             await vm.fetchTasksToPlanner()
         }

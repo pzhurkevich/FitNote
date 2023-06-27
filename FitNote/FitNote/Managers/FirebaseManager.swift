@@ -234,7 +234,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(docId).delete()
     }
     
-    
+ //MARK: - Planner Tasks functions -
     
     
     func saveClientsPlanner(allTasks: [ClientTaskData]) async {
