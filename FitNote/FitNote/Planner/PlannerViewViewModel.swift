@@ -20,12 +20,15 @@ final class PlannerViewViewModel: ObservableObject {
     @Published var currentMonth: Int = 0
     @Published var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
-    @Published var isShown = false
+   
     @Published var newClientName = ""
     
     @Published var tasks: [ClientTaskData] = []
     @Published var taskToDisplay: [ClientTask] = []
     
+    
+    @Published var isShown = false
+    @Published var showAlert = false
     
 // MARK:  - Methods -
     
@@ -67,6 +70,14 @@ final class PlannerViewViewModel: ObservableObject {
         let id = UUID().uuidString
         let idData = UUID().uuidString
         
+        guard !newClientName.trimmingCharacters(in: .whitespaces).isEmpty else {
+            showAlert.toggle()
+            return
+            
+        }
+        
+        
+        
         let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
         var taskToDisplay: [ClientTask] = []
         
@@ -101,7 +112,7 @@ final class PlannerViewViewModel: ObservableObject {
             guard let self = self else {return}
             await fireBaseManager.saveClientsPlanner(allTasks: tasks)
         }
-        
+       isShown.toggle()
         print(tasks)
     }
     

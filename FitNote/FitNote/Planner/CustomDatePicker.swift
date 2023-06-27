@@ -43,7 +43,6 @@ struct CustomDatePicker: View {
                 Button {
                    
                    vm.addClientToPlanner()
-                    vm.isShown.toggle()
                     
                 } label: {
                     
@@ -51,7 +50,6 @@ struct CustomDatePicker: View {
                         .foregroundColor(.black)
                         .fontDesign(.rounded)
                         .fontWeight(.bold)
-    //                        .frame(maxWidth: .infinity)
                         .padding(8)
                         .padding(.horizontal, 20)
                         .background(Color.greenColor)
@@ -59,6 +57,9 @@ struct CustomDatePicker: View {
                 }.padding(5)
             }
         }
+        .alert("Client name is empty", isPresented: $vm.showAlert) {
+                    Button("OK", role: .cancel) { }
+                }
     }
 }
 
