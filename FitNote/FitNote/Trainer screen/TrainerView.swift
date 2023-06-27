@@ -179,7 +179,7 @@ struct TrainerView: View {
                                 .padding(.horizontal, 20)
                                 
                                 NavigationLink {
-                                    DatePicker()
+                                    Planner()
                                 } label: {
                                     HStack {
                                         Text("Clients workouts planner")

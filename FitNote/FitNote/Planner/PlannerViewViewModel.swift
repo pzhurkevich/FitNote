@@ -24,8 +24,11 @@ final class PlannerViewViewModel: ObservableObject {
 //
 //        ClientTaskData(task: [ClientTask(client: "Anna")], taskDate: getSampleDate(offset: -1))
 //    ]
+    @Published var isShown = false
+    @Published var newClientName = ""
     
     @Published var tasks: [ClientTaskData] = []
+    @Published var taskToDisplay: [ClientTask] = []
 // MARK:  - Methods -
     
     
@@ -69,15 +72,42 @@ final class PlannerViewViewModel: ObservableObject {
     }
     
     func addClientToPlanner(date: Date) {
-        let client = ClientTask(client: "Anton", time: date)
-        var taskToDisplay: [ClientTask] = []
-        taskToDisplay.append(client)
-        print(selectedDate!)
-        tasks.append(ClientTaskData(task: taskToDisplay, taskDate: date))
+   
+        let client = ClientTask(clientName: "User - \(Int.random(in: 0..<10))", time: date)
+
+        if tasks.isEmpty {
+           
+            
+            var taskToDisplay: [ClientTask] = []
+            taskToDisplay.append(client)
+            tasks.append(ClientTaskData(task: taskToDisplay, taskDate: date))
+        } else {
+            
+            for i in 0..<tasks.count {
+                var clientTaskData = tasks[i]
+                let calendar = Calendar.current
+                let componentsClient = calendar.dateComponents([.month, .year, .day], from: clientTaskData.taskDate)
+                let componentsDate = calendar.dateComponents([.month, .year, .day], from: date)
+                
+                if componentsClient == componentsDate {
+                    clientTaskData.addTask(newClient: client)
+                    tasks[i] = clientTaskData
+                } else {
+                    //let client = ClientTask(clientName: "Anton", time: date)
+                    
+                    var taskToDisplay: [ClientTask] = []
+                    taskToDisplay.append(client)
+                    tasks.append(ClientTaskData(task: taskToDisplay, taskDate: date))
+                }
+            }
+            
+        }
+        
+        print(tasks)
     }
     
     func showDatePickerAlert() {
-            let alertVC = UIAlertController(title: "picker", message: nil, preferredStyle: .actionSheet)
+            let alertVC = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
             let datePicker: UIDatePicker = UIDatePicker()
             alertVC.view.addSubview(datePicker)
 

@@ -13,11 +13,11 @@
 		E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1BA2A34B56D002E67DA /* CustomerViewViewModel.swift */; };
 		E94299FA2A3D8B790064686C /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299F92A3D8B790064686C /* AppUser.swift */; };
 		E94299FC2A3DCBC80064686C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299FB2A3DCBC80064686C /* ImagePicker.swift */; };
-		E94CF2202A4996C60060A277 /* Planner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF21F2A4996C60060A277 /* Planner.swift */; };
-		E94CF2222A4997F40060A277 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2212A4997F40060A277 /* DatePicker.swift */; };
+		E94CF2222A4997F40060A277 /* Planner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2212A4997F40060A277 /* Planner.swift */; };
 		E94CF2242A499EE20060A277 /* DateCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2232A499EE20060A277 /* DateCalendar.swift */; };
 		E94CF2272A499F720060A277 /* PlannerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2262A499F720060A277 /* PlannerViewViewModel.swift */; };
 		E94CF2292A4A21E90060A277 /* ClientTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2282A4A21E90060A277 /* ClientTask.swift */; };
+		E94CF22D2A4AF7BF0060A277 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF22C2A4AF7BF0060A277 /* CustomDatePicker.swift */; };
 		E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */; };
 		E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */; };
 		E9A46A222A2FDBB1008C50C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */; };
@@ -65,11 +65,11 @@
 		E91AE1BA2A34B56D002E67DA /* CustomerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerViewViewModel.swift; sourceTree = "<group>"; };
 		E94299F92A3D8B790064686C /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		E94299FB2A3DCBC80064686C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		E94CF21F2A4996C60060A277 /* Planner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planner.swift; sourceTree = "<group>"; };
-		E94CF2212A4997F40060A277 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		E94CF2212A4997F40060A277 /* Planner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planner.swift; sourceTree = "<group>"; };
 		E94CF2232A499EE20060A277 /* DateCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCalendar.swift; sourceTree = "<group>"; };
 		E94CF2262A499F720060A277 /* PlannerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewViewModel.swift; sourceTree = "<group>"; };
 		E94CF2282A4A21E90060A277 /* ClientTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTask.swift; sourceTree = "<group>"; };
+		E94CF22C2A4AF7BF0060A277 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		E9A46A1A2A2FDBAB008C50C7 /* FitNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitNoteApp.swift; sourceTree = "<group>"; };
 		E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -144,8 +144,8 @@
 		E94CF21E2A4996A60060A277 /* Planner */ = {
 			isa = PBXGroup;
 			children = (
-				E94CF21F2A4996C60060A277 /* Planner.swift */,
-				E94CF2212A4997F40060A277 /* DatePicker.swift */,
+				E94CF2212A4997F40060A277 /* Planner.swift */,
+				E94CF22C2A4AF7BF0060A277 /* CustomDatePicker.swift */,
 				E94CF2262A499F720060A277 /* PlannerViewViewModel.swift */,
 				E94CF2252A499F440060A277 /* Models */,
 			);
@@ -415,6 +415,7 @@
 				E9B3AD8F2A30CF450059C99D /* LoginViewViewModel.swift in Sources */,
 				E9B3AD962A313AEB0059C99D /* RegisterView.swift in Sources */,
 				E94299FA2A3D8B790064686C /* AppUser.swift in Sources */,
+				E94CF22D2A4AF7BF0060A277 /* CustomDatePicker.swift in Sources */,
 				E9C9370A2A366F06009D4256 /* Constants.swift in Sources */,
 				E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */,
 				E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */,
@@ -434,12 +435,11 @@
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
 				E94CF2292A4A21E90060A277 /* ClientTask.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
-				E94CF2202A4996C60060A277 /* Planner.swift in Sources */,
 				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,
 				E9C937062A366E58009D4256 /* ExercisesViewViewModel.swift in Sources */,
 				E9B3B2112A407D20008BC653 /* TrainerView.swift in Sources */,
 				E94299FC2A3DCBC80064686C /* ImagePicker.swift in Sources */,
-				E94CF2222A4997F40060A277 /* DatePicker.swift in Sources */,
+				E94CF2222A4997F40060A277 /* Planner.swift in Sources */,
 				E9B3B21F2A418FAE008BC653 /* ClientViewViewModel.swift in Sources */,
 				E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */,
 				E91AE1BB2A34B56D002E67DA /* CustomerViewViewModel.swift in Sources */,
