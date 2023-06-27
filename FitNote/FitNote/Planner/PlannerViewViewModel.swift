@@ -11,6 +11,10 @@ import UIKit
 final class PlannerViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
+    
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    let calendar = Calendar.current
+    
     @Published var currentDate: Date = Date()
     @Published var selectedDate: Date = Date()
     @Published var currentMonth: Int = 0
@@ -21,17 +25,18 @@ final class PlannerViewViewModel: ObservableObject {
     
     @Published var tasks: [ClientTaskData] = []
     @Published var taskToDisplay: [ClientTask] = []
+    
+    
 // MARK:  - Methods -
     
     
     func getCurrentMonth() -> Date {
-        let calendar = Calendar.current
+
         guard let currentMonth = calendar.date(byAdding: .month, value: currentMonth, to: Date()) else { return Date() }
         return currentMonth
     }
     
     func fillDates() -> [DateInCalendar] {
-        let calendar = Calendar.current
         
         let currentMonth = getCurrentMonth()
         
@@ -49,77 +54,69 @@ final class PlannerViewViewModel: ObservableObject {
     func displayData() -> [String] {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM YYYY"
-//        guard let currentDate = currentDate else {
-//            print("empty data")
-//            return []
-//        }
         let date = formatter.string(from: currentDate)
         return date.components(separatedBy: " ")
     }
     
     func checkDay(date1: Date, date2: Date) -> Bool {
-        let calendar = Calendar.current
         
         return calendar.isDate(date1, inSameDayAs: date2)
     }
     
     func addClientToPlanner() {
-//        guard let dateFromPicker = selectedDate else {
-//            print("no data from picker")
-//            return
-//        }
-        let client = ClientTask(clientName: newClientName, time: selectedDate)
-
+        let id = UUID().uuidString
+        let idData = UUID().uuidString
+        
+        let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
+        var taskToDisplay: [ClientTask] = []
+        
         if tasks.isEmpty {
            
-            
-            var taskToDisplay: [ClientTask] = []
+           // var taskToDisplay: [ClientTask] = []
             taskToDisplay.append(client)
-            tasks.append(ClientTaskData(task: taskToDisplay, taskDate: selectedDate))
+            tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
         } else {
             
             for i in 0..<tasks.count {
                 var clientTaskData = tasks[i]
-                let calendar = Calendar.current
+
                 let componentsClient = calendar.dateComponents([.month, .year, .day], from: clientTaskData.taskDate)
                 let componentsDate = calendar.dateComponents([.month, .year, .day], from: selectedDate)
                 
                 if componentsClient == componentsDate {
                     clientTaskData.addTask(newClient: client)
-                    tasks[i] = clientTaskData
+                  tasks[i] = clientTaskData
                 } else {
                     //let client = ClientTask(clientName: "Anton", time: date)
                     
-                    var taskToDisplay: [ClientTask] = []
+                   // var taskToDisplay: [ClientTask] = []
                     taskToDisplay.append(client)
-                    tasks.append(ClientTaskData(task: taskToDisplay, taskDate: selectedDate))
+                    tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
                 }
             }
             
         }
         
+        Task { [weak self] in
+            guard let self = self else {return}
+            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+        }
+        
         print(tasks)
-       // self.isShown = false
     }
     
-    func showDatePickerAlert() {
-            let alertVC = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
-            let datePicker: UIDatePicker = UIDatePicker()
-            alertVC.view.addSubview(datePicker)
+    
+    func fetchTasksToPlanner() async {
 
-            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                self.selectedDate = datePicker.date
-              //  self.addClientToPlanner(date: datePicker.date)
+           
+            let clientsTasksFromServer  =  await self.fireBaseManager.fetchClientsToPlanner()
+          
+            await MainActor.run {
+                self.tasks = clientsTasksFromServer
             }
-            alertVC.addAction(okAction)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            alertVC.addAction(cancelAction)
-
-            if let viewController = UIApplication.shared.windows.first?.rootViewController {
-                viewController.present(alertVC, animated: true, completion: nil)
-            }
-         
-        }
+      
+    }
+    
     
     
 }

@@ -27,6 +27,8 @@ protocol FirebaseManagerProtocol {
     func saveClientsPhoto(imageURL: String, clientID: String) async throws
     func updateClientInfo(number: String, inst: String, id: String)
     func deleteClientData(docId: String)
+    func saveClientsPlanner(allTasks: [ClientTaskData]) async
+    func fetchClientsToPlanner() async -> [ClientTaskData]
 }
 
 
@@ -231,6 +233,55 @@ class FirebaseManager: FirebaseManagerProtocol {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(docId).delete()
     }
+    
+    
+    
+    
+    func saveClientsPlanner(allTasks: [ClientTaskData]) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            for clientTaskData in allTasks {
+                let clientTaskDataFromCalendar = ClientTaskData(id: clientTaskData.id, task: clientTaskData.task, taskDate: clientTaskData.taskDate)
+                let encodedClientTaskDataFromCalendar = try Firestore.Encoder().encode(clientTaskDataFromCalendar)
+                
+                try await Firestore.firestore().collection("TasksDB").document(uid).collection("tasks").document(clientTaskDataFromCalendar.id).setData(encodedClientTaskDataFromCalendar)
+            }
+            
+            
+           // let client = Client(id: id, name: name, instURL: instURL, number: "-", imageURL: "")
+           // let encodedClient = try Firestore.Encoder().encode(client)
+         
+            
+        } catch {
+            print("ne poluchilos sofranit tvoi strukturi")
+            print (error.localizedDescription)
+      
+        }
+    }
+    
+    
+    func fetchClientsToPlanner() async -> [ClientTaskData] {
+        guard let uid = Auth.auth().currentUser?.uid else { return [] }
+        var allTasks: [ClientTaskData] = []
+        do {
+            let snapshot = try await Firestore.firestore().collection("TasksDB").document(uid).collection("tasks").getDocuments()
+            
+           try snapshot.documents.forEach { doc in
+               let client = try doc.data(as: ClientTaskData.self)
+               allTasks.append(client)
+             
+            }
+
+        } catch {
+            print("Can't fetch clients Data from server to planner")
+           
+        }
+       
+        return allTasks
+    }
+    
+    
     
     //MARK: - Other functions -
     

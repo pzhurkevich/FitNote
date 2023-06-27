@@ -7,14 +7,18 @@
 
 import Foundation
 
-struct ClientTask: Identifiable {
-    var id = UUID().uuidString
+struct ClientTask: Identifiable, Codable, Comparable {
+    static func < (lhs: ClientTask, rhs: ClientTask) -> Bool {
+        return lhs.time < rhs.time
+    }
+    
+    let id: String
     var clientName: String
     var time: Date    
 }
 
-struct ClientTaskData: Identifiable {
-    var id = UUID().uuidString
+struct ClientTaskData: Identifiable, Codable {
+    let id: String
     var task: [ClientTask]
     var taskDate: Date
     
@@ -23,9 +27,3 @@ struct ClientTaskData: Identifiable {
       }
     
 }
-
-//func getSampleDate(offset: Int) -> Date {
-//    let calendar = Calendar.current
-//    guard let date = calendar.date(byAdding: .day, value: offset, to: Date()) else { return Date()}
-//    return date
-//}

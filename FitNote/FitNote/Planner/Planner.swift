@@ -157,12 +157,12 @@ struct Planner: View {
                         .padding(.vertical, 10)
                     
                     
-                    if let $task = $vm.tasks.first(where: { $task in
+                    if let task = vm.tasks.first(where: { task in
                         return vm.checkDay(date1: task.taskDate, date2: vm.currentDate)
                     }) {
                         
                        ScrollView {
-                            ForEach($task.task) { $task in
+                           ForEach(task.task.sorted()) { task in
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(task.time, style: .time)
@@ -189,27 +189,7 @@ struct Planner: View {
                             .foregroundColor(Color.pink)
                         Spacer()
                     }
-                    
                 }
-             
-//                Button {
-//
-//                   // vm.showDatePickerAlert()
-//
-//                    vm.isShown.toggle()
-//                } label: {
-//
-//                    Text("Add client")
-//                        .foregroundColor(.black)
-//                        .fontDesign(.rounded)
-//                        .fontWeight(.bold)
-////                        .frame(maxWidth: .infinity)
-//                        .padding(8)
-//                        .padding(.horizontal, 20)
-//                        .background(Color.greenColor)
-//                        .clipShape(Capsule())
-//                }.padding(5)
-
             }.onChange(of: vm.currentMonth) { newValue in
                 vm.currentDate = vm.getCurrentMonth()
             }
@@ -218,6 +198,9 @@ struct Planner: View {
         }
         .sheet(isPresented: $vm.isShown) {
             CustomDatePicker(vm: vm)
+        }
+        .task {
+            await vm.fetchTasksToPlanner()
         }
     }
 }
