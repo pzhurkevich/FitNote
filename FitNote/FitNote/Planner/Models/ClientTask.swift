@@ -10,13 +10,15 @@ import Foundation
 struct ClientTask: Identifiable {
     var id = UUID().uuidString
     var client: String
-    var time: Date = Date()    
+    var time: Date    
 }
 
 struct ClientTaskData: Identifiable {
     var id = UUID().uuidString
     var task: [ClientTask]
-    var taskDate: Date 
+    var taskDate: Date
+    
+    
 }
 
 func getSampleDate(offset: Int) -> Date {

@@ -6,22 +6,26 @@
 //
 
 import Foundation
+import UIKit
 
 final class PlannerViewViewModel: ObservableObject {
     
 // MARK:  - Variables -
     @Published var currentDate: Date = Date()
+    @Published var selectedDate: Date?
     @Published var currentMonth: Int = 0
     @Published var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    @Published var tasks: [ClientTaskData] = [
-        ClientTaskData(task: [
-        ClientTask(client: "Sasha"),
-        ClientTask(client: "Vika"),
-        ClientTask(client: "Artem")
-        ], taskDate: getSampleDate(offset: 1)),
+//    @Published var tasks: [ClientTaskData] = [
+//        ClientTaskData(task: [
+//        ClientTask(client: "Sasha"),
+//        ClientTask(client: "Vika"),
+//        ClientTask(client: "Artem")
+//        ], taskDate: getSampleDate(offset: 1)),
+//
+//        ClientTaskData(task: [ClientTask(client: "Anna")], taskDate: getSampleDate(offset: -1))
+//    ]
     
-        ClientTaskData(task: [ClientTask(client: "Anna")], taskDate: getSampleDate(offset: -1))
-    ]
+    @Published var tasks: [ClientTaskData] = []
 // MARK:  - Methods -
     
     
@@ -64,5 +68,32 @@ final class PlannerViewViewModel: ObservableObject {
         return calendar.isDate(date1, inSameDayAs: date2)
     }
     
-        
+    func addClientToPlanner(date: Date) {
+        let client = ClientTask(client: "Anton", time: date)
+        var taskToDisplay: [ClientTask] = []
+        taskToDisplay.append(client)
+        print(selectedDate!)
+        tasks.append(ClientTaskData(task: taskToDisplay, taskDate: date))
+    }
+    
+    func showDatePickerAlert() {
+            let alertVC = UIAlertController(title: "picker", message: nil, preferredStyle: .actionSheet)
+            let datePicker: UIDatePicker = UIDatePicker()
+            alertVC.view.addSubview(datePicker)
+
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                self.selectedDate = datePicker.date
+                self.addClientToPlanner(date: datePicker.date)
+            }
+            alertVC.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertVC.addAction(cancelAction)
+
+            if let viewController = UIApplication.shared.windows.first?.rootViewController {
+                viewController.present(alertVC, animated: true, completion: nil)
+            }
+         
+        }
+    
+    
 }
