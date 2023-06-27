@@ -97,9 +97,7 @@ final class PlannerViewViewModel: ObservableObject {
                     clientTaskData.addTask(newClient: client)
                   tasks[i] = clientTaskData
                 } else {
-                    //let client = ClientTask(clientName: "Anton", time: date)
-                    
-                   // var taskToDisplay: [ClientTask] = []
+
                     taskToDisplay.append(client)
                     tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
                 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomDatePicker: View {
     @ObservedObject var vm: PlannerViewViewModel
-    @State var selectedDate = Date()
+ 
     
     var body: some View {
         ZStack {
