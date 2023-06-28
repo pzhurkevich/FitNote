@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Workout: Identifiable, Equatable {
-    let id = UUID()
+struct Workout: Identifiable, Equatable, Codable {
+    let id: String
     var nameWorkout: String
     var dateWorkout: Date
     var allExercises: [OneExersice]

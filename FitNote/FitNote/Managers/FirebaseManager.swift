@@ -27,6 +27,8 @@ protocol FirebaseManagerProtocol {
     func saveClientsPhoto(imageURL: String, clientID: String) async throws
     func updateClientInfo(number: String, inst: String, id: String)
     func deleteClientData(docId: String)
+    func saveWorkout(name: String, date: Date, workout: [OneExersice], clientID: String) async
+    func fetchClientsWorkouts(clientID: String) async -> [Workout]
 }
 
 
@@ -36,9 +38,7 @@ class FirebaseManager: FirebaseManagerProtocol {
     
     var userSession: FirebaseAuth.User?
     
-    
-// MARK: - Registration and Login Methods -
-    
+       
   // MARK: - Functions for App User-
     
     func register(mail: String, password: String, name: String) async throws -> User {
@@ -232,8 +232,38 @@ class FirebaseManager: FirebaseManagerProtocol {
         Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(docId).delete()
     }
     
-    //MARK: - Other functions -
+    //MARK: - Workout functions -
     
+    func saveWorkout(name: String, date: Date, workout: [OneExersice], clientID: String) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let id = UUID().uuidString
+        do {
+            let clientWorkout = Workout(id: id, nameWorkout: name, dateWorkout: date, allExercises: workout)
+            let encodedClientWorkout = try Firestore.Encoder().encode(clientWorkout)
+            try await Firestore.firestore().collection("clientsWorkouts").document(uid).collection("workouts").document(clientID).setData(encodedClientWorkout)
+        } catch {
+            print (error.localizedDescription)
+        }
+    }
+    
+    func fetchClientsWorkouts(clientID: String) async -> [Workout] {
+        guard let uid = Auth.auth().currentUser?.uid else { return [] }
+        var allWorkouts: [Workout] = []
+        do {
+            let snapshot = try await Firestore.firestore().collection("clientsWorkouts").document(uid).collection("workouts").getDocuments()
+           try snapshot.documents.forEach { doc in
+               if doc.documentID == clientID {
+                   let workout = try doc.data(as: Workout.self)
+                   allWorkouts.append(workout)
+               }
+            }
 
+        } catch {
+            print("error while fetching")
+           
+        }
+       
+        return allWorkouts
+    }
     
 }

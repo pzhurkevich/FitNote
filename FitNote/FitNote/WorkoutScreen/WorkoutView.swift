@@ -10,10 +10,10 @@ import SwiftUI
 struct WorkoutView: View {
     
     
-    
-    @StateObject var vm = WorkoutViewViewModel()
-    
-    
+    @ObservedObject var vm: WorkoutViewViewModel
+    //@StateObject var vm = WorkoutViewViewModel()
+    //    @ObservedObject var vmClient : WorkoutViewViewModel
+    //    @ObservedObject var vmCustomer : WorkoutViewViewModel
     
     @State var textFieldIsDisabled = false
     
@@ -22,12 +22,12 @@ struct WorkoutView: View {
             Color.darkColor.ignoresSafeArea()
             VStack {
                 
-                Text("Today is \(vm.currentDate)")
+                Text("Today is \(vm.currentDate.formatted(date: .complete, time: .omitted))")
                     .foregroundColor(.white)
                     .padding()
                 
                 HStack {
-                
+                    
                     if vm.workoutNameEdit {
                         TextField("new workout", text: $vm.workoutName).textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.leading, 20)
@@ -38,14 +38,14 @@ struct WorkoutView: View {
                     } else {
                         Text(vm.workoutName)
                             .font(.system(size: 25))
-                            
+                        
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
                             .foregroundColor(.white)
                             .fontWeight(.semibold)
                     }
                     
-               
+                    
                     Button(action: {
                         vm.workoutNameEdit.toggle()
                         
@@ -66,7 +66,7 @@ struct WorkoutView: View {
                     Spacer()
                 } else {
                     //else starts
-
+                    
                     VStack {
                         List($vm.workout) { $exercise in
                             
@@ -96,7 +96,7 @@ struct WorkoutView: View {
                                 
                                 Divider()
                                     .background(Color.greenColor)
-                                    .padding([.bottom, .top], 10)
+                                    .padding([.bottom, .top], 5)
                                 
                                 
                                 
@@ -118,12 +118,12 @@ struct WorkoutView: View {
                                                 TextField("rep", text: $item.rep)
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
-                                                    .padding(5)
+                                                    .padding(3)
                                                     .overlay {
                                                         RoundedRectangle(cornerRadius: 24)
                                                             .stroke(Color.white, lineWidth: 1)
                                                         
-                                                }
+                                                    }
                                                 Text("r")
                                                     .foregroundColor(.greenColor)
                                             }
@@ -132,7 +132,7 @@ struct WorkoutView: View {
                                                 TextField("ves", text: $item.ves)
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
-                                                    .padding(5)
+                                                    .padding(3)
                                                     .overlay {
                                                         RoundedRectangle(cornerRadius: 24)
                                                             .stroke(Color.white, lineWidth: 1)
@@ -140,7 +140,7 @@ struct WorkoutView: View {
                                                 
                                                 Text("w")
                                                     .foregroundColor(.greenColor)
-                                            }.padding(5)
+                                            }.padding(3)
                                         }
                                     }
                                 }
@@ -148,7 +148,7 @@ struct WorkoutView: View {
                                 if !exercise.sets.isEmpty {
                                     Divider()
                                         .background(Color.greenColor)
-                                        .padding([.bottom, .top], 10)
+                                        .padding([.bottom, .top], 5)
                                 }
                                 
                                 HStack(alignment: .firstTextBaseline) {
@@ -204,13 +204,13 @@ struct WorkoutView: View {
                         .background(Color.darkColor)
                         .scrollContentBackground(.hidden)
                         
-                      
-
+                        
+                        
                         
                     }
                     
                     Button {
-                   
+                        vm.saveWorkout()
                     } label: {
                         
                         Text("End Workout")
@@ -226,7 +226,7 @@ struct WorkoutView: View {
                 }
                 
                 
-             
+                
                 
             }
         }.navigationBarTitleDisplayMode(.inline)
@@ -249,11 +249,14 @@ struct WorkoutView: View {
             .sheet(isPresented: $vm.isPresented) {
                 ExercisesView(vm: vm.exerciseListVM)
             }
+        //                    .task{
+        //                        await vm.getWorkouts()
+        //                    }
     }
 }
 
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutView()
+        WorkoutView(vm: WorkoutViewViewModel(clientData: Client(id: "", name: "", instURL: "", number: "", imageURL: "")))
     }
 }

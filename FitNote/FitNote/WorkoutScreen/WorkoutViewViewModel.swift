@@ -13,14 +13,17 @@ final class WorkoutViewViewModel: ObservableObject {
     // MARK:  - Variables -
     
     @Published var exerciseListVM = ExercisesViewViewModel()
+    let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    
     private var cancellable =  Set<AnyCancellable>()
     
     @Published var workout: [OneExersice] = []
     @Published var oneExerciseForWorkout: Exercise?
+    @Published var clientData: Client
     
     @Published var repetitions = [""]
     @Published var weights = [""]
-    @Published var currentDate = Date().formatted(date: .complete, time: .omitted)
+    @Published var currentDate = Date()
     @Published var workoutName: String = "New Workout"
     @Published var workoutNameEdit = false
     @Published var isPresented = false
@@ -35,9 +38,32 @@ final class WorkoutViewViewModel: ObservableObject {
        
     }
   
+    func saveWorkout() {
+        Task { [weak self] in
+            guard let self = self else {return}
+            
+            await fireBaseManager.saveWorkout(name: workoutName, date: currentDate, workout: workout, clientID: clientData.id)
+
+        }
+
+    }
     
-    init() {
-        
+//    func getWorkouts() async {
+//        let workoutsFromServer  =  await self.fireBaseManager.fetchClientsWorkouts(clientID: clientData.id)
+//      
+//        await MainActor.run {
+//            if let testWorkout = workoutsFromServer.first {
+//                self.workout = testWorkout.allExercises
+//            }
+//            
+//            
+//        }
+//    }
+//    
+    
+    
+    init(clientData: Client) {
+        self.clientData = clientData
         exerciseListVM.$workoutExercise
             .sink { [weak self] item in
                 guard let self = self else {return}
