@@ -20,7 +20,7 @@ struct ClientsListView: View {
             VStack {
                 
                 if vm.clients.isEmpty {
-                    Text("Add new clients using button")
+                    Text("Add new client")
                         .font(.title)
                         .foregroundColor(.white)
                 } else {
@@ -94,43 +94,29 @@ struct ClientsListView: View {
                     .background(Color.darkColor)
                     .scrollContentBackground(.hidden)
                     
-                    .navigationBarTitleDisplayMode(.large)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text("Your clients")
-                                .font(.largeTitle)
-                                .foregroundColor(.greenColor)
-                        }
-                        
-                    }
-                    .toolbarBackground(Color.darkColor)
+                    
                 }
-                
-                
-                Button {
-                    vm.showingAlert.toggle()
-                } label: {
-                    HStack {
-                        Text("New Client")
-                            .font(.system(size: 20))
-                            .fontDesign(.rounded)
-                            .fontWeight(.bold)
-                        
-                        Image(systemName: "plus.circle")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .fontWeight(.semibold)
-                            .padding(.leading, 10)
-                    }
-                    .tint(.black)
-                    .padding(20)
-                    .background(Color.greenColor)
-                    .clipShape(Capsule())
-                }.padding(.bottom, 20)
-                
+                  
             }
-        }
-        .alert("Add client", isPresented: $vm.showingAlert) {
+        }.navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Your clients")
+                        .font(.title)
+                        .foregroundColor(.greenColor)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        vm.showingAlert.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                        
+                            .foregroundColor(.greenColor)
+                    }
+                }
+            }
+           // .toolbarBackground(Color.darkColor)
+        .alert("Add Client", isPresented: $vm.showingAlert) {
             TextField("name", text: $vm.newClientName)
                 .disableAutocorrection(true)
             Button("Add", action: vm.addNewClient)

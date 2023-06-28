@@ -15,14 +15,14 @@ final class WorkoutViewViewModel: ObservableObject {
     @Published var exerciseListVM = ExercisesViewViewModel()
     private var cancellable =  Set<AnyCancellable>()
     
-    @Published var workout1: [OneExersice] = []
-    
-    
+    @Published var workout: [OneExersice] = []
     @Published var oneExerciseForWorkout: Exercise?
     
     @Published var repetitions = [""]
     @Published var weights = [""]
     @Published var currentDate = Date().formatted(date: .complete, time: .omitted)
+    @Published var workoutName: String = "New Workout"
+    @Published var workoutNameEdit = false
     @Published var isPresented = false
     
     // MARK:  - Methods -
@@ -44,7 +44,7 @@ final class WorkoutViewViewModel: ObservableObject {
                 self.oneExerciseForWorkout = item
                 
                 if oneExerciseForWorkout != nil {
-                    self.workout1.append(OneExersice(name: "\(oneExerciseForWorkout?.name ?? "error")", sets: []))
+                    self.workout.append(OneExersice(name: "\(oneExerciseForWorkout?.name ?? "error")", sets: []))
                 }
             }
             
