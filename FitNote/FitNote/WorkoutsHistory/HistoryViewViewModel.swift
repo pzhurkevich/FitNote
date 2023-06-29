@@ -9,25 +9,40 @@ import Foundation
 
 final class HistoryViewViewModel: ObservableObject {
     
-// MARK:  - Variables -
+    // MARK:  - Variables -
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     @Published var clientData: Client
     @Published var workoutsToDisplay: [Workout] = []
-
-// MARK:  - Methods -
+    
+    @Published var tappedID: UUID?
+    
+    
+    
+    // MARK:  - Methods -
     init(clientData: Client) {
         self.clientData = clientData
+        print(clientData)
     }
-   
+    
+
+
+  
         func getWorkouts() async {
-            let workoutsFromServer  =  await self.fireBaseManager.fetchCustomerWorkouts()
-    
-            await MainActor.run {
-             
+            do {
+                guard let data = try await self.fireBaseManager.fetchAppUser() else { return }
+
+                let workoutsFromServer: [Workout]
+                if data.appRole == "selfTrain" {
+                    workoutsFromServer = await self.fireBaseManager.fetchCustomerWorkouts()
+                } else {
+                    workoutsFromServer = await self.fireBaseManager.fetchClientsWorkouts(clientID: clientData.id)
+                }
+
+                await MainActor.run {
                     self.workoutsToDisplay = workoutsFromServer
-                
-    
-    
+                }
+            } catch {
+                print("Can't fetch AppUser data for load workouts")
             }
         }
     

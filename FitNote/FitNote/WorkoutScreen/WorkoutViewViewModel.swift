@@ -20,7 +20,7 @@ final class WorkoutViewViewModel: ObservableObject {
     @Published var workout: [OneExersice] = []
     @Published var oneExerciseForWorkout: Exercise?
     @Published var clientData: Client
-    //@Published var appUserData: AppUser
+
     
     @Published var repetitions = [""]
     @Published var weights = [""]
@@ -55,20 +55,6 @@ final class WorkoutViewViewModel: ObservableObject {
         }
 
     }
-    
-//    func getWorkouts() async {
-//        let workoutsFromServer  =  await self.fireBaseManager.fetchClientsWorkouts(clientID: clientData.id)
-//      
-//        await MainActor.run {
-//            if let testWorkout = workoutsFromServer.first {
-//                self.workout = testWorkout.allExercises
-//            }
-//            
-//            
-//        }
-//    }
-//    
-    
     
     init(clientData: Client) {
         self.clientData = clientData

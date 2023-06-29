@@ -207,8 +207,8 @@ struct ClientView: View {
                                 }
                                 .padding(.horizontal, 20)
                                 
-                                Button {
-                                    //action
+                                NavigationLink {
+                                    HistoryView(vm: HistoryViewViewModel(clientData: vm.clientData))
                                 } label: {
                                     HStack {
                                         Text("Workouts history")

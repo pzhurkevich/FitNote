@@ -288,12 +288,12 @@ class FirebaseManager: FirebaseManagerProtocol {
         guard let uid = Auth.auth().currentUser?.uid else { return [] }
         var allWorkouts: [Workout] = []
         do {
-            let snapshot = try await Firestore.firestore().collection("clientsWorkouts").document(uid).collection("workouts").getDocuments()
+            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").getDocuments()
            try snapshot.documents.forEach { doc in
-               if doc.documentID == clientID {
+              
                    let workout = try doc.data(as: Workout.self)
                    allWorkouts.append(workout)
-               }
+               
             }
 
         } catch {
