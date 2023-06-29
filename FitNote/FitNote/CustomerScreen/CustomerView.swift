@@ -179,8 +179,8 @@ struct CustomerView: View {
                                 }
                                 .padding(.horizontal, 20)
                                 
-                                Button {
-                                    //action
+                                NavigationLink {
+                                    HistoryView(vm: HistoryViewViewModel(clientData: Client(id: "", name: "", instURL: "", number: "", imageURL: "")))
                                 } label: {
                                     HStack {
                                         Text("Workouts history")

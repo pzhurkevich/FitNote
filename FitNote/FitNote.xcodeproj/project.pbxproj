@@ -17,6 +17,8 @@
 		E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2182A4625E20060A277 /* OneExercise.swift */; };
 		E94CF21B2A4625F90060A277 /* OneSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF21A2A4625F90060A277 /* OneSet.swift */; };
 		E94CF2312A4CD9220060A277 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2302A4CD9210060A277 /* Workout.swift */; };
+		E94CF2342A4D87780060A277 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2332A4D87780060A277 /* HistoryView.swift */; };
+		E94CF2362A4D87960060A277 /* HistoryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2352A4D87960060A277 /* HistoryViewViewModel.swift */; };
 		E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */; };
 		E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */; };
 		E9A46A222A2FDBB1008C50C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		E94CF2182A4625E20060A277 /* OneExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneExercise.swift; sourceTree = "<group>"; };
 		E94CF21A2A4625F90060A277 /* OneSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneSet.swift; sourceTree = "<group>"; };
 		E94CF2302A4CD9210060A277 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		E94CF2332A4D87780060A277 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		E94CF2352A4D87960060A277 /* HistoryViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewViewModel.swift; sourceTree = "<group>"; };
 		E9A46A1A2A2FDBAB008C50C7 /* FitNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitNoteApp.swift; sourceTree = "<group>"; };
 		E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -139,6 +143,15 @@
 			path = CustomerScreen;
 			sourceTree = "<group>";
 		};
+		E94CF2322A4D87520060A277 /* WorkoutsHistory */ = {
+			isa = PBXGroup;
+			children = (
+				E94CF2332A4D87780060A277 /* HistoryView.swift */,
+				E94CF2352A4D87960060A277 /* HistoryViewViewModel.swift */,
+			);
+			path = WorkoutsHistory;
+			sourceTree = "<group>";
+		};
 		E9A46A112A2FDBAB008C50C7 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +173,7 @@
 			children = (
 				E9A46A1D2A2FDBAB008C50C7 /* FitNoteApp.swift */,
 				E9C937092A366F06009D4256 /* Constants.swift */,
+				E94CF2322A4D87520060A277 /* WorkoutsHistory */,
 				E9B3B21B2A418F5A008BC653 /* ClientScreen */,
 				E9B3B2162A40ABF9008BC653 /* ClientsListScreen */,
 				E9B3B20F2A407AF0008BC653 /* Trainer screen */,
@@ -395,6 +409,7 @@
 				E9B3AD8F2A30CF450059C99D /* LoginViewViewModel.swift in Sources */,
 				E9B3AD962A313AEB0059C99D /* RegisterView.swift in Sources */,
 				E94299FA2A3D8B790064686C /* AppUser.swift in Sources */,
+				E94CF2362A4D87960060A277 /* HistoryViewViewModel.swift in Sources */,
 				E9C9370A2A366F06009D4256 /* Constants.swift in Sources */,
 				E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */,
 				E9B3AD982A313B880059C99D /* RegisterViewViewModel.swift in Sources */,
@@ -413,6 +428,7 @@
 				E9B3B2132A407EBF008BC653 /* TrainerViewViewModel.swift in Sources */,
 				E94CF2312A4CD9220060A277 /* Workout.swift in Sources */,
 				E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */,
+				E94CF2342A4D87780060A277 /* HistoryView.swift in Sources */,
 				E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,

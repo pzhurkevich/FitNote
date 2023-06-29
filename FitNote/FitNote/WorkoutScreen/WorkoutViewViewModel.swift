@@ -20,6 +20,7 @@ final class WorkoutViewViewModel: ObservableObject {
     @Published var workout: [OneExersice] = []
     @Published var oneExerciseForWorkout: Exercise?
     @Published var clientData: Client
+    //@Published var appUserData: AppUser
     
     @Published var repetitions = [""]
     @Published var weights = [""]
@@ -33,17 +34,24 @@ final class WorkoutViewViewModel: ObservableObject {
     func addSet(exercise: inout OneExersice) {
         guard !exercise.newItem2.isEmpty, !exercise.newItem.isEmpty else { return }
         exercise.sets.append(OneSet(rep: exercise.newItem, ves: exercise.newItem2))
-//        exercise.newItem = ""
-//        exercise.newItem2 = ""
-       
     }
   
     func saveWorkout() {
+        
         Task { [weak self] in
             guard let self = self else {return}
             
-            await fireBaseManager.saveWorkout(name: workoutName, date: currentDate, workout: workout, clientID: clientData.id)
-
+            guard let data  =  try await self.fireBaseManager.fetchAppUser() else { return }
+            
+            if data.appRole == "selfTrain" {
+                await self.fireBaseManager.saveCustomerWorkout(name: workoutName, date: currentDate, workout: workout)
+            } else {
+                await self.fireBaseManager.saveClientWorkout(name: workoutName, date: currentDate, workout: workout, clientID: clientData.id)
+            }
+            await MainActor.run {
+                self.workout = []
+                self.workoutName = "New Workout"
+            }
         }
 
     }
@@ -64,6 +72,8 @@ final class WorkoutViewViewModel: ObservableObject {
     
     init(clientData: Client) {
         self.clientData = clientData
+
+        
         exerciseListVM.$workoutExercise
             .sink { [weak self] item in
                 guard let self = self else {return}

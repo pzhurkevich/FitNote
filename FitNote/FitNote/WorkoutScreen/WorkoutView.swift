@@ -11,11 +11,7 @@ struct WorkoutView: View {
     
     
     @ObservedObject var vm: WorkoutViewViewModel
-    //@StateObject var vm = WorkoutViewViewModel()
-    //    @ObservedObject var vmClient : WorkoutViewViewModel
-    //    @ObservedObject var vmCustomer : WorkoutViewViewModel
-    
-    @State var textFieldIsDisabled = false
+
     
     var body: some View {
         ZStack {
