@@ -134,7 +134,7 @@ struct WorkoutView: View {
                                                             .stroke(Color.white, lineWidth: 1)
                                                     }
                                                 
-                                                Text("w")
+                                                Text("kg")
                                                     .foregroundColor(.greenColor)
                                             }.padding(3)
                                         }
