@@ -135,6 +135,6 @@ struct HistoryView: View {
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryView(vm: HistoryViewViewModel(clientData: Client(id: "", name: "User", instURL: "", number: "", imageURL: "")))
+        HistoryView(vm: HistoryViewViewModel(clientData: Client()))
     }
 }

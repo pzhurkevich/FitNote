@@ -32,7 +32,8 @@ final class HistoryViewViewModel: ObservableObject {
                 guard let data = try await self.fireBaseManager.fetchAppUser() else { return }
 
                 let workoutsFromServer: [Workout]
-                if data.appRole == "selfTrain" {
+                
+                if Constants.currentState == .loggedAsSelf {
                     workoutsFromServer = await self.fireBaseManager.fetchCustomerWorkouts()
                 } else {
                     workoutsFromServer = await self.fireBaseManager.fetchClientsWorkouts(clientID: clientData.id)

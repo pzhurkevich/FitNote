@@ -56,18 +56,31 @@ final class WorkoutViewViewModel: ObservableObject {
 
     }
     
+    func exerciseNumberText(exercise: OneExersice ) -> String {
+        guard let index =  workout.firstIndex(of: exercise) else { return "empty"}
+            let value = index + 1
+        return String("\(value).")
+    }
+    
+    
+    func setNumberText(set: OneSet, sets: [OneSet] ) -> String {
+        guard let index = sets.firstIndex(of: set) else { return "empty"}
+            let value = index + 1
+        return String("Set \(value):")
+
+    }
+    
+    
+    
     init(clientData: Client) {
         self.clientData = clientData
 
         
-        exerciseListVM.$workoutExercise
+        exerciseListVM.$workoutExercise.compactMap { $0 }
             .sink { [weak self] item in
                 guard let self = self else {return}
                 self.oneExerciseForWorkout = item
-                
-                if oneExerciseForWorkout != nil {
-                    self.workout.append(OneExersice(name: "\(oneExerciseForWorkout?.name ?? "error")", sets: []))
-                }
+                self.workout.append(OneExersice(name: "\(oneExerciseForWorkout?.name ?? "error")", sets: []))
             }
             
             .store(in: &cancellable)

@@ -11,7 +11,7 @@ struct WorkoutView: View {
     
     
     @ObservedObject var vm: WorkoutViewViewModel
-
+    
     
     var body: some View {
         ZStack {
@@ -70,7 +70,7 @@ struct WorkoutView: View {
                                 
                                 HStack() {
                                     
-                                    Text("\((vm.workout.firstIndex(of: exercise) ?? 0) + 1).")
+                                    Text(vm.exerciseNumberText(exercise: exercise))
                                         .font(.title)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.white)
@@ -106,7 +106,7 @@ struct WorkoutView: View {
                                         
                                         
                                         HStack {
-                                            Text("Set \(exercise.sets.firstIndex(of: item)! + 1):")
+                                            Text(vm.setNumberText(set: item, sets: exercise.sets))
                                                 .foregroundColor(.white)
                                                 .padding(5)
                                             
@@ -245,14 +245,11 @@ struct WorkoutView: View {
             .sheet(isPresented: $vm.isPresented) {
                 ExercisesView(vm: vm.exerciseListVM)
             }
-        //                    .task{
-        //                        await vm.getWorkouts()
-        //                    }
     }
 }
 
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutView(vm: WorkoutViewViewModel(clientData: Client(id: "", name: "", instURL: "", number: "", imageURL: "")))
+        WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
     }
 }

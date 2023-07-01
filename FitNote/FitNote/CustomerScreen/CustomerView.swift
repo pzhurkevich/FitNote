@@ -161,7 +161,7 @@ struct CustomerView: View {
                             Spacer()
                                 
                                 NavigationLink {
-                                    WorkoutView(vm: WorkoutViewViewModel(clientData: Client(id: "", name: "", instURL: "", number: "", imageURL: "")))
+                                    WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
                                 } label: {
                                     HStack {
                                         Text("Workout")
@@ -180,7 +180,7 @@ struct CustomerView: View {
                                 .padding(.horizontal, 20)
                                 
                                 NavigationLink {
-                                    HistoryView(vm: HistoryViewViewModel(clientData: Client(id: "", name: "", instURL: "", number: "", imageURL: "")))
+                                    HistoryView(vm: HistoryViewViewModel(clientData: Client()))
                                 } label: {
                                     HStack {
                                         Text("Workouts history")

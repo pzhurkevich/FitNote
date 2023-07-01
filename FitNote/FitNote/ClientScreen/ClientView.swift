@@ -267,6 +267,6 @@ struct ClientView: View {
 
 struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
-        ClientView(vm: ClientViewViewModel(clientData: .init(id: "", name: "Anna", instURL: "", number: "", imageURL: "")))
+        ClientView(vm: ClientViewViewModel(clientData: Client()))
     }
 }

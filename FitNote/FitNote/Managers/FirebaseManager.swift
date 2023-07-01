@@ -26,6 +26,7 @@ protocol FirebaseManagerProtocol {
     func fetchClients() async -> [Client]
     func saveClientsPhoto(imageURL: String, clientID: String) async throws
     func updateClientInfo(number: String, inst: String, id: String)
+    func getCurrentClientInfo(id: String) async -> Client?
     func deleteClientData(docId: String)
     func saveClientWorkout(name: String, date: Date, workout: [OneExersice], clientID: String) async
     func fetchClientsWorkouts(clientID: String) async -> [Workout]
@@ -165,18 +166,11 @@ class FirebaseManager: FirebaseManagerProtocol {
         var allWorkouts: [Workout] = []
         do {
             let snapshot = try await Firestore.firestore().collection("appUsers").document(uid).collection("workouts").getDocuments()
-           try snapshot.documents.forEach { doc in
-              
-                   let workout = try doc.data(as: Workout.self)
-                   allWorkouts.append(workout)
-               
-            }
-
+            allWorkouts = try snapshot.documents.map { try $0.data(as: Workout.self) }
         } catch {
             print("error while fetching")
-           
         }
-       
+        
         return allWorkouts
     }
     
@@ -204,13 +198,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         var allClients: [Client] = []
         do {
             let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").getDocuments()
-            
-           try snapshot.documents.forEach { doc in
-               let client = try doc.data(as: Client.self)
-               allClients.append(client)
-             
-            }
-
+            allClients = try snapshot.documents.map { try $0.data(as: Client.self) }
         } catch {
             print("Can't fetch clients Data")
            
@@ -264,6 +252,21 @@ class FirebaseManager: FirebaseManagerProtocol {
        ], merge: true)
     }
     
+    func getCurrentClientInfo(id: String) async -> Client? {
+        guard let uid = Auth.auth().currentUser?.uid else { return nil }
+       
+        do {
+            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(id).getDocument()
+            let client = try snapshot.data(as: Client.self)
+            return client
+        } catch {
+            print("Can't fetch clients Data")
+           return nil
+        }
+    
+    }
+    
+    
     
     func deleteClientData(docId: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -289,13 +292,8 @@ class FirebaseManager: FirebaseManagerProtocol {
         var allWorkouts: [Workout] = []
         do {
             let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").getDocuments()
-           try snapshot.documents.forEach { doc in
-              
-                   let workout = try doc.data(as: Workout.self)
-                   allWorkouts.append(workout)
-               
-            }
-
+            
+            allWorkouts = try snapshot.documents.map { try $0.data(as: Workout.self) }
         } catch {
             print("error while fetching")
            
