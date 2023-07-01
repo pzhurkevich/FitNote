@@ -247,14 +247,8 @@ class FirebaseManager: FirebaseManagerProtocol {
                 
                 try await Firestore.firestore().collection("TasksDB").document(uid).collection("tasks").document(clientTaskDataFromCalendar.id).setData(encodedClientTaskDataFromCalendar)
             }
-            
-            
-           // let client = Client(id: id, name: name, instURL: instURL, number: "-", imageURL: "")
-           // let encodedClient = try Firestore.Encoder().encode(client)
-         
-            
         } catch {
-            print("ne poluchilos sofranit tvoi strukturi")
+            print("ne poluchilos sohranit tvoi strukturi")
             print (error.localizedDescription)
       
         }
@@ -267,11 +261,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         do {
             let snapshot = try await Firestore.firestore().collection("TasksDB").document(uid).collection("tasks").getDocuments()
             
-           try snapshot.documents.forEach { doc in
-               let client = try doc.data(as: ClientTaskData.self)
-               allTasks.append(client)
-             
-            }
+            allTasks =  try snapshot.documents.map {try $0.data(as: ClientTaskData.self) }
 
         } catch {
             print("Can't fetch clients Data from server to planner")

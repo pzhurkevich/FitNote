@@ -45,12 +45,12 @@ struct Planner: View {
                 HStack(spacing: 20){
                     
                     VStack(alignment: .leading, spacing: 10){
-                        Text(vm.displayData()[1])
+                        Text(vm.displayData().last ?? "Month")
                             .font(.caption)
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                         
-                        Text(vm.displayData()[0])
+                        Text(vm.displayData().first ?? "Year")
                             .font(.title.bold())
                             .foregroundColor(.white)
                     }
@@ -105,9 +105,7 @@ struct Planner: View {
 
                         VStack {
                             if item.day != 0 {
-                                if let task = vm.tasks.first(where: { task in
-                                    return vm.checkDay(date1: task.taskDate, date2: item.date)
-                                }) {
+                                if let task = vm.taskInDate(dateInCalendar: item.date) {
                                     Text("\(item.day)")
                                         .font(.title3.bold())
                                         .foregroundColor(vm.checkDay(date1: task.taskDate, date2: vm.currentDate) ? .black : .white)
@@ -158,9 +156,7 @@ struct Planner: View {
                         .padding([.vertical, .horizontal], 10)
                     
                     
-                    if let task = vm.tasks.first(where: { task in
-                        return vm.checkDay(date1: task.taskDate, date2: vm.currentDate)
-                    }) {
+                    if let task = vm.taskInDate(dateInCalendar: vm.currentDate) {
                         
                        List {
                            ForEach(task.task.sorted()) { task in

@@ -113,7 +113,6 @@ final class PlannerViewViewModel: ObservableObject {
         print(tasks)
     }
     
-    
     func fetchTasksToPlanner() async {
 
             let clientsTasksFromServer  =  await self.fireBaseManager.fetchClientsToPlanner()
@@ -122,5 +121,12 @@ final class PlannerViewViewModel: ObservableObject {
                 self.tasks = clientsTasksFromServer
             }
     }
+    
+    func taskInDate(dateInCalendar: Date) -> ClientTaskData? {
+        return tasks.first(where: { task in
+            return checkDay(date1: task.taskDate, date2: dateInCalendar)
+        })
+    }
+    
     
 }
