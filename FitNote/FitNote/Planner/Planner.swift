@@ -45,12 +45,12 @@ struct Planner: View {
                 HStack(spacing: 20){
                     
                     VStack(alignment: .leading, spacing: 10){
-                        Text(vm.displayData().last ?? "Month")
+                        Text(vm.currentDate.displayData().last ?? "Month")
                             .font(.caption)
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                         
-                        Text(vm.displayData().first ?? "Year")
+                        Text(vm.currentDate.displayData().first ?? "Year")
                             .font(.title.bold())
                             .foregroundColor(.white)
                     }
@@ -108,19 +108,19 @@ struct Planner: View {
                                 if let task = vm.taskInDate(dateInCalendar: item.date) {
                                     Text("\(item.day)")
                                         .font(.title3.bold())
-                                        .foregroundColor(vm.checkDay(date1: task.taskDate, date2: vm.currentDate) ? .black : .white)
+                                        .foregroundColor(task.taskDate.checkDay(date: vm.currentDate) ? .black : .white)
                                         .frame(maxWidth: .infinity)
                                     
                                     Spacer()
                                     
                                     Circle()
-                                        .fill(vm.checkDay(date1: task.taskDate, date2: vm.currentDate) ? .black : Color.red)
+                                        .fill(task.taskDate.checkDay(date: vm.currentDate)  ? .black : Color.red)
                                         .frame(width: 8, height: 8)
                                     
                                 } else {
                                     Text(item.day != 0 ? "\(item.day)" : "")
                                         .font(.title3.bold())
-                                        .foregroundColor(vm.checkDay(date1: item.date, date2: vm.currentDate) ? .black : .white)
+                                        .foregroundColor(item.date.checkDay(date: vm.currentDate) ? .black : .white)
                                         .frame(maxWidth: .infinity)
                                     
                                     
@@ -136,7 +136,7 @@ struct Planner: View {
                         Capsule()
                             .fill(Color.greenColor)
                             .padding(.horizontal, 8)
-                            .opacity(vm.checkDay(date1: item.date, date2: vm.currentDate) ? 1 : 0)
+                            .opacity(item.date.checkDay(date: vm.currentDate) ? 1 : 0)
                         )
                         
                         .onTapGesture {
@@ -159,7 +159,7 @@ struct Planner: View {
                     if let task = vm.taskInDate(dateInCalendar: vm.currentDate) {
                         
                        List {
-                           ForEach(task.task.sorted()) { task in
+                           ForEach(task.task) { task in
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(task.time, style: .time)

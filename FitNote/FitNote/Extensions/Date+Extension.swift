@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+    
     func getAllDates() -> [Date] {
         let calendar = Calendar.current
         
@@ -19,4 +20,25 @@ extension Date {
             return datesForCalendar
         }
     }
+    
+    
+    func checkDay(date: Date) -> Bool {
+            let calendar = Calendar.current
+            return calendar.isDate(self, inSameDayAs: date)
+        }
+
+    func displayData() -> [String] {
+         let formatter = DateFormatter()
+         formatter.dateFormat = "MMMM YYYY"
+         let date = formatter.string(from: self)
+         return date.components(separatedBy: " ")
+     }
+    
+    func getDateComponents() -> DateComponents {
+           let calendar = Calendar.current
+           return calendar.dateComponents([.month, .year, .day], from: self)
+       }
+
+
+    
 }

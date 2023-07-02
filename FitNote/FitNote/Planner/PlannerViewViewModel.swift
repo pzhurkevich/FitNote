@@ -43,27 +43,17 @@ final class PlannerViewViewModel: ObservableObject {
         
         let currentMonth = getCurrentMonth()
         
-        var monthDays = currentMonth.getAllDates().compactMap { date -> DateInCalendar in
+        let monthDays = currentMonth.getAllDates().compactMap { date -> DateInCalendar in
+            
             let day = calendar.component(.day, from: date)
             return DateInCalendar(day: day, date: date)
         }
         let firstWeekday = calendar.component(.weekday, from: monthDays.first?.date ?? Date())
-        for _ in 0..<firstWeekday - 1 {
-            monthDays.insert(DateInCalendar(day: 0, date: Date()), at: 0)
+        let emptyDays = (1..<firstWeekday).map { _ in
+            return DateInCalendar(day: 0, date: Date())
         }
-        return monthDays
-    }
-    
-    func displayData() -> [String] {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM YYYY"
-        let date = formatter.string(from: currentDate)
-        return date.components(separatedBy: " ")
-    }
-    
-    func checkDay(date1: Date, date2: Date) -> Bool {
         
-        return calendar.isDate(date1, inSameDayAs: date2)
+        return emptyDays + monthDays
     }
     
     func addClientToPlanner() {
@@ -90,8 +80,8 @@ final class PlannerViewViewModel: ObservableObject {
             for i in 0..<tasks.count {
                 var clientTaskData = tasks[i]
 
-                let componentsClient = calendar.dateComponents([.month, .year, .day], from: clientTaskData.taskDate)
-                let componentsDate = calendar.dateComponents([.month, .year, .day], from: selectedDate)
+                let componentsClient = clientTaskData.taskDate.getDateComponents()
+                let componentsDate = selectedDate.getDateComponents()
                 
                 if componentsClient == componentsDate {
                     clientTaskData.addTask(newClient: client)
@@ -99,7 +89,7 @@ final class PlannerViewViewModel: ObservableObject {
                 } else {
 
                     taskToDisplay.append(client)
-                    tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
+                    tasks.append(ClientTaskData(id: idData, task: taskToDisplay.sorted(), taskDate: selectedDate))
                 }
             }
             
@@ -110,7 +100,6 @@ final class PlannerViewViewModel: ObservableObject {
             await fireBaseManager.saveClientsPlanner(allTasks: tasks)
         }
        isShown.toggle()
-        print(tasks)
     }
     
     func fetchTasksToPlanner() async {
@@ -124,7 +113,7 @@ final class PlannerViewViewModel: ObservableObject {
     
     func taskInDate(dateInCalendar: Date) -> ClientTaskData? {
         return tasks.first(where: { task in
-            return checkDay(date1: task.taskDate, date2: dateInCalendar)
+            return task.taskDate.checkDay(date: dateInCalendar)
         })
     }
     
