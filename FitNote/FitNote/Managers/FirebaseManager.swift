@@ -26,7 +26,12 @@ protocol FirebaseManagerProtocol {
     func fetchClients() async -> [Client]
     func saveClientsPhoto(imageURL: String, clientID: String) async throws
     func updateClientInfo(number: String, inst: String, id: String)
+    func getCurrentClientInfo(id: String) async -> Client?
     func deleteClientData(docId: String)
+    func saveClientWorkout(name: String, date: Date, workout: [OneExersice], clientID: String) async
+    func fetchClientsWorkouts(clientID: String) async -> [Workout]
+    func saveCustomerWorkout(name: String, date: Date, workout: [OneExersice]) async
+    func fetchCustomerWorkouts() async -> [Workout]
 }
 
 
@@ -36,9 +41,7 @@ class FirebaseManager: FirebaseManagerProtocol {
     
     var userSession: FirebaseAuth.User?
     
-    
-// MARK: - Registration and Login Methods -
-    
+       
   // MARK: - Functions for App User-
     
     func register(mail: String, password: String, name: String) async throws -> User {
@@ -144,6 +147,35 @@ class FirebaseManager: FirebaseManagerProtocol {
         
     }
     
+    func saveCustomerWorkout(name: String, date: Date, workout: [OneExersice]) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            let AppUserWorkout = Workout(nameWorkout: name, dateWorkout: date, allExercises: workout)
+            let encodedWorkout = try Firestore.Encoder().encode(AppUserWorkout)
+            try await Firestore.firestore().collection("appUsers").document(uid).collection("workouts").document(AppUserWorkout.id.uuidString).setData(encodedWorkout)
+        } catch {
+            print (error.localizedDescription)
+        }
+    }
+    
+    
+    
+    func fetchCustomerWorkouts() async -> [Workout] {
+        guard let uid = Auth.auth().currentUser?.uid else { return [] }
+        var allWorkouts: [Workout] = []
+        do {
+            let snapshot = try await Firestore.firestore().collection("appUsers").document(uid).collection("workouts").getDocuments()
+            allWorkouts = try snapshot.documents.map { try $0.data(as: Workout.self) }
+        } catch {
+            print("error while fetching")
+        }
+        
+        return allWorkouts
+    }
+    
+    
+    
     // MARK: - Functions for Clients -
     
     func addClient(name: String, instURL: String, phoneNumber: String, imageURL: String) async {
@@ -166,13 +198,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         var allClients: [Client] = []
         do {
             let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").getDocuments()
-            
-           try snapshot.documents.forEach { doc in
-               let client = try doc.data(as: Client.self)
-               allClients.append(client)
-             
-            }
-
+            allClients = try snapshot.documents.map { try $0.data(as: Client.self) }
         } catch {
             print("Can't fetch clients Data")
            
@@ -226,14 +252,54 @@ class FirebaseManager: FirebaseManagerProtocol {
        ], merge: true)
     }
     
+    func getCurrentClientInfo(id: String) async -> Client? {
+        guard let uid = Auth.auth().currentUser?.uid else { return nil }
+       
+        do {
+            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(id).getDocument()
+            let client = try snapshot.data(as: Client.self)
+            return client
+        } catch {
+            print("Can't fetch clients Data")
+           return nil
+        }
+    
+    }
+    
+    
     
     func deleteClientData(docId: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(docId).delete()
     }
     
-    //MARK: - Other functions -
+    //MARK: - Workout functions -
     
-
+    func saveClientWorkout(name: String, date: Date, workout: [OneExersice], clientID: String) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            let clientWorkout = Workout(nameWorkout: name, dateWorkout: date, allExercises: workout)
+            let encodedClientWorkout = try Firestore.Encoder().encode(clientWorkout)
+            try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").document(clientWorkout.id.uuidString).setData(encodedClientWorkout)
+        } catch {
+            print (error.localizedDescription)
+        }
+    }
+    
+    func fetchClientsWorkouts(clientID: String) async -> [Workout] {
+        guard let uid = Auth.auth().currentUser?.uid else { return [] }
+        var allWorkouts: [Workout] = []
+        do {
+            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").getDocuments()
+            
+            allWorkouts = try snapshot.documents.map { try $0.data(as: Workout.self) }
+        } catch {
+            print("error while fetching")
+           
+        }
+       
+        return allWorkouts
+    }
     
 }

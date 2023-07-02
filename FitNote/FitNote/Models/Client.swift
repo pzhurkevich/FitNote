@@ -14,4 +14,12 @@ struct Client: Identifiable, Codable {
     let number: String
     let imageURL: String
    
+    init(id: String = "id", name: String = "Client", instURL: String = "URL", number: String = "numb", imageURL: String = "imgURL") {
+        self.id = id
+        self.name = name
+        self.instURL = instURL
+        self.number = number
+        self.imageURL = imageURL
+    }
+
 }

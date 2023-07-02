@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ExercisesView: View {
     
-    @StateObject var vm = ExercisesViewViewModel()
-    
+    @ObservedObject var vm: ExercisesViewViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
         NavigationView {
+            
             List(vm.searchResults, id: \.id) { exercise in
                 
                 
@@ -63,7 +64,8 @@ struct ExercisesView: View {
                         Spacer()
                         
                         Button {
-                            print("dobavil")
+                            vm.workoutExercise = exercise
+                            dismiss()
                         } label: {
                             Image(systemName: "plus.circle")
                                 .resizable()
@@ -124,6 +126,6 @@ struct ExercisesView: View {
 
 struct ExercisesView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesView()
+        ExercisesView(vm: ExercisesViewViewModel())
     }
 }

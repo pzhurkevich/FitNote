@@ -78,6 +78,13 @@ final class ClientViewViewModel: ObservableObject {
 
     func updateClientInfo() {
         fireBaseManager.updateClientInfo(number: phone, inst: inst, id: clientData.id)
+        Task { [weak self] in
+            guard let self = self else {return}
+            let newData = await fireBaseManager.getCurrentClientInfo(id: clientData.id) ?? Client()
+            await MainActor.run {
+                self.clientData = newData
+            }
+        }
     }
     
 }

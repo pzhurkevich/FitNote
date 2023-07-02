@@ -13,7 +13,7 @@ struct ClientView: View {
     
     var body: some View {
         
-        NavigationView {
+ 
             ZStack {
                 
                 Color.darkColor.ignoresSafeArea()
@@ -189,10 +189,10 @@ struct ClientView: View {
                                 Spacer()
                                 
                                 NavigationLink {
-                                    WorkoutView()
+                                    WorkoutView(vm: WorkoutViewViewModel(clientData: vm.clientData))
                                 } label: {
                                     HStack {
-                                        Text("New workout")
+                                        Text("Workout")
                                             .fontDesign(.rounded)
                                             .fontWeight(.bold)
                                         
@@ -207,8 +207,8 @@ struct ClientView: View {
                                 }
                                 .padding(.horizontal, 20)
                                 
-                                Button {
-                                    //action
+                                NavigationLink {
+                                    HistoryView(vm: HistoryViewViewModel(clientData: vm.clientData))
                                 } label: {
                                     HStack {
                                         Text("Workouts history")
@@ -256,11 +256,10 @@ struct ClientView: View {
                 }
                 
             }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .accentColor(Color.greenColor) //для кнопки "back"
-        .onAppear {
-            vm.loadClientInfo()
+            .navigationBarTitleDisplayMode(.inline)
+            .accentColor(Color.greenColor) //для кнопки "back"
+            .onAppear {
+                vm.loadClientInfo()
         }
         
     }
@@ -268,6 +267,6 @@ struct ClientView: View {
 
 struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
-        ClientView(vm: ClientViewViewModel(clientData: .init(id: "", name: "Anna", instURL: "", number: "", imageURL: "")))
+        ClientView(vm: ClientViewViewModel(clientData: Client()))
     }
 }
