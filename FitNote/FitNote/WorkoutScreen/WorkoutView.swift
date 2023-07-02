@@ -125,7 +125,7 @@ struct WorkoutView: View {
                                             }
                                             
                                             HStack {
-                                                TextField("ves", text: $item.ves)
+                                                TextField("ves", text: $item.weight)
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
                                                     .padding(3)
@@ -155,7 +155,7 @@ struct WorkoutView: View {
                                     VStack(spacing: 0) {
                                         TextField("New rep", text: $exercise.newItem, onCommit: {
                                             
-                                            vm.addSet(exercise: &exercise)
+                                            vm.addSet(exercise: exercise)
                                             
                                         }).multilineTextAlignment(.center)
                                             .foregroundColor(.white)
@@ -173,7 +173,7 @@ struct WorkoutView: View {
                                     VStack(spacing: 0) {
                                         TextField("New weight", text: $exercise.newItem2, onCommit: {
                                             
-                                            vm.addSet(exercise: &exercise)
+                                            vm.addSet(exercise: exercise)
                                             
                                         }).multilineTextAlignment(.center)
                                             .foregroundColor(.white)

@@ -25,8 +25,8 @@ struct HistoryView: View {
                         Button {
                             
                             
-                           vm.tappedID = workout.id
-                         
+                          // vm.tappedID = workout.id
+                            vm.collapseRow(id: workout.id)
                             
                         } label: {
                             
@@ -49,14 +49,13 @@ struct HistoryView: View {
                         
                          Spacer()
                         
-                        Image(systemName: vm.tappedID == workout.id ? "chevron.down" : "chevron.right" )
+                        Image(systemName: vm.expandedIDs.contains(workout.id) ? "chevron.down" : "chevron.right" )
                             .padding()
                         
                         
                     }
-                    //vm.tappedIDArray.contains(where: {$0 == workout.id })
 
-                    if  vm.tappedID == workout.id {
+                    if  vm.expandedIDs.contains(workout.id) {
                         Divider()
                             .frame(minHeight: 2)
                             .background(Color.greenColor)
@@ -86,7 +85,7 @@ struct HistoryView: View {
                                                         
                                                         
                                                         VStack {
-                                                            Text("\(eachSet.rep) X \(eachSet.ves) kg")
+                                                            Text("\(eachSet.rep) X \(eachSet.weight) kg")
                                                         }
                                                         
                                                     }

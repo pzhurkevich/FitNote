@@ -10,5 +10,5 @@ import Foundation
 struct OneSet: Identifiable, Equatable, Codable {
     let id = UUID()
     var rep: String
-    var ves: String
+    var weight: String
 }

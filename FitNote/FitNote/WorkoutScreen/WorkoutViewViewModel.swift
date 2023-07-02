@@ -31,9 +31,13 @@ final class WorkoutViewViewModel: ObservableObject {
     
     // MARK:  - Methods -
  
-    func addSet(exercise: inout OneExersice) {
+    func addSet(exercise: OneExersice) {
         guard !exercise.newItem2.isEmpty, !exercise.newItem.isEmpty else { return }
-        exercise.sets.append(OneSet(rep: exercise.newItem, ves: exercise.newItem2))
+        
+        var updatedExercise = exercise
+        updatedExercise.sets.append(OneSet(rep: updatedExercise.newItem, weight: updatedExercise.newItem2))
+        workout = workout.filter { $0 != exercise }
+        workout.append(updatedExercise)
     }
   
     func saveWorkout() {
@@ -41,9 +45,7 @@ final class WorkoutViewViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else {return}
             
-            guard let data  =  try await self.fireBaseManager.fetchAppUser() else { return }
-            
-            if data.appRole == "selfTrain" {
+            if Constants.currentState == .loggedAsSelf  {
                 await self.fireBaseManager.saveCustomerWorkout(name: workoutName, date: currentDate, workout: workout)
             } else {
                 await self.fireBaseManager.saveClientWorkout(name: workoutName, date: currentDate, workout: workout, clientID: clientData.id)

@@ -15,7 +15,7 @@ final class HistoryViewViewModel: ObservableObject {
     @Published var workoutsToDisplay: [Workout] = []
     
     @Published var tappedID: UUID?
-    
+    @Published var expandedIDs: [UUID] = []
     
     
     // MARK:  - Methods -
@@ -25,11 +25,15 @@ final class HistoryViewViewModel: ObservableObject {
     }
     
 
-
+    func collapseRow(id: UUID) {
+        if expandedIDs.contains(id) {
+            expandedIDs = expandedIDs.filter { $0 != id }
+        } else {
+            expandedIDs.append(id)
+        }
+    }
   
         func getWorkouts() async {
-            do {
-                guard let data = try await self.fireBaseManager.fetchAppUser() else { return }
 
                 let workoutsFromServer: [Workout]
                 
@@ -42,9 +46,6 @@ final class HistoryViewViewModel: ObservableObject {
                 await MainActor.run {
                     self.workoutsToDisplay = workoutsFromServer
                 }
-            } catch {
-                print("Can't fetch AppUser data for load workouts")
-            }
         }
     
 }
