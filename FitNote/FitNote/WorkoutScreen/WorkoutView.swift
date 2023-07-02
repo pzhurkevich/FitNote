@@ -120,6 +120,7 @@ struct WorkoutView: View {
                                                             .stroke(Color.white, lineWidth: 1)
                                                         
                                                     }
+                                                    .disabled(vm.endedExercises.contains(exercise))
                                                 Text("r")
                                                     .foregroundColor(.greenColor)
                                             }
@@ -133,7 +134,7 @@ struct WorkoutView: View {
                                                         RoundedRectangle(cornerRadius: 24)
                                                             .stroke(Color.white, lineWidth: 1)
                                                     }
-                                                
+                                                    .disabled(vm.endedExercises.contains(exercise))
                                                 Text("kg")
                                                     .foregroundColor(.greenColor)
                                             }.padding(3)
@@ -146,48 +147,48 @@ struct WorkoutView: View {
                                         .background(Color.greenColor)
                                         .padding([.bottom, .top], 5)
                                 }
-                                
-                                HStack(alignment: .firstTextBaseline) {
-                                    Text("New set:")
-                                        .foregroundColor(.greenColor)
-                                        .padding(5)
-                                    
-                                    VStack(spacing: 0) {
-                                        TextField("New rep", text: $exercise.newItem, onCommit: {
+                                if !vm.endedExercises.contains(exercise) {
+                                    HStack(alignment: .firstTextBaseline) {
+                                        Text("New set:")
+                                            .foregroundColor(.greenColor)
+                                            .padding(5)
+                                        
+                                        VStack(spacing: 0) {
+                                            TextField("New rep", text: $exercise.newItem, onCommit: {
+                                                
+                                                vm.addSet(exercise: exercise)
+                                                
+                                            }).multilineTextAlignment(.center)
+                                                .foregroundColor(.white)
+                                                .padding(.bottom, 3)
                                             
-                                            vm.addSet(exercise: exercise)
+                                            Divider()
+                                                .background(Color.greenColor)
                                             
-                                        }).multilineTextAlignment(.center)
-                                            .foregroundColor(.white)
-                                            .padding(.bottom, 3)
-                                        
-                                        Divider()
-                                            .background(Color.greenColor)
-                                        
-                                        Text("reps")
-                                            .foregroundColor(Color.greenColor)
-                                        
-                                        
-                                    }
-                                    
-                                    VStack(spacing: 0) {
-                                        TextField("New weight", text: $exercise.newItem2, onCommit: {
+                                            Text("reps")
+                                                .foregroundColor(Color.greenColor)
                                             
-                                            vm.addSet(exercise: exercise)
                                             
-                                        }).multilineTextAlignment(.center)
-                                            .foregroundColor(.white)
-                                            .padding(.bottom, 3)
+                                        }
                                         
-                                        Divider()
-                                            .background(Color.greenColor)
+                                        VStack(spacing: 0) {
+                                            TextField("New weight", text: $exercise.newItem2, onCommit: {
+                                                
+                                                vm.addSet(exercise: exercise)
+                                                
+                                            }).multilineTextAlignment(.center)
+                                                .foregroundColor(.white)
+                                                .padding(.bottom, 3)
+                                            
+                                            Divider()
+                                                .background(Color.greenColor)
+                                            
+                                            Text("weigth")
+                                                .foregroundColor(Color.greenColor)
+                                        }
                                         
-                                        Text("weigth")
-                                            .foregroundColor(Color.greenColor)
-                                    }
-                                    
-                                }.padding(.bottom, 8)
-                                
+                                    }.padding(.bottom, 8)
+                                }
                             } .padding(5)
                                 .listRowBackground(
                                     RoundedRectangle(cornerRadius: 20)
@@ -235,6 +236,7 @@ struct WorkoutView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         vm.isPresented.toggle()
+                        
                     } label: {
                         Image(systemName: "plus")
                         

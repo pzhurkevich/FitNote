@@ -28,7 +28,7 @@ final class WorkoutViewViewModel: ObservableObject {
     @Published var workoutName: String = "New Workout"
     @Published var workoutNameEdit = false
     @Published var isPresented = false
-    
+    @Published var endedExercises: [OneExersice] = []
     // MARK:  - Methods -
  
     func addSet(exercise: OneExersice) {
@@ -81,6 +81,7 @@ final class WorkoutViewViewModel: ObservableObject {
         exerciseListVM.$workoutExercise.compactMap { $0 }
             .sink { [weak self] item in
                 guard let self = self else {return}
+                self.endedExercises = self.workout
                 self.oneExerciseForWorkout = item
                 self.workout.append(OneExersice(name: "\(oneExerciseForWorkout?.name ?? "error")", sets: []))
             }
