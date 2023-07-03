@@ -160,6 +160,8 @@ struct WorkoutView: View {
                                                 
                                             }).multilineTextAlignment(.center)
                                                 .foregroundColor(.white)
+                                                .keyboardType(.numberPad)
+                                                .disableAutocorrection(true)
                                                 .padding(.bottom, 3)
                                             
                                             Divider()
@@ -178,7 +180,10 @@ struct WorkoutView: View {
                                                 
                                             }).multilineTextAlignment(.center)
                                                 .foregroundColor(.white)
+                                                .keyboardType(.numberPad)
+                                                .disableAutocorrection(true)
                                                 .padding(.bottom, 3)
+                                            
                                             
                                             Divider()
                                                 .background(Color.greenColor)
