@@ -43,8 +43,8 @@ struct WorkoutView: View {
                     
                     
                     Button(action: {
-                        vm.workoutNameEdit.toggle()
-                        
+                       
+                        vm.checkWorkoutName()
                     }) {
                         Image(systemName: vm.workoutNameEdit ? "checkmark.circle" : "pencil.circle")
                             .font(.title2)
@@ -252,6 +252,12 @@ struct WorkoutView: View {
             .sheet(isPresented: $vm.isPresented) {
                 ExercisesView(vm: vm.exerciseListVM)
             }
+            .alert("", isPresented: $vm.warningAlert) {
+                Button("Ok", role: .cancel) {}
+            } message: {
+                Text(vm.warningText)
+            }
+
     }
 }
 
