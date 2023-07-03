@@ -18,7 +18,7 @@ struct WorkoutView: View {
             Color.darkColor.ignoresSafeArea()
             VStack {
                 
-                Text("Today is \(vm.currentDate.formatted(date: .complete, time: .omitted))")
+                Text("Today is: \(vm.currentDate.stringEnDate())")
                     .foregroundColor(.white)
                     .padding()
                 
@@ -265,4 +265,13 @@ struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
     }
+}
+
+
+extension Formatter {
+    static let weekDay: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en")
+        return formatter
+    }()
 }

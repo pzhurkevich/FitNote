@@ -101,6 +101,11 @@ struct RegisterView: View {
            .fullScreenCover(isPresented: $vm.isRegistered) {
                AppRoleView()
        }
+           .alert("", isPresented: $vm.showingAlert) {
+               Button("Ok", role: .cancel) {}
+           } message: {
+               Text(vm.errorText)
+           }
 
     }
 }
