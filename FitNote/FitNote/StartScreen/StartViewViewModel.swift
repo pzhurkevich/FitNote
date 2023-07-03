@@ -30,6 +30,9 @@ final class StartViewViewModel: ObservableObject {
             if registeredUser == nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
                 
                 Constants.currentState = .none
+                await MainActor.run {
+                    self.isPresented = true
+                }
             } else {
                 
                 await MainActor.run {

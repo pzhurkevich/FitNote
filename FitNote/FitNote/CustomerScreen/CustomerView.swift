@@ -161,10 +161,10 @@ struct CustomerView: View {
                             Spacer()
                                 
                                 NavigationLink {
-                                    WorkoutView()
+                                    WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
                                 } label: {
                                     HStack {
-                                        Text("New workout")
+                                        Text("Workout")
                                             .fontDesign(.rounded)
                                             .fontWeight(.bold)
                                         
@@ -179,8 +179,8 @@ struct CustomerView: View {
                                 }
                                 .padding(.horizontal, 20)
                                 
-                                Button {
-                                    //action
+                                NavigationLink {
+                                    HistoryView(vm: HistoryViewViewModel(clientData: Client()))
                                 } label: {
                                     HStack {
                                         Text("Workouts history")
