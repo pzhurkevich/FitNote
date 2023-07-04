@@ -30,7 +30,11 @@ final class WorkoutViewViewModel: ObservableObject {
     @Published var isPresented = false
     @Published var endedExercises: [OneExersice] = []
     @Published var warningAlert = false
-    @Published var warningText = ""
+    @Published var warningText = "" {
+        didSet {
+            warningAlert = true
+        }
+    }
  
     
     enum WarningMessage {
@@ -56,7 +60,6 @@ final class WorkoutViewViewModel: ObservableObject {
  
     func addSet(exercise: OneExersice) {
         guard !exercise.newItem2.isEmpty, !exercise.newItem.isEmpty else {
-            warningAlert = true
             warningText = WarningMessage.emptySet.text
             return
             
@@ -70,7 +73,6 @@ final class WorkoutViewViewModel: ObservableObject {
   
     func saveWorkout() {
         guard !workout.contains(where: { $0.sets.isEmpty}) else {
-            warningAlert = true
             warningText = WarningMessage.emptyExercise.text
             return
             
@@ -107,7 +109,6 @@ final class WorkoutViewViewModel: ObservableObject {
     
     func checkWorkoutName() {
         if workoutName.isEmpty {
-            warningAlert = true
             warningText = WarningMessage.emptyWorkoutName.text
             workoutName = "New Workout"
         } else {

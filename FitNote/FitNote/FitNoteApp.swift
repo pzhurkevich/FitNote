@@ -13,7 +13,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-        signOutOldUser()
         return true
     }
 }
@@ -30,14 +29,3 @@ struct FitNoteApp: App {
     }
 }
 
-
-extension AppDelegate{
-func signOutOldUser(){
-    if let _ = UserDefaults.standard.value(forKey: "isNewuser"){}else{
-        do{
-            UserDefaults.standard.set(true, forKey: "isNewuser")
-            try Auth.auth().signOut()
-        }catch{}
-    }
-}
-}
