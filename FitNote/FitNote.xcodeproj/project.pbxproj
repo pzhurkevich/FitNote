@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E913B21D2A540CBC003E0C8E /* OnboardingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E913B21C2A540CBC003E0C8E /* OnboardingData.swift */; };
 		E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B32A323BA2002E67DA /* Color+Extension.swift */; };
 		E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B52A34B0E3002E67DA /* View+Extension.swift */; };
 		E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B82A34B3B6002E67DA /* CustomerView.swift */; };
@@ -14,14 +15,13 @@
 		E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299F22A3B8E340064686C /* WorkoutViewViewModel.swift */; };
 		E94299FA2A3D8B790064686C /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299F92A3D8B790064686C /* AppUser.swift */; };
 		E94299FC2A3DCBC80064686C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94299FB2A3DCBC80064686C /* ImagePicker.swift */; };
+		E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2182A4625E20060A277 /* OneExercise.swift */; };
+		E94CF21B2A4625F90060A277 /* OneSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF21A2A4625F90060A277 /* OneSet.swift */; };
 		E94CF2222A4997F40060A277 /* Planner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2212A4997F40060A277 /* Planner.swift */; };
 		E94CF2242A499EE20060A277 /* DateCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2232A499EE20060A277 /* DateCalendar.swift */; };
 		E94CF2272A499F720060A277 /* PlannerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2262A499F720060A277 /* PlannerViewViewModel.swift */; };
 		E94CF2292A4A21E90060A277 /* ClientTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2282A4A21E90060A277 /* ClientTask.swift */; };
 		E94CF22D2A4AF7BF0060A277 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF22C2A4AF7BF0060A277 /* CustomDatePicker.swift */; };
-		E94CF22F2A4B49660060A277 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF22E2A4B49660060A277 /* Date+Extension.swift */; };
-		E94CF2192A4625E20060A277 /* OneExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2182A4625E20060A277 /* OneExercise.swift */; };
-		E94CF21B2A4625F90060A277 /* OneSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF21A2A4625F90060A277 /* OneSet.swift */; };
 		E94CF2312A4CD9220060A277 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2302A4CD9210060A277 /* Workout.swift */; };
 		E94CF2342A4D87780060A277 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2332A4D87780060A277 /* HistoryView.swift */; };
 		E94CF2362A4D87960060A277 /* HistoryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94CF2352A4D87960060A277 /* HistoryViewViewModel.swift */; };
@@ -39,6 +39,7 @@
 		E9A46A3B2A2FE0FB008C50C7 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E9A46A3A2A2FE0FB008C50C7 /* FirebaseStorage */; };
 		E9A46A3D2A2FE0FB008C50C7 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = E9A46A3C2A2FE0FB008C50C7 /* FirebaseStorageCombine-Community */; };
 		E9A46A412A3066D2008C50C7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A46A402A3066D2008C50C7 /* OnboardingView.swift */; };
+		E9AAA9B12A544D2A00347F81 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AAA9B02A544D2A00347F81 /* Date+Extension.swift */; };
 		E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD892A3083F70059C99D /* StartViewViewModel.swift */; };
 		E9B3AD8D2A30C8C40059C99D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8C2A30C8C40059C99D /* LoginView.swift */; };
 		E9B3AD8F2A30CF450059C99D /* LoginViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3AD8E2A30CF450059C99D /* LoginViewViewModel.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E913B21C2A540CBC003E0C8E /* OnboardingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingData.swift; sourceTree = "<group>"; };
 		E91AE1B32A323BA2002E67DA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		E91AE1B52A34B0E3002E67DA /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E91AE1B82A34B3B6002E67DA /* CustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerView.swift; sourceTree = "<group>"; };
@@ -73,14 +75,13 @@
 		E94299F22A3B8E340064686C /* WorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewViewModel.swift; sourceTree = "<group>"; };
 		E94299F92A3D8B790064686C /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		E94299FB2A3DCBC80064686C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		E94CF2182A4625E20060A277 /* OneExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneExercise.swift; sourceTree = "<group>"; };
+		E94CF21A2A4625F90060A277 /* OneSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneSet.swift; sourceTree = "<group>"; };
 		E94CF2212A4997F40060A277 /* Planner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planner.swift; sourceTree = "<group>"; };
 		E94CF2232A499EE20060A277 /* DateCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCalendar.swift; sourceTree = "<group>"; };
 		E94CF2262A499F720060A277 /* PlannerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewViewModel.swift; sourceTree = "<group>"; };
 		E94CF2282A4A21E90060A277 /* ClientTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTask.swift; sourceTree = "<group>"; };
 		E94CF22C2A4AF7BF0060A277 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
-		E94CF22E2A4B49660060A277 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		E94CF2182A4625E20060A277 /* OneExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneExercise.swift; sourceTree = "<group>"; };
-		E94CF21A2A4625F90060A277 /* OneSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneSet.swift; sourceTree = "<group>"; };
 		E94CF2302A4CD9210060A277 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		E94CF2332A4D87780060A277 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		E94CF2352A4D87960060A277 /* HistoryViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewViewModel.swift; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 		E9A46A212A2FDBB1008C50C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9A46A242A2FDBB1008C50C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E9A46A402A3066D2008C50C7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		E9AAA9B02A544D2A00347F81 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		E9B3AD892A3083F70059C99D /* StartViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewViewModel.swift; sourceTree = "<group>"; };
 		E9B3AD8C2A30C8C40059C99D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E9B3AD8E2A30CF450059C99D /* LoginViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewViewModel.swift; sourceTree = "<group>"; };
@@ -136,12 +138,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E913B21B2A540C9D003E0C8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E913B21C2A540CBC003E0C8E /* OnboardingData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E91AE1B22A323A27002E67DA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				E91AE1B32A323BA2002E67DA /* Color+Extension.swift */,
 				E91AE1B52A34B0E3002E67DA /* View+Extension.swift */,
-				E94CF22E2A4B49660060A277 /* Date+Extension.swift */,
+				E9AAA9B02A544D2A00347F81 /* Date+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -174,6 +184,15 @@
 				E94CF2282A4A21E90060A277 /* ClientTask.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E94CF2322A4D87520060A277 /* WorkoutsHistory */ = {
+			isa = PBXGroup;
+			children = (
+				E94CF2332A4D87780060A277 /* HistoryView.swift */,
+				E94CF2352A4D87960060A277 /* HistoryViewViewModel.swift */,
+			);
+			path = WorkoutsHistory;
 			sourceTree = "<group>";
 		};
 		E9A46A112A2FDBAB008C50C7 = {
@@ -242,6 +261,7 @@
 			children = (
 				E9A46A402A3066D2008C50C7 /* OnboardingView.swift */,
 				E9B3AD912A30DCE00059C99D /* OnboardingViewModel.swift */,
+				E913B21B2A540C9D003E0C8E /* Model */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -318,15 +338,6 @@
 			path = ExerciseScreen;
 			sourceTree = "<group>";
 		};
-  E94CF2322A4D87520060A277 /* WorkoutsHistory */ = {
-            isa = PBXGroup;
-            children = (
-                E94CF2332A4D87780060A277 /* HistoryView.swift */,
-                E94CF2352A4D87960060A277 /* HistoryViewViewModel.swift */,
-            );
-            path = WorkoutsHistory;
-            sourceTree = "<group>";
-        };
 		E9C936FD2A35EFEF009D4256 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9B3AD8D2A30C8C40059C99D /* LoginView.swift in Sources */,
+				E9AAA9B12A544D2A00347F81 /* Date+Extension.swift in Sources */,
 				E94CF2242A499EE20060A277 /* DateCalendar.swift in Sources */,
 				E9C936FF2A35F02C009D4256 /* AlamofireProvider.swift in Sources */,
 				E9A46A412A3066D2008C50C7 /* OnboardingView.swift in Sources */,
@@ -456,7 +468,6 @@
 				E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */,
 				E94CF2272A499F720060A277 /* PlannerViewViewModel.swift in Sources */,
 				E9B3B2182A40AC2D008BC653 /* ClientsListView.swift in Sources */,
-				E94CF22F2A4B49660060A277 /* Date+Extension.swift in Sources */,
 				E9C937022A35F04D009D4256 /* Exercises.swift in Sources */,
 				E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
@@ -469,6 +480,7 @@
 				E94CF2342A4D87780060A277 /* HistoryView.swift in Sources */,
 				E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
+				E913B21D2A540CBC003E0C8E /* OnboardingData.swift in Sources */,
 				E94CF2292A4A21E90060A277 /* ClientTask.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
 				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import Firebase
 
 final class LoginViewViewModel: ObservableObject {
     
@@ -46,9 +46,24 @@ final class LoginViewViewModel: ObservableObject {
                     
                 }
             } catch {
+              
+                let authError = AuthErrorCode.Code(rawValue: error._code)
+
                 await MainActor.run {
+                    switch authError {
+                        
+                    case .userNotFound:
+                        self.errorText = "Cannot find the user, try with different credential"
+                    case .wrongPassword:
+                        self.errorText = "Password is wrong"
+                    case .invalidEmail:
+                        self.errorText = "Email is not valid"
+                    default:
+                        self.errorText =  "Unknown error occurred"
+                    }
+                    
                     self.isLoading = false
-                    self.errorText = error.localizedDescription.description
+
                 }
                     
             }

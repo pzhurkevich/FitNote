@@ -27,27 +27,37 @@ final class StartViewViewModel: ObservableObject {
             }
             let registeredUser = try await fireBaseManager.fetchAppUser()
             
-            if registeredUser == nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
-                
+            if registeredUser != nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
+                fireBaseManager.signOut()
                 Constants.currentState = .none
                 await MainActor.run {
                     self.isPresented = true
                 }
             } else {
                 
-                await MainActor.run {
+                if registeredUser == nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
                     
-                    if let user = registeredUser {
-                        Constants.currentState = Constants.State(rawValue: user.appRole)
-                    } else {
-                        Constants.currentState = .notLogged
+                    Constants.currentState = .none
+                    await MainActor.run {
+                        self.isPresented = true
                     }
-                    self.isPresented = true
+                } else {
+                    
+                    await MainActor.run {
+                        
+                        if let user = registeredUser {
+                            Constants.currentState = Constants.State(rawValue: user.appRole)
+                        } else {
+                            Constants.currentState = .notLogged
+                        }
+                        self.isPresented = true
+                    }
                 }
             }
         } catch {
             print("error fetching user")
         }
+            
     }
     
     

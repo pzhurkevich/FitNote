@@ -122,6 +122,11 @@ struct LoginView: View {
                     OnboardingView()
                 }
             }
+            .alert("", isPresented: $vm.showingAlert) {
+                Button("Ok", role: .cancel) {}
+            } message: {
+                Text(vm.errorText)
+            }
           
         
     }

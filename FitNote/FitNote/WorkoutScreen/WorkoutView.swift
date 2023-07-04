@@ -18,7 +18,7 @@ struct WorkoutView: View {
             Color.darkColor.ignoresSafeArea()
             VStack {
                 
-                Text("Today is \(vm.currentDate.formatted(date: .complete, time: .omitted))")
+                Text("Today is: \(vm.currentDate.stringEnDate())")
                     .foregroundColor(.white)
                     .padding()
                 
@@ -43,8 +43,8 @@ struct WorkoutView: View {
                     
                     
                     Button(action: {
-                        vm.workoutNameEdit.toggle()
-                        
+                       
+                        vm.checkWorkoutName()
                     }) {
                         Image(systemName: vm.workoutNameEdit ? "checkmark.circle" : "pencil.circle")
                             .font(.title2)
@@ -160,6 +160,8 @@ struct WorkoutView: View {
                                                 
                                             }).multilineTextAlignment(.center)
                                                 .foregroundColor(.white)
+                                                .keyboardType(.numberPad)
+                                                .disableAutocorrection(true)
                                                 .padding(.bottom, 3)
                                             
                                             Divider()
@@ -178,7 +180,10 @@ struct WorkoutView: View {
                                                 
                                             }).multilineTextAlignment(.center)
                                                 .foregroundColor(.white)
+                                                .keyboardType(.numberPad)
+                                                .disableAutocorrection(true)
                                                 .padding(.bottom, 3)
+                                            
                                             
                                             Divider()
                                                 .background(Color.greenColor)
@@ -247,6 +252,12 @@ struct WorkoutView: View {
             .sheet(isPresented: $vm.isPresented) {
                 ExercisesView(vm: vm.exerciseListVM)
             }
+            .alert("", isPresented: $vm.warningAlert) {
+                Button("Ok", role: .cancel) {}
+            } message: {
+                Text(vm.warningText)
+            }
+
     }
 }
 
@@ -254,4 +265,13 @@ struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
     }
+}
+
+
+extension Formatter {
+    static let weekDay: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en")
+        return formatter
+    }()
 }
