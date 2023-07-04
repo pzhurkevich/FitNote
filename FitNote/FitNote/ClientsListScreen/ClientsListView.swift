@@ -120,6 +120,7 @@ struct ClientsListView: View {
             TextField("name", text: $vm.newClientName)
                 .disableAutocorrection(true)
             Button("Add", action: vm.addNewClient)
+            Button("Cancel", role: .cancel) {}
         } message: {
             Text("Enter only client name to continue")
         }

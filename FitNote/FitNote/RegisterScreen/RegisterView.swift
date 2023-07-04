@@ -12,14 +12,10 @@ struct RegisterView: View {
     @StateObject var vm = RegisterViewViewModel()
     
     var body: some View {
-        GeometryReader { geo in
             ZStack {
                 
                Color.darkColor.ignoresSafeArea()
                 
-                RoundedRectangle(cornerRadius: 25)
-                   .foregroundColor(Color.secondaryDark)
-                   .frame(maxWidth: geo.size.width * 0.9, maxHeight: geo.size.height * 0.85)
                 VStack{
                     
                     Image(systemName: "chevron.up.circle")
@@ -79,10 +75,13 @@ struct RegisterView: View {
                     }
                     
                     .padding([.horizontal, .vertical], 16)
-                    
-                    Spacer()
+
                 }
-                .frame(maxWidth: geo.size.width * 0.85, maxHeight: geo.size.height * 0.65)
+                .padding(.vertical, 30)
+                .background( RoundedRectangle(cornerRadius: 25)
+                    .foregroundColor(Color.secondaryDark)
+                )
+                .padding(.horizontal, 20)
                
                if vm.isLoading {
                    ProgressView {
@@ -102,7 +101,12 @@ struct RegisterView: View {
            .fullScreenCover(isPresented: $vm.isRegistered) {
                AppRoleView()
        }
-        }
+           .alert("", isPresented: $vm.showingAlert) {
+               Button("Ok", role: .cancel) {}
+           } message: {
+               Text(vm.errorText)
+           }
+
     }
 }
 

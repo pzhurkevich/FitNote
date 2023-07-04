@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E913B21A2A53779E003E0C8E /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E913B2192A53779E003E0C8E /* Date+Extension.swift */; };
+		E913B21D2A540CBC003E0C8E /* OnboardingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E913B21C2A540CBC003E0C8E /* OnboardingData.swift */; };
 		E91AE1B42A323BA2002E67DA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B32A323BA2002E67DA /* Color+Extension.swift */; };
 		E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B52A34B0E3002E67DA /* View+Extension.swift */; };
 		E91AE1B92A34B3B6002E67DA /* CustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AE1B82A34B3B6002E67DA /* CustomerView.swift */; };
@@ -60,6 +62,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E913B2192A53779E003E0C8E /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		E913B21C2A540CBC003E0C8E /* OnboardingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingData.swift; sourceTree = "<group>"; };
 		E91AE1B32A323BA2002E67DA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		E91AE1B52A34B0E3002E67DA /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E91AE1B82A34B3B6002E67DA /* CustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerView.swift; sourceTree = "<group>"; };
@@ -124,10 +128,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E913B21B2A540C9D003E0C8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E913B21C2A540CBC003E0C8E /* OnboardingData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E91AE1B22A323A27002E67DA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				E91AE1B32A323BA2002E67DA /* Color+Extension.swift */,
+				E913B2192A53779E003E0C8E /* Date+Extension.swift */,
 				E91AE1B52A34B0E3002E67DA /* View+Extension.swift */,
 			);
 			path = Extensions;
@@ -217,6 +230,7 @@
 			children = (
 				E9A46A402A3066D2008C50C7 /* OnboardingView.swift */,
 				E9B3AD912A30DCE00059C99D /* OnboardingViewModel.swift */,
+				E913B21B2A540C9D003E0C8E /* Model */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -419,6 +433,7 @@
 				E9B3AD9F2A31C5710059C99D /* AppRoleView.swift in Sources */,
 				E9A46A202A2FDBAB008C50C7 /* StartView.swift in Sources */,
 				E9B3B2182A40AC2D008BC653 /* ClientsListView.swift in Sources */,
+				E913B21A2A53779E003E0C8E /* Date+Extension.swift in Sources */,
 				E9C937022A35F04D009D4256 /* Exercises.swift in Sources */,
 				E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
@@ -431,6 +446,7 @@
 				E94CF2342A4D87780060A277 /* HistoryView.swift in Sources */,
 				E94299F32A3B8E340064686C /* WorkoutViewViewModel.swift in Sources */,
 				E9B3ADA12A31DCBB0059C99D /* AppRoleViewViewModel.swift in Sources */,
+				E913B21D2A540CBC003E0C8E /* OnboardingData.swift in Sources */,
 				E9B3AD8A2A3083F70059C99D /* StartViewViewModel.swift in Sources */,
 				E91AE1B62A34B0E3002E67DA /* View+Extension.swift in Sources */,
 				E9C937062A366E58009D4256 /* ExercisesViewViewModel.swift in Sources */,

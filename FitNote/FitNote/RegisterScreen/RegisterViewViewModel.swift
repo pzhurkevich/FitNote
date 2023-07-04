@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 final class RegisterViewViewModel: ObservableObject {
     
@@ -43,10 +44,26 @@ final class RegisterViewViewModel: ObservableObject {
                     }
                 
             } catch {
-             
+                let authError = AuthErrorCode.Code(rawValue: error._code)
+                print(error.localizedDescription)
                 await MainActor.run {
+                    
+                    switch authError {
+                        
+                    case .accountExistsWithDifferentCredential:
+                        self.errorText = "Account already exist with different credetial"
+                    case .weakPassword:
+                        self.errorText = "Password is week, use at least 6 characters"
+                    case .invalidEmail:
+                        self.errorText = "Email is not valid"
+                    case .emailAlreadyInUse:
+                        self.errorText = "The email address is already in use by another account"
+                    default:
+                        self.errorText =  "Unknown error occurred"
+                    }
+                    
                     self.isLoading = false
-                    self.errorText = error.localizedDescription.description
+                    
                 }
             }
         }
