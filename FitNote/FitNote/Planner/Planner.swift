@@ -77,6 +77,12 @@ struct Planner: View {
                     
                 }
                 .padding([.leading, .trailing, .top], 10)
+                
+                Divider()
+                    .background(.white)
+                    .padding(.vertical, 10)
+                  
+                
                 //дни в месяце
                 HStack(spacing: 0) {
                     ForEach(vm.days, id: \.self) { day in
@@ -140,6 +146,11 @@ struct Planner: View {
                 }
                 
                 VStack(spacing: 8) {
+                    
+                    Divider()
+                        .background(.white)
+                        .padding(.vertical, 10)
+                        
                     Text("Clients")
                         .foregroundColor(.greenColor)
                         .font(.title2.bold())
