@@ -18,39 +18,15 @@ struct Planner: View {
             
             VStack(spacing: 0) {
         
-            
-                
-                HStack {
-        
-                    Text("Clients Planner")
-                        .foregroundColor(.white)
-                        .font(.title2.bold())
-                        .padding(10)
-                    
-                        Spacer()
-                    //кнопка добавить клиента
-                            Button {
-                                vm.isShown.toggle()
-                            } label: {
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundColor(.greenColor)
-                            }
-                            .padding(10)
-
-                        
-                }
-                
                 HStack(spacing: 20){
                     
                     VStack(alignment: .leading, spacing: 10){
-                        Text(vm.currentDate.displayData().last ?? "Month")
-                            .font(.caption)
+                        Text(vm.currentDate.stringYear())
+                            .font(.title3)
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                         
-                        Text(vm.currentDate.displayData().first ?? "Year")
+                        Text(vm.currentDate.stringEnMonth())
                             .font(.title.bold())
                             .foregroundColor(.white)
                     }
@@ -58,7 +34,22 @@ struct Planner: View {
                     
                     Spacer()
                  //кнопки листать месяцы
-                    
+                    Button {
+                        withAnimation {
+                            vm.currentMonth = 0
+                        }
+                        
+                    } label: {
+                        Text("today")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding(5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.greenColor, lineWidth: 1)
+                            )
+                        
+                    }
                     Button {
                         withAnimation {
                             vm.currentMonth -= 1
@@ -101,7 +92,7 @@ struct Planner: View {
                 
                 //тут даты
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
-                    ForEach(vm.fillDates()) { item in
+                    ForEach(vm.daysInCalendar) { item in
 
                         VStack {
                             if item.day != 0 {
@@ -159,13 +150,13 @@ struct Planner: View {
                     if let task = vm.taskInDate(dateInCalendar: vm.currentDate) {
                         
                        List {
-                           ForEach(task.task) { task in
+                           ForEach(task.task) { client in
                                 
                                 VStack(alignment: .leading, spacing: 10) {
-                                    Text(task.time, style: .time)
+                                    Text(client.time, style: .time)
                                     .foregroundColor(.white)
                                     
-                                    Text(task.clientName)
+                                    Text(client.clientName)
                                         .font(.title2.bold())
                                         .foregroundColor(.greenColor)
                                 }
@@ -174,11 +165,13 @@ struct Planner: View {
                                         .foregroundColor(.secondaryDark)
                                         .padding([.top, .bottom], 5)
                                         .listRowSeparator(.hidden))
+                           }.onDelete { indexSet in
+                               vm.deleteClient(indexSet: indexSet, allTask: task)
                            }
                        }
                        .background(Color.darkColor)
                        .scrollContentBackground(.hidden)
-
+                       
                         
                         Spacer()
                     } else {
@@ -187,12 +180,25 @@ struct Planner: View {
                         Spacer()
                     }
                 }
-            }.onChange(of: vm.currentMonth) { newValue in
-                vm.currentDate = vm.getCurrentMonth()
             }
-
            
-        }
+        }.navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Clients Planner")
+                        .font(.title)
+                        .foregroundColor(.greenColor)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        vm.isShown.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                        
+                            .foregroundColor(.greenColor)
+                    }
+                }
+            }
         .sheet(isPresented: $vm.isShown) {
             CustomDatePicker(vm: vm)
         }

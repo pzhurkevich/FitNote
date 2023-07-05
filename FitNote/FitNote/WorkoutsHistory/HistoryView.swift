@@ -36,7 +36,7 @@ struct HistoryView: View {
                             Button {
                                 
                                 
-                              // vm.tappedID = workout.id
+                                // vm.tappedID = workout.id
                                 vm.collapseRow(id: workout.id)
                                 
                             } label: {
@@ -58,14 +58,14 @@ struct HistoryView: View {
                             }
                             .padding(.leading, 20)
                             
-                             Spacer()
+                            Spacer()
                             
                             Image(systemName: vm.expandedIDs.contains(workout.id) ? "chevron.down" : "chevron.right" )
                                 .padding()
                             
                             
                         }
-
+                        
                         if  vm.expandedIDs.contains(workout.id) {
                             Divider()
                                 .frame(minHeight: 2)
@@ -81,7 +81,7 @@ struct HistoryView: View {
                                             HStack {
                                                 Text(exercise.name)
                                                     .foregroundColor(.white)
-                                                .padding(8)
+                                                    .padding(8)
                                                 
                                                 Spacer()
                                             }
@@ -141,8 +141,8 @@ struct HistoryView: View {
                 
             }
             
-            }
-
+        }
+        
         .task {
             await vm.getWorkouts()
         }

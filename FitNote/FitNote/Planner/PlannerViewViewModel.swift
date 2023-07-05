@@ -17,43 +17,72 @@ final class PlannerViewViewModel: ObservableObject {
     
     @Published var currentDate: Date = Date()
     @Published var selectedDate: Date = Date()
-    @Published var currentMonth: Int = 0
-    @Published var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    @Published var currentMonth: Int = 0 {
+        didSet {
+            currentDate = getCurrentMonth()
+            fillDates()
+        }
+    }
+    @Published var days: [String] = []
 
    
     @Published var newClientName = ""
     
     @Published var tasks: [ClientTaskData] = []
     @Published var taskToDisplay: [ClientTask] = []
-    
+    @Published var daysInCalendar: [DateInCalendar] = []
     
     @Published var isShown = false
     @Published var showAlert = false
     
 // MARK:  - Methods -
-    
-    
-    func getCurrentMonth() -> Date {
-
-        guard let currentMonth = calendar.date(byAdding: .month, value: currentMonth, to: Date()) else { return Date() }
-        return currentMonth
+    init() {
+        fillDates()
+        fillWeekDays()
     }
     
-    func fillDates() -> [DateInCalendar] {
+    func fillWeekDays() {
+        if Calendar.current.firstWeekday == 1 {
+           days = Calendar.current.shortWeekdaySymbols
+        } else {
+            days = Calendar.current.shortWeekdaySymbols
+            if let sunday = Calendar.current.shortWeekdaySymbols.first {
+                days.removeFirst()
+                days.append(sunday)
+            }
+        }
         
+    }
+    
+    
+    func fillDates() {
+        print(Calendar.current.firstWeekday)
         let currentMonth = getCurrentMonth()
-        
+        var emptyDays: [DateInCalendar] = []
         let monthDays = currentMonth.getAllDates().compactMap { date -> DateInCalendar in
             
             let day = calendar.component(.day, from: date)
             return DateInCalendar(day: day, date: date)
         }
         let firstWeekday = calendar.component(.weekday, from: monthDays.first?.date ?? Date())
-        let emptyDays = (1..<firstWeekday).map { _ in
-            return DateInCalendar(day: 0, date: Date())
+        if Calendar.current.firstWeekday == 1 {
+            emptyDays = (1..<firstWeekday).map { _ in
+                return DateInCalendar(day: 0, date: Date())
+            }
+        } else {
+            emptyDays = (1..<firstWeekday - 1).map { _ in
+                return DateInCalendar(day: 0, date: Date())
+            }
         }
         
-        return emptyDays + monthDays
+        daysInCalendar = emptyDays + monthDays
+    }
+    
+    
+    func getCurrentMonth() -> Date {
+
+        guard let currentMonth = calendar.date(byAdding: .month, value: currentMonth, to: Date()) else { return Date() }
+        return currentMonth
     }
     
     func addClientToPlanner() {
@@ -66,8 +95,6 @@ final class PlannerViewViewModel: ObservableObject {
             
         }
         
-        
-        
         let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
         var taskToDisplay: [ClientTask] = []
         
@@ -77,21 +104,23 @@ final class PlannerViewViewModel: ObservableObject {
             tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
         } else {
             
-            for i in 0..<tasks.count {
-                var clientTaskData = tasks[i]
+            let updatedTasks = tasks.map { clientTaskData -> ClientTaskData in
+                var updatedClientTaskData = clientTaskData
 
                 let componentsClient = clientTaskData.taskDate.getDateComponents()
                 let componentsDate = selectedDate.getDateComponents()
-                
-                if componentsClient == componentsDate {
-                    clientTaskData.addTask(newClient: client)
-                  tasks[i] = clientTaskData
-                } else {
 
+                if componentsClient == componentsDate {
+                    updatedClientTaskData.addTask(newClient: client)
+                } else {
                     taskToDisplay.append(client)
                     tasks.append(ClientTaskData(id: idData, task: taskToDisplay.sorted(), taskDate: selectedDate))
                 }
+
+                return updatedClientTaskData
             }
+
+            tasks = updatedTasks
             
         }
         
@@ -117,5 +146,16 @@ final class PlannerViewViewModel: ObservableObject {
         })
     }
     
-    
+    func deleteClient(indexSet: IndexSet, allTask: ClientTaskData) {
+        let index = indexSet[indexSet.startIndex]
+        let taskToDelete = allTask.task[index]
+        let updatedTasks = allTask.task.filter { $0 != taskToDelete }
+        let updatedClientTaskData = ClientTaskData(id: allTask.id, task: updatedTasks, taskDate: allTask.taskDate)
+        tasks = tasks.filter { $0.id != allTask.id }
+        tasks.append(updatedClientTaskData)
+        Task { [weak self] in
+            guard let self = self else {return}
+            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+        }
+    }
 }

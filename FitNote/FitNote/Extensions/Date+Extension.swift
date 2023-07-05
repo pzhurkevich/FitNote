@@ -35,11 +35,12 @@ extension Date {
               return calendar.isDate(self, inSameDayAs: date)
           }
 
-      func displayData() -> [String] {
+      func stringYear() -> String {
            let formatter = DateFormatter()
-           formatter.dateFormat = "MMMM YYYY"
+          formatter.locale = Locale(identifier: "en")
+           formatter.dateFormat = "YYYY"
            let date = formatter.string(from: self)
-           return date.components(separatedBy: " ")
+           return date
        }
       
       func getDateComponents() -> DateComponents {
@@ -47,6 +48,13 @@ extension Date {
              return calendar.dateComponents([.month, .year, .day], from: self)
          }
 
-    
+    func stringEnMonth()-> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.locale = Locale(identifier: "en")
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM")
+        return dateFormatter.string(from: self)
+    }
+   
     
     }

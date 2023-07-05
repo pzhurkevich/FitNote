@@ -115,7 +115,7 @@ struct ClientsListView: View {
                     }
                 }
             }
-           // .toolbarBackground(Color.darkColor)
+           .toolbarBackground(Color.darkColor)
         .alert("Add Client", isPresented: $vm.showingAlert) {
             TextField("name", text: $vm.newClientName)
                 .disableAutocorrection(true)
