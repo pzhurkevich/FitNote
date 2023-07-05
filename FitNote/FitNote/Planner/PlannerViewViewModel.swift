@@ -42,9 +42,8 @@ final class PlannerViewViewModel: ObservableObject {
     }
     
     func fillWeekDays() {
-        if Calendar.current.firstWeekday == 1 {
-           days = Calendar.current.shortWeekdaySymbols
-        } else {
+        days = Calendar.current.shortWeekdaySymbols
+        if Calendar.current.firstWeekday != 1 {
             days = Calendar.current.shortWeekdaySymbols
             if let sunday = Calendar.current.shortWeekdaySymbols.first {
                 days.removeFirst()
@@ -56,7 +55,6 @@ final class PlannerViewViewModel: ObservableObject {
     
     
     func fillDates() {
-        print(Calendar.current.firstWeekday)
         let currentMonth = getCurrentMonth()
         var emptyDays: [DateInCalendar] = []
         let monthDays = currentMonth.getAllDates().compactMap { date -> DateInCalendar in
@@ -65,6 +63,7 @@ final class PlannerViewViewModel: ObservableObject {
             return DateInCalendar(day: day, date: date)
         }
         let firstWeekday = calendar.component(.weekday, from: monthDays.first?.date ?? Date())
+        print(firstWeekday)
         if Calendar.current.firstWeekday == 1 {
             emptyDays = (1..<firstWeekday).map { _ in
                 return DateInCalendar(day: 0, date: Date())
