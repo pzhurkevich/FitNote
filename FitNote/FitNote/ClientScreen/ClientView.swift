@@ -227,8 +227,8 @@ struct ClientView: View {
                                 }
                                 .padding(.horizontal, 20)
                                 
-                                Button {
-                                    //action
+                                NavigationLink {
+                                    StatisticsView()
                                 } label: {
                                     HStack {
                                         Text("Client statistic")

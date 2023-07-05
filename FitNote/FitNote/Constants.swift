@@ -18,6 +18,7 @@ struct Constants {
         case loggedAsTrainer = "trainer"
         case loggedAsSelf = "selfTrain"
         case notLogged = "notLogged"
+        case noInternet
        
     }
     

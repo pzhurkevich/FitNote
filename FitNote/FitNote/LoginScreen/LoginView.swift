@@ -120,6 +120,8 @@ struct LoginView: View {
                     TrainerView()
                 case .none:
                     OnboardingView()
+                case .noInternet:
+                    NetworkErrorView()
                 }
             }
             .alert("", isPresented: $vm.showingAlert) {

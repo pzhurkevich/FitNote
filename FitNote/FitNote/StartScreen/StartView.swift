@@ -53,6 +53,8 @@ struct StartView: View {
                TrainerView()
             case .none:
                 OnboardingView()
+            case .noInternet:
+                NetworkErrorView()
             }
             
         }
