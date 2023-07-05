@@ -14,6 +14,15 @@ extension View {
         clipShape(RoundedCorners(radius: radius, corners:  coners))
          
     }
+    
+        func hideKeyboardWhenTappedAround() -> some View  {
+            return self.onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                      to: nil, from: nil, for: nil)
+            }
+        }
+ 
+    
 }
 
 

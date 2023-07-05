@@ -127,6 +127,8 @@ struct LoginView: View {
             } message: {
                 Text(vm.errorText)
             }
+            .ignoresSafeArea(.keyboard)
+            .hideKeyboardWhenTappedAround()
           
         
     }

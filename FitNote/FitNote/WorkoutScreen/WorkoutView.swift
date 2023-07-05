@@ -71,7 +71,7 @@ struct WorkoutView: View {
                                 HStack() {
                                     
                                     Text(vm.exerciseNumberText(exercise: exercise))
-                                        .font(.title)
+                                        .font(.title2)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.white)
                                         .padding(.trailing, 10)
@@ -126,7 +126,7 @@ struct WorkoutView: View {
                                             }
                                             
                                             HStack {
-                                                TextField("ves", text: $item.weight)
+                                                TextField("weight", text: $item.weight)
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
                                                     .padding(3)
@@ -258,6 +258,8 @@ struct WorkoutView: View {
             } message: {
                 Text(vm.warningText)
             }
+            .ignoresSafeArea(.keyboard)
+            .hideKeyboardWhenTappedAround()
         
     }
 }
