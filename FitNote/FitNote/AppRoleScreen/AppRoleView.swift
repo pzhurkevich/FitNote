@@ -14,102 +14,98 @@ struct AppRoleView: View {
     var body: some View {
         ZStack {
             
-            Color.darkColor.ignoresSafeArea()
+            Image("onboarding3")
+                .resizable()
+                .scaledToFill()
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .ignoresSafeArea()
          
         
             
-            VStack {
-                
                 VStack {
-                    Text("Hello, user! How will you use the app?")
-                       
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .padding(30)
-                }.padding(.top, 10)
-                 
-              
-                ZStack {
                     
                     VStack {
-                        Spacer()
-                        Image("role")
-                            .resizable()
-                        .scaledToFill()
-                        
-                    }.ignoresSafeArea()
-                    
-                    
-                    VStack{
-                        HStack {
-                            Button {
-                                
-                                vm.updateRoleForUser(role: .loggedAsTrainer)
-                                vm.roleScreen = .trainer
-                            } label: {
-                                
-                                Text("I train others")
-                                    .foregroundColor(.black)
-                                    .fontDesign(.rounded)
-                                    .fontWeight(.bold)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                            }.padding()
+                        Text("Choose how you will you use app")
                            
-                            Button {
-                                vm.customAlert.toggle()
-                                vm.textForAlert = .textForTrainers
-                            } label: {
-                                Image(systemName: "info.circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(.white)
-                                    .frame(width: 30, height: 30)
-                                    .padding(.trailing, 10)
-                                    
-                            }
-
-                        }.padding(.horizontal, 20)
+                            .font(.largeTitle)
+                            .foregroundColor(.greenColor)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                        .padding(30)
+                    }.padding(.top, 10)
+                     
+                  Spacer()
+             
                         
-                        HStack {
-                            Button {
-                                
-                                vm.updateRoleForUser(role: .loggedAsSelf)
-                                vm.roleScreen = .customer
+                        
+                        VStack{
+                            HStack {
+                                Button {
+                                    
+                                    vm.updateRoleForUser(role: .loggedAsTrainer)
+                                    vm.roleScreen = .trainer
+                                } label: {
+                                    
+                                    Text("I train others")
+                                        .foregroundColor(.black)
+                                        .fontDesign(.rounded)
+                                        .fontWeight(.bold)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color.greenColor)
+                                        .clipShape(Capsule())
+                                }.padding()
                                
-                            } label: {
+                                Button {
+                                    vm.customAlert.toggle()
+                                    vm.textForAlert = .textForTrainers
+                                } label: {
+                                    Image(systemName: "info.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.white)
+                                        .frame(width: 30, height: 30)
+                                        .padding(.trailing, 10)
+                                        
+                                }
+
+                            }.padding(.horizontal, 20)
+                            
+                            HStack {
+                                Button {
+                                    
+                                    vm.updateRoleForUser(role: .loggedAsSelf)
+                                    vm.roleScreen = .customer
+                                   
+                                } label: {
+                                    
+                                    Text("I train by myself")
+                                        .foregroundColor(.black)
+                                        .fontDesign(.rounded)
+                                        .fontWeight(.bold)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color.greenColor)
+                                        .clipShape(Capsule())
+                                }.padding()
                                 
-                                Text("I train by myself")
-                                    .foregroundColor(.black)
-                                    .fontDesign(.rounded)
-                                    .fontWeight(.bold)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                            }.padding()
-                            
-                            Button {
-                                vm.customAlert.toggle()
-                                vm.textForAlert = .textForSelfTrain
-                            } label: {
-                                Image(systemName: "info.circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(.white)
-                                    .frame(width: 30, height: 30)
-                                    .padding(.trailing, 10)
-                            }
-                            
-                        }.padding(.horizontal, 20)
-                    }
+                                Button {
+                                    vm.customAlert.toggle()
+                                    vm.textForAlert = .textForSelfTrain
+                                } label: {
+                                    Image(systemName: "info.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.white)
+                                        .frame(width: 30, height: 30)
+                                        .padding(.trailing, 10)
+                                }
+                                
+                            }.padding(.horizontal, 20)
+                        }
+          
+              Spacer()
                 }
-                            
-            }
             
             if vm.customAlert {
                 CustomAlertView(show: $vm.customAlert, text: vm.textForAlert.rawValue)
@@ -168,7 +164,7 @@ struct CustomAlertView: View {
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)
        
-        .background(Color.primary.opacity(0.65))
+        .background(Color.black.opacity(0.65))
     }
     
 }
