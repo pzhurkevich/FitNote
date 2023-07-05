@@ -149,7 +149,7 @@ struct ClientView: View {
                                                 .padding(.leading, 5)
                                                 .font(.system(size: 20))
                                                 .autocapitalization(.words)
-                                                .keyboardType(.numberPad)
+                                                .keyboardType(.phonePad)
                                                 .disableAutocorrection(true)
                                         } else {
                                             Text(vm.phone)
@@ -257,6 +257,7 @@ struct ClientView: View {
                 }
                 
             }
+            .ignoresSafeArea(.keyboard)
             .navigationBarTitleDisplayMode(.inline)
             .accentColor(Color.greenColor) //для кнопки "back"
             .onAppear {

@@ -84,51 +84,53 @@ final class PlannerViewViewModel: ObservableObject {
         return currentMonth
     }
     
+    
     func addClientToPlanner() {
-        let id = UUID().uuidString
-        let idData = UUID().uuidString
-        
-        guard !newClientName.isEmpty else {
-            showAlert.toggle()
-            return
+            let id = UUID().uuidString
+            let idData = UUID().uuidString
             
-        }
-        
-        let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
-        var taskToDisplay: [ClientTask] = []
-        
-        if tasks.isEmpty {
-           
-            taskToDisplay.append(client)
-            tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
-        } else {
-            
-            let updatedTasks = tasks.map { clientTaskData -> ClientTaskData in
-                var updatedClientTaskData = clientTaskData
-
-                let componentsClient = clientTaskData.taskDate.getDateComponents()
-                let componentsDate = selectedDate.getDateComponents()
-
-                if componentsClient == componentsDate {
-                    updatedClientTaskData.addTask(newClient: client)
-                } else {
-                    taskToDisplay.append(client)
-                    tasks.append(ClientTaskData(id: idData, task: taskToDisplay.sorted(), taskDate: selectedDate))
-                }
-
-                return updatedClientTaskData
+            guard !newClientName.isEmpty else {
+                showAlert.toggle()
+                return
+                
             }
-
-            tasks = updatedTasks
             
+            
+            
+            let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
+            var taskToDisplay: [ClientTask] = []
+            
+            if tasks.isEmpty {
+               
+                taskToDisplay.append(client)
+                tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
+            } else {
+                
+                for i in 0..<tasks.count {
+                    var clientTaskData = tasks[i]
+
+                    let componentsClient = clientTaskData.taskDate.getDateComponents()
+                    let componentsDate = selectedDate.getDateComponents()
+                    
+                    if componentsClient == componentsDate {
+                        clientTaskData.addTask(newClient: client)
+                      tasks[i] = clientTaskData
+                    } else {
+
+                        taskToDisplay.append(client)
+                        tasks.append(ClientTaskData(id: idData, task: taskToDisplay.sorted(), taskDate: selectedDate))
+                    }
+                }
+                
+            }
+            
+            Task { [weak self] in
+                guard let self = self else {return}
+                await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+            }
+           isShown.toggle()
         }
-        
-        Task { [weak self] in
-            guard let self = self else {return}
-            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
-        }
-       isShown.toggle()
-    }
+    
     
     func fetchTasksToPlanner() async {
 
@@ -149,12 +151,18 @@ final class PlannerViewViewModel: ObservableObject {
         let index = indexSet[indexSet.startIndex]
         let taskToDelete = allTask.task[index]
         let updatedTasks = allTask.task.filter { $0 != taskToDelete }
-        let updatedClientTaskData = ClientTaskData(id: allTask.id, task: updatedTasks, taskDate: allTask.taskDate)
-        tasks = tasks.filter { $0.id != allTask.id }
-        tasks.append(updatedClientTaskData)
-        Task { [weak self] in
-            guard let self = self else {return}
-            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+        if updatedTasks.isEmpty {
+            fireBaseManager.deleteOneClientTask(docId: allTask.id)
+            tasks = tasks.filter { $0.id != allTask.id }
+        } else {
+            let updatedClientTaskData = ClientTaskData(id: allTask.id, task: updatedTasks, taskDate: allTask.taskDate)
+            tasks = tasks.filter { $0.id != allTask.id }
+            tasks.append(updatedClientTaskData)
+            tasks = tasks.filter { !$0.task.isEmpty }
+            Task { [weak self] in
+                guard let self = self else {return}
+                await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+            }
         }
     }
 }
