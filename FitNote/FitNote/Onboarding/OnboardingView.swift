@@ -15,77 +15,86 @@ struct OnboardingView: View {
     
     var body: some View {
         
-        TabView(selection: $vm.currentTab,
-                content:  {
-            ForEach(vm.list) { data in
-                ZStack {
-                    
-                    
-                    Image(data.backgroundImage)
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                    
-                    
-                    VStack {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            
+            TabView(selection: $vm.currentTab,
+                    content:  {
+                ForEach(vm.list) { data in
+                    ZStack {
                         
-                        Spacer()
-                        VStack(spacing: 0) {
-                            Text(data.title)
-                                .font(.title)
-                                .foregroundColor(.greenColor)
-                                .padding(.top, 10)
-                                .foregroundColor(.greenColor)
+                        
+                        Image(data.backgroundImage)
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                        
+                        
+                        VStack {
                             
-                            Text(data.primaryText)
-                                .padding(20)
-                                .font(.system(.title2, design: .rounded))
-                                .frame(maxWidth: 400)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                            
-                              
-                        }
-                        .background(Color.secondaryDark)
-                        .opacity(0.8)
-                    .padding(.bottom, 180)
-                     
-                        if data.id == 2 {
-                            Button {
-                                vm.isPresented.toggle()
-                                skip.toggle()
-                            } label: {
-                                HStack {
-                                    Text("Start Now")
-                                        .fontDesign(.rounded)
-                                        .fontWeight(.bold)
-                                    
-                                    Image(systemName: "chevron.forward")
-                                        .fontWeight(.bold)
-                                }
-                                .tint(.black)
-                                .padding(.horizontal, 30)
-                                .padding(.vertical, 20)
-                                .background(Color.greenColor)
-                                .clipShape(Capsule())
+                            Spacer()
+                            VStack(spacing: 0) {
+                                Text(data.title)
+                                    .font(.title)
+                                    .foregroundColor(.greenColor)
+                                    .padding(.top, 10)
+                                    .foregroundColor(.greenColor)
+                                
+                                Text(data.primaryText)
+                                    .padding(20)
+                                    .font(.system(.title2, design: .rounded))
+                                    .frame(maxWidth: 400)
+                                    .foregroundColor(.white)
+                                    .multilineTextAlignment(.center)
+                                
+                                  
                             }
-                            .padding(.bottom, 60)
+                            .background(Color.secondaryDark)
+                            .opacity(0.9)
+                      
+                            
+                            
+                            
                         }
-                        
+                        .padding(.bottom, 190)
+                        if data.id == 2 {
+                          
+                            VStack {
+                                Spacer()
+                                Button {
+                                    vm.isPresented.toggle()
+                                    skip.toggle()
+                                } label: {
+                                    HStack {
+                                        Text("Start Now")
+                                            .fontDesign(.rounded)
+                                            .fontWeight(.bold)
+                                        
+                                        Image(systemName: "chevron.forward")
+                                            .fontWeight(.bold)
+                                    }
+                                    .tint(.black)
+                                    .padding(.horizontal, 30)
+                                    .padding(.vertical, 20)
+                                    .background(Color.greenColor)
+                                    .clipShape(Capsule())
+                                }
+                            .padding(.bottom, 60)
+                            }
+                        }
                     }
-                   
+                    
+                    .fullScreenCover(isPresented: $vm.isPresented) {
+                        LoginView()
+                    }
+                    .tag(data.id)
                 }
                 
-                .fullScreenCover(isPresented: $vm.isPresented) {
-                    LoginView()
-                }
-                .tag(data.id)
-            }
-            
-        })
-        .tabViewStyle(PageTabViewStyle())
-        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        .ignoresSafeArea()
+            })
+            .tabViewStyle(.page)
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        }
+       
     }
     
 }

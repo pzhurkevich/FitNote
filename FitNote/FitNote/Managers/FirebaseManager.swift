@@ -32,6 +32,8 @@ protocol FirebaseManagerProtocol {
     func fetchClientsWorkouts(clientID: String) async -> [Workout]
     func saveCustomerWorkout(name: String, date: Date, workout: [OneExersice]) async
     func fetchCustomerWorkouts() async -> [Workout]
+    func saveClientsPlanner(allTasks: [ClientTaskData]) async
+    func fetchClientsToPlanner() async -> [ClientTaskData]
 }
 
 
@@ -273,7 +275,46 @@ class FirebaseManager: FirebaseManagerProtocol {
         Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(docId).delete()
     }
     
-    //MARK: - Workout functions -
+ //MARK: - Planner Tasks functions -
+    
+    
+    func saveClientsPlanner(allTasks: [ClientTaskData]) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            for clientTaskData in allTasks {
+                let clientTaskDataFromCalendar = ClientTaskData(id: clientTaskData.id, task: clientTaskData.task, taskDate: clientTaskData.taskDate)
+                let encodedClientTaskDataFromCalendar = try Firestore.Encoder().encode(clientTaskDataFromCalendar)
+                
+                try await Firestore.firestore().collection("TasksDB").document(uid).collection("tasks").document(clientTaskDataFromCalendar.id).setData(encodedClientTaskDataFromCalendar)
+            }
+        } catch {
+            print("ne poluchilos sohranit tvoi strukturi")
+            print (error.localizedDescription)
+      
+        }
+    }
+    
+    
+    func fetchClientsToPlanner() async -> [ClientTaskData] {
+        guard let uid = Auth.auth().currentUser?.uid else { return [] }
+        var allTasks: [ClientTaskData] = []
+        do {
+            let snapshot = try await Firestore.firestore().collection("TasksDB").document(uid).collection("tasks").getDocuments()
+            
+            allTasks =  try snapshot.documents.map {try $0.data(as: ClientTaskData.self) }
+
+        } catch {
+            print("Can't fetch clients Data from server to planner")
+           
+        }
+       
+        return allTasks
+    }
+    
+    
+    
+    //MARK: - Other functions -
     
     func saveClientWorkout(name: String, date: Date, workout: [OneExersice], clientID: String) async {
         guard let uid = Auth.auth().currentUser?.uid else { return }
