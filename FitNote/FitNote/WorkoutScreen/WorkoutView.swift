@@ -11,6 +11,7 @@ struct WorkoutView: View {
     
     
     @ObservedObject var vm: WorkoutViewViewModel
+    @FocusState private var textIsFocused: Bool
     
     
     var body: some View {
@@ -25,7 +26,9 @@ struct WorkoutView: View {
                 HStack {
                     
                     if vm.workoutNameEdit {
-                        TextField("new workout", text: $vm.workoutName).textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("new workout", text: $vm.workoutName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .focused($textIsFocused)
                             .padding(.leading, 20)
                             .padding(.trailing, 5)
                             .font(.system(size: 25))
@@ -43,7 +46,7 @@ struct WorkoutView: View {
                     
                     
                     Button(action: {
-                       
+                        
                         vm.checkWorkoutName()
                     }) {
                         Image(systemName: vm.workoutNameEdit ? "checkmark.circle" : "pencil.circle")
@@ -71,7 +74,7 @@ struct WorkoutView: View {
                                 HStack() {
                                     
                                     Text(vm.exerciseNumberText(exercise: exercise))
-                                        .font(.title)
+                                        .font(.title2)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.white)
                                         .padding(.trailing, 10)
@@ -126,7 +129,7 @@ struct WorkoutView: View {
                                             }
                                             
                                             HStack {
-                                                TextField("ves", text: $item.weight)
+                                                TextField("weight", text: $item.weight)
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
                                                     .padding(3)
@@ -154,13 +157,11 @@ struct WorkoutView: View {
                                             .padding(5)
                                         
                                         VStack(spacing: 0) {
-                                            TextField("New rep", text: $exercise.newItem, onCommit: {
-                                                
-                                                vm.addSet(exercise: exercise)
-                                                
-                                            }).multilineTextAlignment(.center)
+                                            TextField("New rep", text: $exercise.newItem)
+                                                .focused($textIsFocused)
+                                                .multilineTextAlignment(.center)
                                                 .foregroundColor(.white)
-                                                .keyboardType(.numberPad)
+                                                .keyboardType(.decimalPad)
                                                 .disableAutocorrection(true)
                                                 .padding(.bottom, 3)
                                             
@@ -174,13 +175,10 @@ struct WorkoutView: View {
                                         }
                                         
                                         VStack(spacing: 0) {
-                                            TextField("New weight", text: $exercise.newItem2, onCommit: {
-                                                
-                                                vm.addSet(exercise: exercise)
-                                                
-                                            }).multilineTextAlignment(.center)
+                                            TextField("New weight", text: $exercise.newItem2).multilineTextAlignment(.center)
+                                                .focused($textIsFocused)
                                                 .foregroundColor(.white)
-                                                .keyboardType(.numberPad)
+                                                .keyboardType(.decimalPad)
                                                 .disableAutocorrection(true)
                                                 .padding(.bottom, 3)
                                             
@@ -191,17 +189,26 @@ struct WorkoutView: View {
                                             Text("weigth")
                                                 .foregroundColor(Color.greenColor)
                                         }
+                                        Button {
+                                            vm.addSet(exercise: exercise)
+                                        } label: {
+                                            Image(systemName: "plus")
+                                            
+                                                .foregroundColor(.greenColor)
+                                        }
+                                        .padding(5)
                                         
                                     }.padding(.bottom, 8)
+                                        .buttonStyle(PlainButtonStyle())
                                 }
                             } .padding(5)
                                 .listRowBackground(
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundColor(.secondaryDark)
                                         .padding([.top, .bottom], 10)
-                                        .listRowSeparator(.hidden)
+                                    
                                 )
-                            
+                                .listRowSeparator(.hidden)
                         }
                         .background(Color.darkColor)
                         .scrollContentBackground(.hidden)
@@ -257,7 +264,9 @@ struct WorkoutView: View {
             } message: {
                 Text(vm.warningText)
             }
-
+            .onTapGesture {
+                textIsFocused = false
+            }
     }
 }
 

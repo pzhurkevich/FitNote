@@ -29,7 +29,7 @@ struct CustomDatePicker: View {
         
                         
                     
-                    TextField("client", text: $vm.newClientName, prompt: Text("new client").foregroundColor(.white))
+                    TextField("client", text: $vm.newClientName)
                         .foregroundColor(Color.greenColor)
                         .padding(8)
                         .overlay {

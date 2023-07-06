@@ -198,8 +198,8 @@ struct CustomerView: View {
                                 }
                                 .padding(.horizontal, 20)
                                 
-                                Button {
-                                    //action
+                                NavigationLink {
+                                    StatisticsView()
                                 } label: {
                                     HStack {
                                         Text("Your statistic")

@@ -120,9 +120,9 @@ struct HistoryView: View {
                             .background(.clear)
                             .foregroundColor(.secondaryDark)
                             .padding([.top, .bottom], 10)
-                            .listRowSeparator(.hidden)
+                          
                     )
-                    
+                    .listRowSeparator(.hidden)
                 }
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
@@ -137,6 +137,7 @@ struct HistoryView: View {
                 .foregroundColor(.greenColor)
                 .background(Color.darkColor)
                 .scrollContentBackground(.hidden)
+                
                 
                 
             }

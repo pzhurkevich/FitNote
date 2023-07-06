@@ -14,7 +14,6 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 
 protocol FirebaseManagerProtocol {
-    var userSession: FirebaseAuth.User? { get }
     func register(mail: String, password: String, name: String) async throws -> User
     func login(mail: String, password: String) async throws -> User
     func fetchAppUser() async throws -> AppUser?
@@ -34,6 +33,7 @@ protocol FirebaseManagerProtocol {
     func fetchCustomerWorkouts() async -> [Workout]
     func saveClientsPlanner(allTasks: [ClientTaskData]) async
     func fetchClientsToPlanner() async -> [ClientTaskData]
+    func deleteOneClientTask(docId: String)
 }
 
 
@@ -41,7 +41,6 @@ class FirebaseManager: FirebaseManagerProtocol {
 
 // MARK: - Variables -
     
-    var userSession: FirebaseAuth.User?
     
        
   // MARK: - Functions for App User-
@@ -49,7 +48,6 @@ class FirebaseManager: FirebaseManagerProtocol {
     func register(mail: String, password: String, name: String) async throws -> User {
         do {
             let result =  try await Auth.auth().createUser(withEmail: mail, password: password)
-            self.userSession = result.user
             let appUser = AppUser(id: result.user.uid, name: name, email: mail, imageURL: "", appRole: "")
             let encodedUser = try Firestore.Encoder().encode(appUser)
             try await Firestore.firestore().collection("appUsers").document(appUser.id).setData(encodedUser)
@@ -312,6 +310,11 @@ class FirebaseManager: FirebaseManagerProtocol {
         return allTasks
     }
     
+    func deleteOneClientTask(docId: String) {
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+
+            Firestore.firestore().collection("TasksDB").document(uid).collection("tasks").document(docId).delete()
+        }
     
     
     //MARK: - Other functions -

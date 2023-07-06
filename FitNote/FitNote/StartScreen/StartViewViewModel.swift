@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import Network
 
 final class StartViewViewModel: ObservableObject {
     
@@ -15,49 +15,70 @@ final class StartViewViewModel: ObservableObject {
    
     @Published  var isPresented = false
     @Published var isLoading = false
+    @Published var isConnected = true
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
+    
+    let monitor = NWPathMonitor()
+    let queue = DispatchQueue(label: "Monitor")
+
 // MARK:  - Methods -
+    
+    init() {
+            monitor.pathUpdateHandler =  { [weak self] path in
+                guard let self = self else { return }
+                    self.isConnected = path.status == .satisfied 
+                
+            }
+            monitor.start(queue: queue)
+        }
+    
     
     
     func screenToOpen() async {
-        
-        do {
-            await MainActor.run {
-                self.isLoading = true
-            }
-            let registeredUser = try await fireBaseManager.fetchAppUser()
-            
-            if registeredUser != nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
-                fireBaseManager.signOut()
-                Constants.currentState = .none
-                await MainActor.run {
-                    self.isPresented = true
-                }
-            } else {
+        await MainActor.run {
+            self.isLoading = true
+        }
+        if isConnected {
+            do {
                 
-                if registeredUser == nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
-                    
+                let registeredUser = try await fireBaseManager.fetchAppUser()
+                
+                if registeredUser != nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
+                    fireBaseManager.signOut()
                     Constants.currentState = .none
                     await MainActor.run {
                         self.isPresented = true
                     }
                 } else {
                     
-                    await MainActor.run {
+                    if registeredUser == nil, !UserDefaults.standard.bool(forKey: "onboardingSkip") {
                         
-                        if let user = registeredUser {
-                            Constants.currentState = Constants.State(rawValue: user.appRole)
-                        } else {
-                            Constants.currentState = .notLogged
+                        Constants.currentState = .none
+                        await MainActor.run {
+                            self.isPresented = true
                         }
-                        self.isPresented = true
+                    } else {
+                        
+                        await MainActor.run {
+                            
+                            if let user = registeredUser {
+                                Constants.currentState = Constants.State(rawValue: user.appRole)
+                            } else {
+                                Constants.currentState = .notLogged
+                            }
+                            self.isPresented = true
+                        }
                     }
                 }
+            } catch {
+                print("error fetching user")
             }
-        } catch {
-            print("error fetching user")
+        } else {
+            Constants.currentState = .noInternet
+            await MainActor.run {
+                self.isPresented = true
+            }
         }
-            
     }
     
     

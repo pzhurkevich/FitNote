@@ -14,6 +14,9 @@ extension View {
         clipShape(RoundedCorners(radius: radius, corners:  coners))
          
     }
+    
+ 
+    
 }
 
 

@@ -57,6 +57,8 @@
 		E9B3B21A2A40ADEA008BC653 /* ClientsListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B2192A40ADEA008BC653 /* ClientsListViewViewModel.swift */; };
 		E9B3B21D2A418F78008BC653 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B21C2A418F78008BC653 /* ClientView.swift */; };
 		E9B3B21F2A418FAE008BC653 /* ClientViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B21E2A418FAD008BC653 /* ClientViewViewModel.swift */; };
+		E9BB584F2A561034003ACCBA /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB584E2A561034003ACCBA /* NetworkErrorView.swift */; };
+		E9BB58512A561CA9003ACCBA /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB58502A561CA9003ACCBA /* StatisticsView.swift */; };
 		E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C936F12A352A23009D4256 /* WorkoutView.swift */; };
 		E9C936F52A35E06F009D4256 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E9C936F42A35E06F009D4256 /* Alamofire */; };
 		E9C936FF2A35F02C009D4256 /* AlamofireProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C936FE2A35F02C009D4256 /* AlamofireProvider.swift */; };
@@ -109,6 +111,8 @@
 		E9B3B2192A40ADEA008BC653 /* ClientsListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsListViewViewModel.swift; sourceTree = "<group>"; };
 		E9B3B21C2A418F78008BC653 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
 		E9B3B21E2A418FAD008BC653 /* ClientViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewViewModel.swift; sourceTree = "<group>"; };
+		E9BB584E2A561034003ACCBA /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
+		E9BB58502A561CA9003ACCBA /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		E9C936F12A352A23009D4256 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		E9C936FE2A35F02C009D4256 /* AlamofireProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireProvider.swift; sourceTree = "<group>"; };
 		E9C937012A35F04D009D4256 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 		E9A46A3E2A3066A6008C50C7 /* StartScreen */ = {
 			isa = PBXGroup;
 			children = (
+				E9BB584E2A561034003ACCBA /* NetworkErrorView.swift */,
 				E9A46A1F2A2FDBAB008C50C7 /* StartView.swift */,
 				E9B3AD892A3083F70059C99D /* StartViewViewModel.swift */,
 			);
@@ -315,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B3B21C2A418F78008BC653 /* ClientView.swift */,
+				E9BB58502A561CA9003ACCBA /* StatisticsView.swift */,
 				E9B3B21E2A418FAD008BC653 /* ClientViewViewModel.swift */,
 			);
 			path = ClientScreen;
@@ -454,6 +460,7 @@
 				E9A46A412A3066D2008C50C7 /* OnboardingView.swift in Sources */,
 				E9B3AD9A2A31420A0059C99D /* FirebaseManager.swift in Sources */,
 				E9B3AD8F2A30CF450059C99D /* LoginViewViewModel.swift in Sources */,
+				E9BB584F2A561034003ACCBA /* NetworkErrorView.swift in Sources */,
 				E9B3AD962A313AEB0059C99D /* RegisterView.swift in Sources */,
 				E94299FA2A3D8B790064686C /* AppUser.swift in Sources */,
 				E94CF22D2A4AF7BF0060A277 /* CustomDatePicker.swift in Sources */,
@@ -471,6 +478,7 @@
 				E9C937022A35F04D009D4256 /* Exercises.swift in Sources */,
 				E9C936F22A352A23009D4256 /* WorkoutView.swift in Sources */,
 				E9A46A1E2A2FDBAB008C50C7 /* FitNoteApp.swift in Sources */,
+				E9BB58512A561CA9003ACCBA /* StatisticsView.swift in Sources */,
 				E9B3B21A2A40ADEA008BC653 /* ClientsListViewViewModel.swift in Sources */,
 				E9B3AD922A30DCE00059C99D /* OnboardingViewModel.swift in Sources */,
 				E9B3B2152A40A4E5008BC653 /* Client.swift in Sources */,

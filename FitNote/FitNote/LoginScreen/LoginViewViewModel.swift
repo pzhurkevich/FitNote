@@ -40,8 +40,13 @@ final class LoginViewViewModel: ObservableObject {
                 let registeredUser = try await fireBaseManager.fetchAppUser()
                 await MainActor.run {
                     self.isLogged = userData.email != nil
+                    
                     if let user = registeredUser {
-                        Constants.currentState = Constants.State(rawValue: user.appRole)
+                        if user.appRole != "" {
+                            Constants.currentState = Constants.State(rawValue: user.appRole)
+                        } else {
+                            Constants.currentState = .appRoleNotChoosen
+                        }
                     }
                     
                 }

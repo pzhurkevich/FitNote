@@ -15,8 +15,8 @@ struct OnboardingView: View {
     
     var body: some View {
         
-        ZStack {
-            Color.black.ignoresSafeArea()
+//        ZStack {
+//            Color.black.ignoresSafeArea()
             
             TabView(selection: $vm.currentTab,
                     content:  {
@@ -27,6 +27,7 @@ struct OnboardingView: View {
                         Image(data.backgroundImage)
                             .resizable()
                             .scaledToFill()
+                            .frame(minWidth: 0, maxWidth: .infinity)
                             .ignoresSafeArea()
                         
                         
@@ -43,7 +44,7 @@ struct OnboardingView: View {
                                 Text(data.primaryText)
                                     .padding(20)
                                     .font(.system(.title2, design: .rounded))
-                                    .frame(maxWidth: 400)
+                                    .frame(maxWidth: .infinity)
                                     .foregroundColor(.white)
                                     .multilineTextAlignment(.center)
                                 
@@ -91,9 +92,11 @@ struct OnboardingView: View {
                 }
                 
             })
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .ignoresSafeArea()
             .tabViewStyle(.page)
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        }
+        //}
        
     }
     
