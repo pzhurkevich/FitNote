@@ -57,8 +57,7 @@ struct AppRoleView: View {
                                 }.padding()
                                
                                 Button {
-                                    vm.customAlert.toggle()
-                                    vm.textForAlert = .textForTrainers
+                                    vm.selfTrainInfo()
                                 } label: {
                                     Image(systemName: "info.circle")
                                         .resizable()
@@ -90,8 +89,7 @@ struct AppRoleView: View {
                                 }.padding()
                                 
                                 Button {
-                                    vm.customAlert.toggle()
-                                    vm.textForAlert = .textForSelfTrain
+                                    vm.trainerInfo()
                                 } label: {
                                     Image(systemName: "info.circle")
                                         .resizable()

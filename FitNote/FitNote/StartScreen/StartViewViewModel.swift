@@ -25,9 +25,9 @@ final class StartViewViewModel: ObservableObject {
     
     init() {
             monitor.pathUpdateHandler =  { [weak self] path in
-                DispatchQueue.main.async {
-                    self?.isConnected = path.status == .satisfied ? true : false
-                }
+                guard let self = self else { return }
+                    self.isConnected = path.status == .satisfied 
+                
             }
             monitor.start(queue: queue)
         }

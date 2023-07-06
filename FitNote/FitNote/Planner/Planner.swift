@@ -165,9 +165,11 @@ struct Planner: View {
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(client.time, style: .time)
+                                        .font(.system(size: 16))
                                     .foregroundColor(.white)
                                     
                                     Text(client.clientName)
+                                        .font(.system(size: 18))
                                         .font(.title2.bold())
                                         .foregroundColor(.greenColor)
                                 }
@@ -179,6 +181,7 @@ struct Planner: View {
                            }.onDelete { indexSet in
                                vm.deleteClient(indexSet: indexSet, allTask: task)
                            }
+                           .listRowSeparator(.hidden)
                        }
                        .background(Color.darkColor)
                        .scrollContentBackground(.hidden)

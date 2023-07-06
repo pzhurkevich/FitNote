@@ -10,6 +10,7 @@ import SwiftUI
 struct RegisterView: View {
     
     @StateObject var vm = RegisterViewViewModel()
+    @FocusState private var textIsFocused: Bool
     
     var body: some View {
             ZStack {
@@ -29,7 +30,8 @@ struct RegisterView: View {
                         .font(.largeTitle)
                         .foregroundColor(.white)
                     
-                    TextField("", text: $vm.name, prompt: Text("Name").foregroundColor(.white))
+                    TextField("name", text: $vm.name)
+                        .focused($textIsFocused)
                         .autocorrectionDisabled(true)
                         .foregroundColor(Color.greenColor)
                         .padding()
@@ -39,7 +41,8 @@ struct RegisterView: View {
                         }
                         .padding()
                     
-                    TextField("", text: $vm.email, prompt: Text("Email").foregroundColor(.white))
+                    TextField("email", text: $vm.email)
+                        .focused($textIsFocused)
                         .foregroundColor(Color.greenColor)
                         .padding()
                         .overlay {
@@ -48,7 +51,8 @@ struct RegisterView: View {
                         }
                         .padding()
                     
-                    SecureField("", text: $vm.password, prompt: Text("Password").foregroundColor(.white))
+                    SecureField("password", text: $vm.password)
+                        .focused($textIsFocused)
                         .fixedSize(horizontal: false, vertical: true)
                         .foregroundColor(Color.greenColor)
                         .padding()
@@ -107,7 +111,9 @@ struct RegisterView: View {
            } message: {
                Text(vm.errorText)
            }
-           .hideKeyboardWhenTappedAround()
+           .onTapGesture {
+               textIsFocused = false
+           }
     }
 }
 

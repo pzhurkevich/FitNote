@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject var vm = LoginViewViewModel()
+    @FocusState private var textIsFocused: Bool
     
     
     var body: some View {
@@ -33,7 +34,8 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .foregroundColor(.white)
                     
-                    TextField("", text: $vm.email, prompt: Text("Email").foregroundColor(.white))
+                    TextField("email", text: $vm.email)
+                        .focused($textIsFocused)
                         .autocorrectionDisabled(true)
                         .foregroundColor(Color.greenColor)
                         .padding()
@@ -43,7 +45,8 @@ struct LoginView: View {
                         }
                         .padding()
                     
-                    SecureField("", text: $vm.password, prompt: Text("Password").foregroundColor(.white))
+                    SecureField("password", text: $vm.password)
+                        .focused($textIsFocused)
                         .fixedSize(horizontal: false, vertical: true)
                         .foregroundColor(Color.greenColor)
                         .padding()
@@ -136,7 +139,9 @@ struct LoginView: View {
             } message: {
                 Text(vm.errorText)
             }
-            .hideKeyboardWhenTappedAround()
+            .onTapGesture {
+                textIsFocused = false
+            }
           
         
     }

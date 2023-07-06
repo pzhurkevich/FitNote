@@ -38,7 +38,14 @@ final class AppRoleViewViewModel: ObservableObject {
     
 // MARK:  - Methods -
     
-   
+    func trainerInfo() {
+        customAlert.toggle()
+        textForAlert = .textForSelfTrain
+    }
+    func selfTrainInfo() {
+        customAlert.toggle()
+        textForAlert = .textForTrainers
+    }
     
     func updateRoleForUser(role: Constants.State) {
         fireBaseManager.updateUserRole(role: role.rawValue)
