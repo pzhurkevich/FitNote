@@ -30,6 +30,7 @@ struct RegisterView: View {
                         .foregroundColor(.white)
                     
                     TextField("", text: $vm.name, prompt: Text("Name").foregroundColor(.white))
+                        .autocorrectionDisabled(true)
                         .foregroundColor(Color.greenColor)
                         .padding()
                         .overlay {
@@ -106,7 +107,6 @@ struct RegisterView: View {
            } message: {
                Text(vm.errorText)
            }
-           .ignoresSafeArea(.keyboard)
            .hideKeyboardWhenTappedAround()
     }
 }

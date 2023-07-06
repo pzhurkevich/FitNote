@@ -19,6 +19,7 @@ struct Constants {
         case loggedAsSelf = "selfTrain"
         case notLogged = "notLogged"
         case noInternet
+        case appRoleNotChoosen
        
     }
     

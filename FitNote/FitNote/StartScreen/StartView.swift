@@ -55,6 +55,8 @@ struct StartView: View {
                 OnboardingView()
             case .noInternet:
                 NetworkErrorView()
+            case .appRoleNotChoosen:
+                AppRoleView()
             }
             
         }

@@ -18,10 +18,9 @@ struct LoginView: View {
                 
                 Color.darkColor.ignoresSafeArea()
                 
-                RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(Color.secondaryDark)
-                    .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.65)
+                
                 VStack{
+               
                     
                     Image(systemName: "chevron.right.circle")
                         .resizable()
@@ -35,6 +34,7 @@ struct LoginView: View {
                         .foregroundColor(.white)
                     
                     TextField("", text: $vm.email, prompt: Text("Email").foregroundColor(.white))
+                        .autocorrectionDisabled(true)
                         .foregroundColor(Color.greenColor)
                         .padding()
                         .overlay {
@@ -72,9 +72,14 @@ struct LoginView: View {
                     
                     .padding([.horizontal, .vertical], 16)
                     
-                    Spacer()
-                }
-                .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.55)
+      
+                }.padding(20)
+                    .background( RoundedRectangle(cornerRadius: 25)
+                        .foregroundColor(Color.secondaryDark)
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 50)
+                
                 
                 VStack {
                     Spacer()
@@ -122,6 +127,8 @@ struct LoginView: View {
                     OnboardingView()
                 case .noInternet:
                     NetworkErrorView()
+                case .appRoleNotChoosen:
+                    AppRoleView()
                 }
             }
             .alert("", isPresented: $vm.showingAlert) {
@@ -129,7 +136,6 @@ struct LoginView: View {
             } message: {
                 Text(vm.errorText)
             }
-            .ignoresSafeArea(.keyboard)
             .hideKeyboardWhenTappedAround()
           
         
