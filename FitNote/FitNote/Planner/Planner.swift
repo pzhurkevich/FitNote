@@ -205,7 +205,7 @@ struct Planner: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        vm.isShown.toggle()
+                        vm.requestAuthorization()
                     } label: {
                         Image(systemName: "plus")
                         

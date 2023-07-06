@@ -122,13 +122,14 @@ final class PlannerViewViewModel: ObservableObject {
                 }
                 
             }
-            
-            Task { [weak self] in
-                guard let self = self else {return}
-                await fireBaseManager.saveClientsPlanner(allTasks: tasks)
-            }
-           isShown.toggle()
+        
+        Task { [weak self] in
+            guard let self = self else {return}
+            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
         }
+        createNotification(name: client.clientName, date: client.time)
+        isShown.toggle()
+    }
     
     
     func fetchTasksToPlanner() async {
@@ -164,4 +165,34 @@ final class PlannerViewViewModel: ObservableObject {
             }
         }
     }
+    
+    func requestAuthorization() {
+         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) {[weak self] success, error in
+             guard let self = self else {return}
+             if success {
+                 print("permissions granted")
+             } else if let error = error {
+                 print(error.localizedDescription)
+             }
+             DispatchQueue.main.async {
+                 self.isShown.toggle()
+             }
+         }
+     }
+
+     
+     func createNotification(name: String, date: Date) {
+         let content = UNMutableNotificationContent()
+         content.title = "Workout reminder"
+         content.subtitle = "Workour with \(name) tomorrow."
+         content.sound = UNNotificationSound.default
+         let timeInterval = date.timeIntervalSinceNow
+         var reminderTime = timeInterval - 86400
+         reminderTime = (timeInterval < 86400) ? 3 : reminderTime
+         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderTime, repeats: false)
+
+         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+         UNUserNotificationCenter.current().add(request)
+     }
 }
