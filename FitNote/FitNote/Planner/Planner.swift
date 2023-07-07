@@ -205,7 +205,9 @@ struct Planner: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        vm.requestAuthorization()
+                        Task { 
+                            await vm.checkCurrentAuthorizationSetting()
+                        }
                     } label: {
                         Image(systemName: "plus")
                         
@@ -218,6 +220,13 @@ struct Planner: View {
         }
         .task {
             await vm.fetchTasksToPlanner()
+        }
+        .alert("", isPresented: $vm.showAlert) {
+            Button("Ok", role: .cancel) {
+                vm.isShown.toggle()
+            }
+        } message: {
+            Text("You will receive notification about client workout the day before it")
         }
     }
 }

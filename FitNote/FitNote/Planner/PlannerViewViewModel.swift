@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 final class PlannerViewViewModel: ObservableObject {
     
@@ -14,6 +15,7 @@ final class PlannerViewViewModel: ObservableObject {
     
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     let calendar = Calendar.current
+    let notificationCenter = UNUserNotificationCenter.current()
     
     @Published var currentDate: Date = Date()
     @Published var selectedDate: Date = Date()
@@ -123,11 +125,12 @@ final class PlannerViewViewModel: ObservableObject {
                 
             }
         
-        Task { [weak self] in
-            guard let self = self else {return}
+        Task {
             await fireBaseManager.saveClientsPlanner(allTasks: tasks)
         }
-        createNotification(name: client.clientName, date: client.time)
+        
+        createNotification(client: client)
+        
         isShown.toggle()
     }
     
@@ -150,7 +153,11 @@ final class PlannerViewViewModel: ObservableObject {
     func deleteClient(indexSet: IndexSet, allTask: ClientTaskData) {
         let index = indexSet[indexSet.startIndex]
         let taskToDelete = allTask.task[index]
+        
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [taskToDelete.id])
+        
         let updatedTasks = allTask.task.filter { $0 != taskToDelete }
+        
         if updatedTasks.isEmpty {
             fireBaseManager.deleteOneClientTask(docId: allTask.id)
             tasks = tasks.filter { $0.id != allTask.id }
@@ -166,33 +173,64 @@ final class PlannerViewViewModel: ObservableObject {
         }
     }
     
-    func requestAuthorization() {
-         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) {[weak self] success, error in
-             guard let self = self else {return}
-             if success {
-                 print("permissions granted")
-             } else if let error = error {
-                 print(error.localizedDescription)
-             }
-             DispatchQueue.main.async {
-                 self.isShown.toggle()
-             }
-         }
-     }
+    
+    
+    func checkCurrentAuthorizationSetting() async {
+        
+        let currentSettings = await notificationCenter.notificationSettings()
+        
+        switch currentSettings.authorizationStatus {
+        case .notDetermined:
+            await requestAuthorization()
+        default:
+           await MainActor.run {
+                self.isShown.toggle()
+            }
+        }
+ 
+    }
+    
+    
+    
+    
+    func requestAuthorization() async {
+        
+        do {
+            let result = try await notificationCenter.requestAuthorization(options: [.alert, .sound, .badge])
+            if result {
+                await MainActor.run {
+                    self.showAlert.toggle()
+                }
+            } else {
+                await MainActor.run {
+                    self.isShown.toggle()
+                }
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
 
      
-     func createNotification(name: String, date: Date) {
-         let content = UNMutableNotificationContent()
-         content.title = "Workout reminder"
-         content.subtitle = "Workour with \(name) tomorrow."
-         content.sound = UNNotificationSound.default
-         let timeInterval = date.timeIntervalSinceNow
-         var reminderTime = timeInterval - 86400
-         reminderTime = (timeInterval < 86400) ? 3 : reminderTime
-         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderTime, repeats: false)
-
-         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-
-         UNUserNotificationCenter.current().add(request)
+    func createNotification(client: ClientTask) {
+        
+        let timeInterval = client.time.timeIntervalSinceNow
+        let reminderTime = timeInterval - 86400
+        
+        if reminderTime >= 0 {
+            
+            let content = UNMutableNotificationContent()
+            content.title = "Workout reminder"
+            content.subtitle = "Workour with \(client.clientName) tomorrow."
+            content.sound = UNNotificationSound.default
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderTime, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: client.id, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request)
+        }
+        
      }
 }
