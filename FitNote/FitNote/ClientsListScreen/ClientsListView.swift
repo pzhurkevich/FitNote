@@ -10,6 +10,9 @@ import SwiftUI
 struct ClientsListView: View {
     
     @StateObject var vm = ClientsListViewViewModel()
+    @State var editMode: EditMode = .inactive
+    @State var isEdit = false
+  
     
     var body: some View {
         
@@ -81,12 +84,20 @@ struct ClientsListView: View {
                                     .foregroundColor(.secondaryDark)
                                     .padding([.top, .bottom], 10)
                                     .listRowSeparator(.hidden))
-                            
-                        }.onDelete { indexSet in
-                            
-                            vm.deleteClient(indexSet: indexSet)
-                            
+                            .swipeActions(allowsFullSwipe: false) {
+                              Button(role: .destructive) {
+                                 // vm.deleteClient(allTask: task, client: client)
+                                  vm.deleteClient(client: client)
+                              } label: {
+                                Label("Delete", systemImage: "trash")
+                              }
+                            }
                         }
+//                        .onDelete { indexSet in
+//
+//                            vm.deleteClient(indexSet: indexSet)
+//
+//                        }
                         
                         //end list
                     }

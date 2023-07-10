@@ -160,31 +160,39 @@ struct Planner: View {
                     
                     if let task = vm.taskInDate(dateInCalendar: vm.currentDate) {
                         
-                       List {
-                           ForEach(task.task) { client in
-                                
-                                VStack(alignment: .leading, spacing: 10) {
-                                    Text(client.time, style: .time)
-                                        .font(.system(size: 16))
-                                    .foregroundColor(.white)
+                            List {
+                               ForEach(task.task) { client in
                                     
-                                    Text(client.clientName)
-                                        .font(.system(size: 18))
-                                        .font(.title2.bold())
-                                        .foregroundColor(.greenColor)
-                                }
-                                .listRowBackground(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .foregroundColor(.secondaryDark)
-                                        .padding([.top, .bottom], 5)
-                                        .listRowSeparator(.hidden))
-                           }.onDelete { indexSet in
-                               vm.deleteClient(indexSet: indexSet, allTask: task)
-                           }
-                           .listRowSeparator(.hidden)
-                       }
-                       .background(Color.darkColor)
-                       .scrollContentBackground(.hidden)
+                                    VStack(alignment: .leading, spacing: 10) {
+                                        Text(client.time, style: .time)
+                                            .font(.system(size: 16))
+                                        .foregroundColor(.white)
+                                        
+                                        Text(client.clientName)
+                                            .font(.system(size: 18))
+                                            .font(.title2.bold())
+                                            .foregroundColor(.greenColor)
+                                    }
+                                    .listRowBackground(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .foregroundColor(.secondaryDark)
+                                            .padding([.top, .bottom], 5)
+                                            .listRowSeparator(.hidden))
+                                    .swipeActions(allowsFullSwipe: false) {
+                                      Button(role: .destructive) {
+                                          vm.deleteClient(allTask: task, client: client)
+                                      } label: {
+                                        Label("Delete", systemImage: "trash")
+                                      }
+                                    }
+                               }
+                               .listRowSeparator(.hidden)
+                            }
+                            .background(Color.darkColor)
+                            .scrollContentBackground(.hidden)
+                            
+                
+                      
                        
                         
                         Spacer()

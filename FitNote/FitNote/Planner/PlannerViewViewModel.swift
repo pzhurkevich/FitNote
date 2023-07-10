@@ -141,13 +141,11 @@ final class PlannerViewViewModel: ObservableObject {
         })
     }
     
-    func deleteClient(indexSet: IndexSet, allTask: ClientTaskData) {
-        let index = indexSet[indexSet.startIndex]
-        let taskToDelete = allTask.task[index]
+    func deleteClient(allTask: ClientTaskData, client: ClientTask) {
         
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [taskToDelete.id])
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [client.id])
         
-        let updatedTasks = allTask.task.filter { $0.id != taskToDelete.id }
+        let updatedTasks = allTask.task.filter { $0.id != client.id }
         
         if updatedTasks.isEmpty {
             fireBaseManager.deleteOneClientTask(docId: allTask.id)
