@@ -31,7 +31,6 @@ final class PlannerViewViewModel: ObservableObject {
     @Published var newClientName = ""
     
     @Published var tasks: [ClientTaskData] = []
-    @Published var taskToDisplay: [ClientTask] = []
     @Published var daysInCalendar: [DateInCalendar] = []
     
     @Published var isShown = false
@@ -87,44 +86,36 @@ final class PlannerViewViewModel: ObservableObject {
     
     
     func addClientToPlanner() {
-            let id = UUID().uuidString
-            let idData = UUID().uuidString
+        let id = UUID().uuidString
+        let idData = UUID().uuidString
+        
+        guard !newClientName.isEmpty else {
+            showAlert.toggle()
+            return
             
-            guard !newClientName.isEmpty else {
-                showAlert.toggle()
-                return
-                
-            }
-            
-            
-            
-            let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
-            var taskToDisplay: [ClientTask] = []
-            
-            if tasks.isEmpty {
-               
-                taskToDisplay.append(client)
-                tasks.append(ClientTaskData(id: idData, task: taskToDisplay, taskDate: selectedDate))
-            } else {
-                
-                for i in 0..<tasks.count {
-                    var clientTaskData = tasks[i]
-
-                    let componentsClient = clientTaskData.taskDate.getDateComponents()
-                    let componentsDate = selectedDate.getDateComponents()
-                    
-                    if componentsClient == componentsDate {
-                        clientTaskData.addTask(newClient: client)
-                      tasks[i] = clientTaskData
-                    } else {
-
-                        taskToDisplay.append(client)
-                        tasks.append(ClientTaskData(id: idData, task: taskToDisplay.sorted(), taskDate: selectedDate))
+        }
+        
+        let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
+        let taskData = ClientTaskData(id: idData, task: [client], taskDate: selectedDate)
+        
+        if tasks.isEmpty {
+            tasks.append(taskData)
+        } else {
+            tasks.forEach { clientTaskData in
+                if clientTaskData.task.contains(where: { $0.time.getDateComponents() == selectedDate.getDateComponents() }) {
+                    var updated = clientTaskData
+                    updated.addTask(newClient: client)
+                    tasks = tasks.filter { $0.id != clientTaskData.id}
+                    tasks.append(updated)
+                }
+                else {
+                    if !tasks.contains(where: {$0.taskDate.getDateComponents() == selectedDate.getDateComponents()}) {
+                        tasks.append(taskData)
                     }
                 }
-                
             }
-        
+        }
+
         Task {
             await fireBaseManager.saveClientsPlanner(allTasks: tasks)
         }
@@ -156,7 +147,7 @@ final class PlannerViewViewModel: ObservableObject {
         
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [taskToDelete.id])
         
-        let updatedTasks = allTask.task.filter { $0 != taskToDelete }
+        let updatedTasks = allTask.task.filter { $0.id != taskToDelete.id }
         
         if updatedTasks.isEmpty {
             fireBaseManager.deleteOneClientTask(docId: allTask.id)
@@ -166,10 +157,11 @@ final class PlannerViewViewModel: ObservableObject {
             tasks = tasks.filter { $0.id != allTask.id }
             tasks.append(updatedClientTaskData)
             tasks = tasks.filter { !$0.task.isEmpty }
-            Task { [weak self] in
-                guard let self = self else {return}
-                await fireBaseManager.saveClientsPlanner(allTasks: tasks)
-            }
+        }
+        Task { [weak self] in
+            guard let self = self else {return}
+            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+            await fetchTasksToPlanner()
         }
     }
     
