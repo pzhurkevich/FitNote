@@ -33,10 +33,6 @@ struct ClientsListView: View {
                                     ClientView(vm: ClientViewViewModel(clientData: client))
                                 } label: {
                                     
-                                    HStack(spacing: 20) {
-                                        
-                                        
-                                        
                                         HStack(spacing: 20) {
                                             
                                             
@@ -72,9 +68,6 @@ struct ClientsListView: View {
                                                 .lineLimit(2)
                                                 .minimumScaleFactor(0.5)
                                         }
-                                        
-                                    }
-                                    
                                 }
                                 .padding(5)
                                 .listRowBackground(

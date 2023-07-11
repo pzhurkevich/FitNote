@@ -184,6 +184,7 @@ struct CustomerView: View {
                                 
                             }.padding(.bottom, 10)
                             
+                            Spacer()
                         }
                         
                     }

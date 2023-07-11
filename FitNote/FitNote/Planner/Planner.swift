@@ -156,7 +156,7 @@ struct Planner: View {
                             .foregroundColor(.greenColor)
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.vertical, .horizontal], 10)
+                            .padding(.leading, 10)
                         
                         
                         if let task = vm.taskInDate(dateInCalendar: vm.currentDate) {
@@ -164,10 +164,11 @@ struct Planner: View {
                             List {
                                 ForEach(task.task) { client in
                                     
-                                    VStack(alignment: .leading, spacing: 10) {
+                                    HStack(spacing: 10) {
                                         Text(client.time, style: .time)
                                             .font(.system(size: 16))
                                             .foregroundColor(.white)
+                                            .padding(.leading, 10)
                                         
                                         Text(client.clientName)
                                             .font(.system(size: 18))
@@ -178,6 +179,7 @@ struct Planner: View {
                                         RoundedRectangle(cornerRadius: 20)
                                             .foregroundColor(.secondaryDark)
                                             .padding([.top, .bottom], 5)
+                                            .padding(.horizontal, 10)
                                             .listRowSeparator(.hidden))
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button(role: .destructive) {
@@ -189,6 +191,7 @@ struct Planner: View {
                                 }
                                 .listRowSeparator(.hidden)
                             }
+                            .listStyle(.plain)
                             .background(Color.darkColor)
                             .scrollContentBackground(.hidden)
                             
@@ -205,7 +208,7 @@ struct Planner: View {
                     }
                 }
                 
-            }.navigationBarTitleDisplayMode(.large)
+            }.navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         Text("Clients Planner")

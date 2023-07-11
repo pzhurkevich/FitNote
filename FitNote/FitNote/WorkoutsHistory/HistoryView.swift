@@ -45,11 +45,12 @@ struct HistoryView: View {
                                     HStack(spacing: 20) {
                                         
                                         Text(workout.nameWorkout)
-                                            .minimumScaleFactor(0.2)
-                                            .lineLimit(1)
-                                            .font(.title)
+//                                            .minimumScaleFactor(0.2)
+                                            .lineLimit(2)
+                                            .font(.title2)
                                             .foregroundColor(.white)
                                         
+                                        Spacer()
                                         Text(workout.dateWorkout, style: .date)
                                             .foregroundColor(.greenColor)
                                             .minimumScaleFactor(0.2)
@@ -58,9 +59,7 @@ struct HistoryView: View {
                                     
                                 }
                                 .padding(.leading, 20)
-                                
-                                Spacer()
-                                
+
                                 Image(systemName: vm.expandedIDs.contains(workout.id) ? "chevron.down" : "chevron.right" )
                                     .padding()
                                 
@@ -121,18 +120,12 @@ struct HistoryView: View {
                                 .background(.clear)
                                 .foregroundColor(.secondaryDark)
                                 .padding([.top, .bottom], 10)
-                              
+                                .padding(.horizontal, 10)
+                            
                         )
                         .listRowSeparator(.hidden)
                     }
-                    .navigationBarTitleDisplayMode(.large)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text("Workouts History")
-                                .font(.title)
-                                .foregroundColor(.greenColor)
-                        }
-                    }
+                    .listStyle(.plain)
                     .blendMode(vm.workoutsToDisplay.isEmpty ? .destinationOver: .normal)
                     .toolbarBackground(Color.darkColor)
                     .foregroundColor(.greenColor)
@@ -147,7 +140,15 @@ struct HistoryView: View {
             
             .task {
                 await vm.getWorkouts()
+            }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Workouts History")
+                    .font(.title)
+                    .foregroundColor(.greenColor)
+            }
         }
     }
 }

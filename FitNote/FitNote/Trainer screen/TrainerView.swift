@@ -158,7 +158,7 @@ struct TrainerView: View {
 //                            VStack(spacing: 20) {
 
 //                            }
-                            
+                            Spacer()
                         }
                         
                     }
