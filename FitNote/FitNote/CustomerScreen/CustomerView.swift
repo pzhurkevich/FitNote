@@ -160,43 +160,6 @@ struct CustomerView: View {
                                 
                             Spacer()
                                 
-                                NavigationLink {
-                                    WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
-                                } label: {
-                                    HStack {
-                                        Text("Workout")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                NavigationLink {
-                                    HistoryView(vm: HistoryViewViewModel(clientData: Client()))
-                                } label: {
-                                    HStack {
-                                        Text("Workouts history")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
                                 
                                 NavigationLink {
                                     StatisticsView()

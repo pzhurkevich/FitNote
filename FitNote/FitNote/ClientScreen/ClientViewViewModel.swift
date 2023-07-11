@@ -27,7 +27,7 @@ final class ClientViewViewModel: ObservableObject {
     @Published var inst = ""
     @Published var phoneInEditMode = false
     @Published var phone = ""
-    
+    @Published var isPresented = false
 
 // MARK:  - Methods -
     

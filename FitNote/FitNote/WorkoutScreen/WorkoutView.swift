@@ -12,290 +12,307 @@ struct WorkoutView: View {
     
     @ObservedObject var vm: WorkoutViewViewModel
     @FocusState private var textIsFocused: Bool
- 
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack {
-            Color.darkColor.ignoresSafeArea()
-            VStack {
-                
-                Text("Today is: \(vm.currentDate.stringEnDate())")
-                    .foregroundColor(.white)
-                    .padding()
-                
-                HStack {
+        NavigationView {
+            ZStack {
+                Color.darkColor.ignoresSafeArea()
+                VStack {
                     
-                    if vm.workoutNameEdit {
-                        TextField("new workout", text: $vm.workoutName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .focused($textIsFocused)
-                            .padding(.leading, 20)
-                            .padding(.trailing, 5)
-                            .font(.system(size: 25))
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
-                    } else {
-                        Text(vm.workoutName)
-                            .font(.system(size: 25))
-                        
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
-                            .foregroundColor(.white)
-                            .fontWeight(.semibold)
-                    }
-                    
-                    
-                    Button(action: {
-                        
-                        vm.checkWorkoutName()
-                    }) {
-                        Image(systemName: vm.workoutNameEdit ? "checkmark.circle" : "pencil.circle")
-                            .font(.title2)
-                            .foregroundColor(.greenColor)
-                            .padding(.trailing, 10)
-                    }
-                }
-                
-                //exercises
-                if vm.workout.isEmpty {
-                    Spacer()
-                    Text("Please add new exercise")
+                    Text("Today is: \(vm.currentDate.stringEnDate())")
                         .foregroundColor(.white)
-                        .font(.title2)
-                    Spacer()
-                } else {
-                    //else starts
+                        .padding(5)
                     
-                    VStack {
-                        List($vm.workout) { $exercise in
+                    HStack {
+                        
+                        if vm.workoutNameEdit {
+                            TextField("new workout", text: $vm.workoutName)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .focused($textIsFocused)
+                                .padding(.leading, 20)
+                                .padding(.trailing, 5)
+                                .font(.system(size: 25))
+                                .autocapitalization(.words)
+                                .disableAutocorrection(true)
+                        } else {
+                            Text(vm.workoutName)
+                                .font(.system(size: 25))
                             
-                            VStack {
-                                
-                                HStack() {
-                                    
-                                    Text(vm.exerciseNumberText(exercise: exercise))
-                                        .font(.title3)
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.white)
-                                        .padding(.trailing, 10)
-                                    
-                                    
-                                    
-                                    Text(exercise.name)
-                                        .font(.title2)
-                                        .fontWeight(.bold)
-                                        .minimumScaleFactor(0.8)
-                                        .lineLimit(1)
-                                        .foregroundColor(.white)
-                                    Spacer()
-                  
-                                    if vm.editMode {
-                                        Button(role: .destructive) {
-                                            vm.deleteExerciseInWorkout(exercise1: exercise)
-                                        } label: {
-                                          Image(systemName: "trash")
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: 20, height: 20)
-                                                .foregroundColor(.red)
-                                                
-                                        }
-                                    }
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                                .padding(5)
-                                
-                                
-                                
-                                Divider()
-                                    .background(Color.greenColor)
-                                    .padding(.bottom, 5)
-                                
-                                
-                                
-                                
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
+                                .foregroundColor(.white)
+                                .fontWeight(.semibold)
+                        }
+                        
+                        
+                        Button(action: {
+                            
+                            vm.checkWorkoutName()
+                        }) {
+                            Image(systemName: vm.workoutNameEdit ? "checkmark.circle" : "pencil.circle")
+                                .font(.title2)
+                                .foregroundColor(.greenColor)
+                                .padding(.trailing, 10)
+                        }
+                    }
+                    
+                    //exercises
+                    if vm.workout.isEmpty {
+                        Spacer()
+                        Text("Please add new exercise")
+                            .foregroundColor(.white)
+                            .font(.title2)
+                        Spacer()
+                    } else {
+                        //else starts
+                        
+                        VStack {
+                            List($vm.workout) { $exercise in
                                 
                                 VStack {
                                     
-                                    ForEach($exercise.sets) { $item in
+                                    HStack() {
+                                        
+                                        Text(vm.exerciseNumberText(exercise: exercise))
+                                            .font(.title3)
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.white)
+                                            .padding(.trailing, 10)
                                         
                                         
                                         
-                                        
-                                        HStack {
-                                            Text(vm.setNumberText(set: item, sets: exercise.sets))
-                                                .foregroundColor(.white)
-                                                .padding(5)
-                                            
-                                            HStack {
-                                                TextField("rep", text: $item.rep)
-                                                    .multilineTextAlignment(.center)
-                                                    .foregroundColor(.white)
-                                                    .padding(3)
-                                                    .overlay {
-                                                        RoundedRectangle(cornerRadius: 24)
-                                                            .stroke(Color.white, lineWidth: 1)
-                                                        
-                                                    }
-                                                    .disabled(vm.textDisabled)
-                                                Text("r")
-                                                    .foregroundColor(.greenColor)
+                                        Text(exercise.name)
+                                            .font(.title2)
+                                            .fontWeight(.bold)
+                                            .minimumScaleFactor(0.8)
+                                            .lineLimit(1)
+                                            .foregroundColor(.white)
+                                        Spacer()
+                      
+                                        if vm.editMode {
+                                            Button(role: .destructive) {
+                                                vm.deleteExerciseInWorkout(exercise1: exercise)
+                                            } label: {
+                                              Image(systemName: "trash")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 20, height: 20)
+                                                    .foregroundColor(.red)
+                                                    
                                             }
-                                            
-                                            HStack {
-                                                TextField("weight", text: $item.weight)
-                                                    .multilineTextAlignment(.center)
-                                                    .foregroundColor(.white)
-                                                    .padding(3)
-                                                    .overlay {
-                                                        RoundedRectangle(cornerRadius: 24)
-                                                            .stroke(Color.white, lineWidth: 1)
-                                                    }
-                                                    .disabled(vm.textDisabled)
-                                                Text("kg")
-                                                    .foregroundColor(.greenColor)
-                                            }.padding(3)
                                         }
                                     }
-                                }
-                                
-                                if !exercise.sets.isEmpty {
+                                    .buttonStyle(PlainButtonStyle())
+                                    .padding(5)
+                                    
+                                    
+                                    
                                     Divider()
                                         .background(Color.greenColor)
-                                        .padding([.bottom, .top], 5)
-                                }
-                                if !vm.endedExercises.contains(exercise) {
-                                    HStack(alignment: .center) {
-                                        Text("New set:")
-                                            .foregroundColor(.greenColor)
-                                            .padding(5)
-                                        
-                                        VStack(spacing: 0) {
-                                            TextField("New rep", text: $exercise.newItem)
-                                                .focused($textIsFocused)
-                                                .multilineTextAlignment(.center)
-                                                .foregroundColor(.white)
-                                                .keyboardType(.decimalPad)
-                                                .disableAutocorrection(true)
-                                                .padding(.bottom, 3)
-                                            
-                                            Divider()
-                                                .background(Color.greenColor)
-                                            
-                                            Text("reps")
-                                                .foregroundColor(Color.greenColor)
-                                            
-                                            
-                                        }
-                                        
-                                        VStack(spacing: 0) {
-                                            TextField("New weight", text: $exercise.newItem2).multilineTextAlignment(.center)
-                                                .focused($textIsFocused)
-                                                .foregroundColor(.white)
-                                                .keyboardType(.decimalPad)
-                                                .disableAutocorrection(true)
-                                                .padding(.bottom, 3)
-                                            
-                                            
-                                            Divider()
-                                                .background(Color.greenColor)
-                                            
-                                            Text("weigth")
-                                                .foregroundColor(Color.greenColor)
-                                        }
-                                        Button {
-                                            vm.addSet(exercise: exercise)
-                                        } label: {
-                                            Image(systemName: "plus")
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: 20, height: 20)
-                                                .foregroundColor(.greenColor)
-                                        }
-                                        .padding(5)
-                                        
-                                    }.padding(.bottom, 8)
-                                        .buttonStyle(PlainButtonStyle())
-                                }
-                            } .padding(5)
-                                .listRowBackground(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .foregroundColor(.secondaryDark)
-                                        .padding([.top, .bottom], 10)
+                                        .padding(.bottom, 5)
                                     
-                                )
-                                .listRowSeparator(.hidden)
+                                    
+                                    
+                                    
+                                    
+                                    VStack {
+                                        
+                                        ForEach($exercise.sets) { $item in
+                                            
+                                            
+                                            
+                                            
+                                            HStack {
+                                                Text(vm.setNumberText(set: item, sets: exercise.sets))
+                                                    .foregroundColor(.white)
+                                                    .padding(5)
+                                                
+                                                HStack {
+                                                    TextField("rep", text: $item.rep)
+                                                        .multilineTextAlignment(.center)
+                                                        .foregroundColor(.white)
+                                                        .padding(3)
+                                                        .overlay {
+                                                            RoundedRectangle(cornerRadius: 24)
+                                                                .stroke(Color.white, lineWidth: 1)
+                                                            
+                                                        }
+                                                        .disabled(vm.textDisabled)
+                                                    Text("r")
+                                                        .foregroundColor(.greenColor)
+                                                }
+                                                
+                                                HStack {
+                                                    TextField("weight", text: $item.weight)
+                                                        .multilineTextAlignment(.center)
+                                                        .foregroundColor(.white)
+                                                        .padding(3)
+                                                        .overlay {
+                                                            RoundedRectangle(cornerRadius: 24)
+                                                                .stroke(Color.white, lineWidth: 1)
+                                                        }
+                                                        .disabled(vm.textDisabled)
+                                                    Text("kg")
+                                                        .foregroundColor(.greenColor)
+                                                }.padding(3)
+                                            }
+                                        }
+                                    }
+                                    
+                                    if !exercise.sets.isEmpty {
+                                        Divider()
+                                            .background(Color.greenColor)
+                                            .padding([.bottom, .top], 5)
+                                    }
+                                    if !vm.endedExercises.contains(exercise) {
+                                        HStack(alignment: .center) {
+                                            Text("New set:")
+                                                .foregroundColor(.greenColor)
+                                                .padding(5)
+                                            
+                                            VStack(spacing: 0) {
+                                                TextField("New rep", text: $exercise.newItem)
+                                                    .focused($textIsFocused)
+                                                    .multilineTextAlignment(.center)
+                                                    .foregroundColor(.white)
+                                                    .keyboardType(.decimalPad)
+                                                    .disableAutocorrection(true)
+                                                    .padding(.bottom, 3)
+                                                
+                                                Divider()
+                                                    .background(Color.greenColor)
+                                                
+                                                Text("reps")
+                                                    .foregroundColor(Color.greenColor)
+                                                
+                                                
+                                            }
+                                            
+                                            VStack(spacing: 0) {
+                                                TextField("New weight", text: $exercise.newItem2).multilineTextAlignment(.center)
+                                                    .focused($textIsFocused)
+                                                    .foregroundColor(.white)
+                                                    .keyboardType(.decimalPad)
+                                                    .disableAutocorrection(true)
+                                                    .padding(.bottom, 3)
+                                                
+                                                
+                                                Divider()
+                                                    .background(Color.greenColor)
+                                                
+                                                Text("weigth")
+                                                    .foregroundColor(Color.greenColor)
+                                            }
+                                            Button {
+                                                vm.addSet(exercise: exercise)
+                                            } label: {
+                                                Image(systemName: "plus")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 20, height: 20)
+                                                    .foregroundColor(.greenColor)
+                                            }
+                                            .padding(5)
+                                            
+                                        }.padding(.bottom, 8)
+                                            .buttonStyle(PlainButtonStyle())
+                                    }
+                                } .padding(5)
+                                    .listRowBackground(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .foregroundColor(.secondaryDark)
+                                            .padding([.top, .bottom], 10)
+                                        
+                                    )
+                                    .listRowSeparator(.hidden)
+                            }
+                            .background(Color.darkColor)
+                            .scrollContentBackground(.hidden)
+                            
+                            
+                            
+                            
                         }
-                        .background(Color.darkColor)
-                        .scrollContentBackground(.hidden)
                         
-                        
-                        
-                        
+                        Button {
+                            vm.saveWorkout()
+                            if Constants.currentState == .loggedAsTrainer {
+                                dismiss()
+                            }
+                        } label: {
+                            
+                            Text("End Workout")
+                                .foregroundColor(.black)
+                                .fontDesign(.rounded)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 60)
+                                .padding(.vertical, 15)
+                                .background(Color.greenColor)
+                                .clipShape(Capsule())
+                        }
+                        .padding(5)
+                        //end else
                     }
                     
-                    Button {
-                        vm.saveWorkout()
-                    } label: {
-                        
-                        Text("End Workout")
-                            .foregroundColor(.black)
-                            .fontDesign(.rounded)
-                            .fontWeight(.bold)
-                            .padding(.horizontal, 60)
-                            .padding(.vertical, 15)
-                            .background(Color.greenColor)
-                            .clipShape(Capsule())
-                    }
-                    //end else
+                    
+                    
+                    
                 }
-                
-                
-                
-                
             }
-        }.navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(vm.workoutName)
                         .font(.title)
                         .foregroundColor(.greenColor)
                 }
-                
-                if !vm.workout.isEmpty {
+                    
+                    if !vm.workout.isEmpty {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                vm.editMode.toggle()
+                                
+                            } label: {
+                                Text(vm.editMode ? "Done" : "Edit")
+                                
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            vm.editMode.toggle()
+                            vm.isPresented.toggle()
                             
                         } label: {
-                            Text(vm.editMode ? "Done" : "Edit")
+                            Image(systemName: "plus")
                             
-                                .foregroundColor(.red)
+                                .foregroundColor(.greenColor)
+                        }
+                    }
+                if Constants.currentState == .loggedAsTrainer {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Close")
+                                .foregroundColor(.greenColor)
                         }
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        vm.isPresented.toggle()
-                        
-                    } label: {
-                        Image(systemName: "plus")
-                        
-                            .foregroundColor(.greenColor)
-                    }
+            }
+                .sheet(isPresented: $vm.isPresented) {
+                    ExercisesView(vm: vm.exerciseListVM)
                 }
+                .alert("", isPresented: $vm.warningAlert) {
+                    Button("Ok", role: .cancel) {}
+                } message: {
+                    Text(vm.warningText)
+                }
+                .onTapGesture {
+                    textIsFocused = false
             }
-            .sheet(isPresented: $vm.isPresented) {
-                ExercisesView(vm: vm.exerciseListVM)
-            }
-            .alert("", isPresented: $vm.warningAlert) {
-                Button("Ok", role: .cancel) {}
-            } message: {
-                Text(vm.warningText)
-            }
-            .onTapGesture {
-                textIsFocused = false
-            }
+        }
     }
 }
 

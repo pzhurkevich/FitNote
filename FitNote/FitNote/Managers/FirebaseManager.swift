@@ -87,7 +87,6 @@ class FirebaseManager: FirebaseManagerProtocol {
     func signOut() {
         do {
             try Auth.auth().signOut()
-            Constants.currentState = .notLogged
             UserDefaults.standard.set(Constants.currentState?.rawValue, forKey: "appState")
             
         } catch {

@@ -211,8 +211,9 @@ final class PlannerViewViewModel: ObservableObject {
         if reminderTime >= 0 {
             
             let content = UNMutableNotificationContent()
+            let time = client.time.stringTime()
             content.title = "Workout reminder"
-            content.subtitle = "Workour with \(client.clientName) tomorrow."
+            content.subtitle = "Workour with \(client.clientName) tomorrow at \(time)."
             content.sound = UNNotificationSound.default
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderTime, repeats: false)

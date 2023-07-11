@@ -46,11 +46,11 @@ struct StartView: View {
            
             switch Constants.currentState {
             case .notLogged:
-               LoginView()
+                LoginView()
             case .loggedAsSelf:
-                CustomerView()
+                MainBarView()
             case .loggedAsTrainer:
-               TrainerView()
+                MainBarView()
             case .none:
                 OnboardingView()
             case .noInternet:

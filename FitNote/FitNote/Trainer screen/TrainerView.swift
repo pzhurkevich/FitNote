@@ -155,50 +155,9 @@ struct TrainerView: View {
                                 .padding(.horizontal, 20)
                                 .padding(.top, 20)
                             
-                            VStack(spacing: 20) {
-                                
-                                Spacer()
-                                
-                                NavigationLink {
-                                    ClientsListView()
-                                } label: {
-                                    HStack {
-                                        Text("Your clients")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 20)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                NavigationLink {
-                                    Planner()
-                                } label: {
-                                    HStack {
-                                        Text("Clients workouts planner")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 20)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                Spacer()
-                            }
+//                            VStack(spacing: 20) {
+
+//                            }
                             
                         }
                         

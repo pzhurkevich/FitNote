@@ -192,8 +192,8 @@ struct ClientView: View {
                             
                             Spacer()
                             
-                            NavigationLink {
-                                WorkoutView(vm: WorkoutViewViewModel(clientData: vm.clientData))
+                            Button {
+                                vm.isPresented.toggle()
                             } label: {
                                 HStack {
                                     Text("Workout")
@@ -268,6 +268,9 @@ struct ClientView: View {
         }
         .onTapGesture {
             textIsFocused = false
+        }
+        .fullScreenCover(isPresented: $vm.isPresented) {
+            WorkoutView(vm: WorkoutViewViewModel(clientData: vm.clientData))
         }
         
     }
