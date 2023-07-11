@@ -35,44 +35,46 @@ struct TrainerView: View {
                             Circle()
                                 .foregroundColor(Color.secondaryDark)
                             
-                            
-                            
-                            
-                            
-                            Button {
-                             
-                                vm.openCameraRoll = true
-                               
+
+                            ZStack(alignment: .bottomTrailing) {
                                 
+                                AsyncImage(url: vm.imageURL) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                        .foregroundColor(.white)
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                    
+                                    
+                                } placeholder: {
+                                    Image("user")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                    
+                                        .foregroundColor(.white)
+                                    
+                                    
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                }
                                 
-                            } label: {
+                                Button() {
+                         
+                                    vm.openCameraRoll = true
+                                    
+                                } label : {
+                                    Image(systemName: "square.and.pencil")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .scaledToFit()
+                                }
                                 
-                          
-                                    AsyncImage(url: vm.imageURL) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                            .foregroundColor(.white)
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                           
-                                        
-                                    } placeholder: {
-                                        Image("user")
-                                            .renderingMode(.template)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                        
-                                            .foregroundColor(.white)
-                                        
-                                        
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                    }
                             }
                             
                             .padding()

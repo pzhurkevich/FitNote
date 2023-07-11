@@ -73,7 +73,7 @@ struct ClientsListView: View {
                                 RoundedRectangle(cornerRadius: 20)
                                     .foregroundColor(.secondaryDark)
                                     .padding([.top, .bottom], 10)
-                                    .listRowSeparator(.hidden))
+                                    )
                             .swipeActions(allowsFullSwipe: false) {
                                 Button(role: .destructive) {
                                     vm.deleteClient(client: client)
@@ -81,6 +81,7 @@ struct ClientsListView: View {
                                     Label("Delete", systemImage: "trash")
                                 }
                             }
+                            .listRowSeparator(.hidden)
                         }
                         //end list
                     }

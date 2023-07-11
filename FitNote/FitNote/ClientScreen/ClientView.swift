@@ -39,14 +39,7 @@ struct ClientView: View {
                             .foregroundColor(Color.secondaryDark)
                         
                         
-                        Button {
-                            
-                            vm.openCameraRoll = true
-                            
-                            
-                            
-                        } label: {
-                            
+                        ZStack(alignment: .bottomTrailing) {
                             
                             AsyncImage(url: vm.imageURL) { image in
                                 image
@@ -73,6 +66,18 @@ struct ClientView: View {
                                         .stroke(Color.greenColor, lineWidth: 10))
                                     .clipShape(Circle())
                             }
+                            
+                            Button() {
+                     
+                                vm.openCameraRoll = true
+                                
+                            } label : {
+                                Image(systemName: "square.and.pencil")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .scaledToFit()
+                            }
+                            
                         }
                         
                         .padding()

@@ -36,46 +36,47 @@ struct CustomerView: View {
                             Circle()
                                 .foregroundColor(Color.secondaryDark)
                             
-                            
-                            
-                            
-                            
-                            Button {
-                             
-                                vm.openCameraRoll = true
-                               
                                 
+                            ZStack(alignment: .bottomTrailing) {
                                 
-                            } label: {
+                                AsyncImage(url: vm.imageURL) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                        .foregroundColor(.white)
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                    
+                                    
+                                } placeholder: {
+                                    Image("user")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                    
+                                        .foregroundColor(.white)
+                                    
+                                    
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                }
                                 
-                          
-                                    AsyncImage(url: vm.imageURL) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                            .foregroundColor(.white)
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                           
-                                        
-                                    } placeholder: {
-                                        Image("user")
-                                            .renderingMode(.template)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                        
-                                            .foregroundColor(.white)
-                                        
-                                        
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                    }
+                                Button() {
+                         
+                                    vm.openCameraRoll = true
+                                    
+                                } label : {
+                                    Image(systemName: "square.and.pencil")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .scaledToFit()
+                                }
+                                
                             }
-                            
                             .padding()
                             .sheet(isPresented: $vm.openCameraRoll) {
                                 ImagePicker(imageUrl: $vm.imageURL, changeProfileImage: $vm.changeProfileImage, sourceType: .photoLibrary)
