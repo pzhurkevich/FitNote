@@ -74,6 +74,7 @@ final class WorkoutViewViewModel: ObservableObject {
     
     func deleteExerciseInWorkout(exercise1: OneExersice) {
         workout = workout.filter { $0.id != exercise1.id }
+        self.editMode = false
     }
   
     func saveWorkout() {

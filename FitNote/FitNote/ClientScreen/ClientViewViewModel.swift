@@ -34,7 +34,7 @@ final class ClientViewViewModel: ObservableObject {
     init(clientData: Client) {
         
         self.clientData = clientData
-        
+        loadClientInfo()
         $changeProfileImage
             .sink { [weak self] _ in
                 

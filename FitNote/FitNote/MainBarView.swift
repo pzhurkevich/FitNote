@@ -9,53 +9,49 @@ import SwiftUI
 
 struct MainBarView: View {
     init() {
-       // UITabBar.appearance().isTranslucent = false
         UITabBar.appearance().backgroundColor = UIColor(Color.secondaryDark)
         UITabBar.appearance().barTintColor = .white
        }
     
     var body: some View {
-        TabView {
-            if Constants.currentState == .loggedAsTrainer {
-                TrainerView()
-                    .tabItem {
-                        Image(systemName: "house.fill")
-                        Text("Home")
-                    }
-                ClientsListView()
-                    .tabItem {
-                        Image(systemName: "person.3")
-                        Text("Clients")
-                    }
-                
-                Planner()
-                    .tabItem {
-                        Image(systemName: "calendar")
-                        Text("Planner")
-                    }
-            } else {
-                CustomerView()
-                    .tabItem {
-                        Image(systemName: "house.fill")
-                        Text("Home")
-                    }
-                
+        NavigationView {
+            TabView {
+                if Constants.currentState == .loggedAsTrainer {
+                    TrainerView()
+                        .tabItem {
+                            Image(systemName: "house.fill")
+                            Text("Home")
+                        }
+                    ClientsListView()
+                        .tabItem {
+                            Image(systemName: "person.3")
+                            Text("Clients")
+                        }
+                    Planner()
+                        .tabItem {
+                            Image(systemName: "calendar")
+                            Text("Planner")
+                        }
+                } else {
+                    CustomerView()
+                        .tabItem {
+                            Image(systemName: "house.fill")
+                            Text("Home")
+                        }
                     WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
-                
-                    .tabItem {
-                        Image(systemName: "figure.strengthtraining.traditional")
-                        Text("Workout")
-                    }
-                
-                HistoryView(vm: HistoryViewViewModel(clientData: Client()))
-                    .tabItem {
-                        Image(systemName: "list.bullet.rectangle")
-                        Text("History")
-                    }
+                        .tabItem {
+                            Image(systemName: "figure.strengthtraining.traditional")
+                            Text("Workout")
+                        }
+                    HistoryView(vm: HistoryViewViewModel(clientData: Client()))
+                        .tabItem {
+                            Image(systemName: "list.bullet.rectangle")
+                            Text("History")
+                        }
+                }
             }
+            .accentColor(Color.greenColor)
         }
-        .accentColor(Color.greenColor)
-       
     }
 }
 

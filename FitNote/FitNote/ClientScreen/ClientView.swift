@@ -263,9 +263,9 @@ struct ClientView: View {
         .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
         .accentColor(Color.greenColor) //для кнопки "back"
-        .onAppear {
-            vm.loadClientInfo()
-        }
+//        .onAppear {
+//            vm.loadClientInfo()
+//        }
         .onTapGesture {
             textIsFocused = false
         }

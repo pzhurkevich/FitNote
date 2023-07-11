@@ -13,7 +13,6 @@ struct CustomerView: View {
    
     
     var body: some View {
-        NavigationView {
             ZStack {
                 
                 Color.darkColor.ignoresSafeArea()
@@ -28,7 +27,7 @@ struct CustomerView: View {
                             .frame(maxHeight: geometry.size.height * 0.85)
                             .foregroundColor(Color.secondaryDark)
                             .specificCornersRadius(radius: 30, coners: [.topLeft, .topRight])
-                    } .ignoresSafeArea(edges: .bottom)
+                    } //.ignoresSafeArea(edges: .bottom)
                     
                     VStack {
                         ZStack(alignment: .center) {
@@ -161,26 +160,7 @@ struct CustomerView: View {
                             Spacer()
                                 
                                 
-                                NavigationLink {
-                                    StatisticsView()
-                                } label: {
-                                    HStack {
-                                        Text("Your statistic")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                                                
-                                Spacer()
+
                                 
                             }.padding(.bottom, 10)
                             
@@ -192,9 +172,6 @@ struct CustomerView: View {
                 }
 
             }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()
         }

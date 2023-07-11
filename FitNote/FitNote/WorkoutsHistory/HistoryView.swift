@@ -45,7 +45,7 @@ struct HistoryView: View {
                                     HStack(spacing: 20) {
                                         
                                         Text(workout.nameWorkout)
-//                                            .minimumScaleFactor(0.2)
+                                        //                                            .minimumScaleFactor(0.2)
                                             .lineLimit(2)
                                             .font(.title2)
                                             .foregroundColor(.white)
@@ -59,7 +59,7 @@ struct HistoryView: View {
                                     
                                 }
                                 .padding(.leading, 20)
-
+                                
                                 Image(systemName: vm.expandedIDs.contains(workout.id) ? "chevron.down" : "chevron.right" )
                                     .padding()
                                 
@@ -125,9 +125,9 @@ struct HistoryView: View {
                         )
                         .listRowSeparator(.hidden)
                     }
+                    .padding(5)
                     .listStyle(.plain)
                     .blendMode(vm.workoutsToDisplay.isEmpty ? .destinationOver: .normal)
-                    .toolbarBackground(Color.darkColor)
                     .foregroundColor(.greenColor)
                     .background(Color.darkColor)
                     .scrollContentBackground(.hidden)
@@ -137,19 +137,20 @@ struct HistoryView: View {
                 }
                 
             }
-            
-            .task {
-                await vm.getWorkouts()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Workouts History")
+                        .font(.title)
+                        .foregroundColor(.greenColor)
+                }
             }
+            .toolbarBackground(Color.darkColor)
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Workouts History")
-                    .font(.title)
-                    .foregroundColor(.greenColor)
-            }
+        .task {
+            await vm.getWorkouts()
         }
+        
     }
 }
 

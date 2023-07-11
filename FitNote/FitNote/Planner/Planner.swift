@@ -175,11 +175,12 @@ struct Planner: View {
                                             .font(.title2.bold())
                                             .foregroundColor(.greenColor)
                                     }
+                                    .padding(10)
                                     .listRowBackground(
                                         RoundedRectangle(cornerRadius: 20)
                                             .foregroundColor(.secondaryDark)
                                             .padding([.top, .bottom], 5)
-                                            .padding(.horizontal, 10)
+                                            .padding(.horizontal, 20)
                                             .listRowSeparator(.hidden))
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button(role: .destructive) {
@@ -194,11 +195,7 @@ struct Planner: View {
                             .listStyle(.plain)
                             .background(Color.darkColor)
                             .scrollContentBackground(.hidden)
-                            
-                            
-                            
-                            
-                            
+      
                             Spacer()
                         } else {
                             Text("No clients at this day")
@@ -208,7 +205,8 @@ struct Planner: View {
                     }
                 }
                 
-            }.navigationBarTitleDisplayMode(.inline)
+            }
+            .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         Text("Clients Planner")

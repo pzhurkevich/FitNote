@@ -12,7 +12,6 @@ struct TrainerView: View {
     @StateObject var vm = TrainerViewViewModel()
     
     var body: some View {
-        NavigationView {
             ZStack {
                 
                 Color.darkColor.ignoresSafeArea()
@@ -27,7 +26,7 @@ struct TrainerView: View {
                             .frame(maxHeight: geometry.size.height * 0.85)
                             .foregroundColor(Color.secondaryDark)
                             .specificCornersRadius(radius: 30, coners: [.topLeft, .topRight])
-                    } .ignoresSafeArea(edges: .bottom)
+                    } //.ignoresSafeArea(edges: .bottom)
                     
                     VStack {
                         ZStack(alignment: .center) {
@@ -155,9 +154,6 @@ struct TrainerView: View {
                                 .padding(.horizontal, 20)
                                 .padding(.top, 20)
                             
-//                            VStack(spacing: 20) {
-
-//                            }
                             Spacer()
                         }
                         
@@ -166,7 +162,6 @@ struct TrainerView: View {
                 }
                 
             }
-        }
         .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()
