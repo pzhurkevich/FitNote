@@ -36,7 +36,7 @@ struct LoginView: View {
                             .foregroundColor(.white)
                         
                         TextField("email", text: $vm.email)
-                         //   .focused($textIsFocused)
+                            .focused($textIsFocused)
                             .autocorrectionDisabled(true)
                             .foregroundColor(Color.greenColor)
                             .padding()

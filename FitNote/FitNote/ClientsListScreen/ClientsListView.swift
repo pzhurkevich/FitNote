@@ -12,7 +12,7 @@ struct ClientsListView: View {
     @StateObject var vm = ClientsListViewViewModel()
     
     var body: some View {
-        NavigationView {
+
         ZStack {
             
             Color.darkColor.ignoresSafeArea()
@@ -113,7 +113,7 @@ struct ClientsListView: View {
         }
         .toolbarBackground(Color.darkColor)
         
-    }
+    
             .alert("Add Client", isPresented: $vm.showingAlert) {
                 TextField("name", text: $vm.newClientName)
                     .disableAutocorrection(true)

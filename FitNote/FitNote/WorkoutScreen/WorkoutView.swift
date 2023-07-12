@@ -254,12 +254,13 @@ struct WorkoutView: View {
                             Text("End Workout")
                                 .foregroundColor(.black)
                                 .fontDesign(.rounded)
+                                .frame(maxWidth: .infinity)
                                 .fontWeight(.bold)
-                                .padding(.horizontal, 40)
                                 .padding(.vertical, 10)
                                 .background(Color.red)
                                 .clipShape(Capsule())
                         }
+                        
                         Spacer()
                     }
                    
@@ -271,8 +272,8 @@ struct WorkoutView: View {
                         Text("Add Exercise")
                             .foregroundColor(.black)
                             .fontDesign(.rounded)
+                            .frame(maxWidth: .infinity)
                             .fontWeight(.bold)
-                            .padding(.horizontal, 40)
                             .padding(.vertical, 10)
                             .background(Color.greenColor)
                             .clipShape(Capsule())

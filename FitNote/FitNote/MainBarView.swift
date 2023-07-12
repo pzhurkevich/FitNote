@@ -22,7 +22,9 @@ struct MainBarView: View {
                             Image(systemName: "house.fill")
                             Text("Home")
                         }
-                    ClientsListView()
+                    NavigationView{
+                        ClientsListView()
+                    }
                         .tabItem {
                             Image(systemName: "person.3")
                             Text("Clients")
