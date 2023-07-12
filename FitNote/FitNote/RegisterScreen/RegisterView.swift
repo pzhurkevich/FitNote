@@ -66,16 +66,37 @@ struct RegisterView: View {
                     }
                     
                     VStack(alignment: .leading) {
-                        SecureField("password", text: $vm.password)
-                            .focused($textIsFocused)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .foregroundColor(Color.greenColor)
-                            .padding()
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 24)
-                                    .stroke(Color(uiColor: .white), lineWidth: 2)
+                        HStack {
+                            if vm.showPassword {
+                                TextField ("password", text: $vm.password)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                            } else {
+                                SecureField("password", text: $vm.password)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
                             }
-                            .padding([.top, .leading, .trailing], 18)
+                            Button {
+                                vm.showPassword.toggle()
+                               
+                            } label: {
+                                Image(systemName: vm.showPassword ? "eye" : "eye.slash")
+                                    .resizable()
+                                    .foregroundColor(.greenColor)
+                                    .frame(width: 30, height: 20)
+                                    .padding(.trailing, 20)
+                            }
+                        }
+                        .padding()
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                        }
+                        .padding([.top, .leading, .trailing], 18)
+                        
+                        
                         Text(vm.passwordAlert)
                             .foregroundColor(.red)
                             .fixedSize(horizontal: false, vertical: true)
@@ -84,16 +105,38 @@ struct RegisterView: View {
                     }
                     
                     VStack(alignment: .leading) {
-                        SecureField("confirm password", text: $vm.passwordConfirm)
-                            .focused($textIsFocused)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .foregroundColor(Color.greenColor)
-                            .padding()
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 24)
-                                    .stroke(Color(uiColor: .white), lineWidth: 2)
+                        HStack {
+                            
+                            if vm.showConfirm {
+                                TextField("confirm password", text: $vm.passwordConfirm)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                            } else {
+                                SecureField("confirm password", text: $vm.passwordConfirm)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
                             }
-                            .padding([.top, .leading, .trailing], 18)
+                            Button {
+                                vm.showConfirm.toggle()
+                               
+                            } label: {
+                                Image(systemName: vm.showPassword ? "eye" : "eye.slash")
+                                    .resizable()
+                                    .foregroundColor(.greenColor)
+                                    .frame(width: 30, height: 20)
+                                    .padding(.trailing, 20)
+                            }
+
+                        }
+                        .padding()
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                        }
+                    .padding([.top, .leading, .trailing], 18)
+                        
                         Text(vm.passwordConfirmAlert)
                             .foregroundColor(.red)
                             .fixedSize(horizontal: false, vertical: true)

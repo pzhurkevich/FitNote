@@ -26,6 +26,8 @@ final class RegisterViewViewModel: ObservableObject {
     @Published  var isRegistered = false
     @Published var showingAlert = false
     @Published  var isLoading = false
+    @Published  var showPassword = false
+    @Published  var showConfirm = false
     
    var emailAlert: String {
         if isEmailValid() {

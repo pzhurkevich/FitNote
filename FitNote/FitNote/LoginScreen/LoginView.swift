@@ -11,6 +11,9 @@ struct LoginView: View {
     
     @StateObject var vm = LoginViewViewModel()
     @FocusState private var textIsFocused: Bool
+    enum Field {
+        case secure, plain
+    }
     
     
     var body: some View {
@@ -45,17 +48,41 @@ struct LoginView: View {
                                     .stroke(Color(uiColor: .white), lineWidth: 2)
                             }
                             .padding()
-                        
-                        SecureField("password", text: $vm.password)
-                            .focused($textIsFocused)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .foregroundColor(Color.greenColor)
-                            .padding()
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 24)
-                                    .stroke(Color(uiColor: .white), lineWidth: 2)
+                        HStack {
+                            if vm.showPassword {
+                                TextField ("password", text: $vm.password)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                                    .padding()
+
+                            } else {
+                                SecureField("password", text: $vm.password)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                                    .padding()
+                                   
+                                    
                             }
-                            .padding()
+                            
+                            Button {
+                                vm.showPassword.toggle()
+                               
+                            } label: {
+                                Image(systemName: vm.showPassword ? "eye" : "eye.slash")
+                                    .resizable()
+                                    .foregroundColor(.greenColor)
+                                    .frame(width: 30, height: 20)
+                                    .padding(.trailing, 20)
+                            }
+                        }
+                        .fixedSize(horizontal: false, vertical: true)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                        }
+                        .padding()
                         
                         Button {
                             
