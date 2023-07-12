@@ -122,7 +122,7 @@ struct RegisterView: View {
                                 vm.showConfirm.toggle()
                                
                             } label: {
-                                Image(systemName: vm.showPassword ? "eye" : "eye.slash")
+                                Image(systemName: vm.showConfirm ? "eye" : "eye.slash")
                                     .resizable()
                                     .foregroundColor(.greenColor)
                                     .frame(width: 30, height: 20)
