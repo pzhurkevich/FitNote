@@ -17,7 +17,7 @@ struct RegisterView: View {
                 
                Color.darkColor.ignoresSafeArea()
                 
-                VStack{
+                VStack (spacing: 0){
                     
                     Image(systemName: "chevron.up.circle")
                         .resizable()
@@ -30,37 +30,119 @@ struct RegisterView: View {
                         .font(.largeTitle)
                         .foregroundColor(.white)
                     
-                    TextField("name", text: $vm.name)
-                        .focused($textIsFocused)
-                        .autocorrectionDisabled(true)
-                        .foregroundColor(Color.greenColor)
-                        .padding()
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 24)
-                            .stroke(Color(uiColor: .white), lineWidth: 2)
-                        }
-                        .padding()
+                    VStack(alignment: .leading) {
+                        TextField("name", text: $vm.name)
+                            .focused($textIsFocused)
+                            .autocorrectionDisabled(true)
+                            .foregroundColor(Color.greenColor)
+                            .padding()
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                            }
+                            .padding([.top, .leading, .trailing], 18)
+                        Text(vm.nameAlert)
+                            .foregroundColor(.red)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.caption)
+                            .padding(.leading, 40)
+                    }
                     
-                    TextField("email", text: $vm.email)
-                        .focused($textIsFocused)
-                        .foregroundColor(Color.greenColor)
-                        .padding()
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 24)
-                            .stroke(Color(uiColor: .white), lineWidth: 2)
-                        }
-                        .padding()
+                    VStack(alignment: .leading) {
+                        TextField("email", text: $vm.email)
+                            .focused($textIsFocused)
+                            .foregroundColor(Color.greenColor)
+                            .padding()
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                            }
+                            .padding([.top, .leading, .trailing], 18)
+                        Text(vm.emailAlert)
+                            .foregroundColor(.red)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.caption)
+                            .padding(.leading, 40)
+                    }
                     
-                    SecureField("password", text: $vm.password)
-                        .focused($textIsFocused)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .foregroundColor(Color.greenColor)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            if vm.showPassword {
+                                TextField ("password", text: $vm.password)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                            } else {
+                                SecureField("password", text: $vm.password)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                            }
+                            Button {
+                                vm.showPassword.toggle()
+                               
+                            } label: {
+                                Image(systemName: vm.showPassword ? "eye" : "eye.slash")
+                                    .resizable()
+                                    .foregroundColor(.greenColor)
+                                    .frame(width: 30, height: 20)
+                                    .padding(.trailing, 20)
+                            }
+                        }
                         .padding()
                         .overlay {
                             RoundedRectangle(cornerRadius: 24)
                                 .stroke(Color(uiColor: .white), lineWidth: 2)
                         }
+                        .padding([.top, .leading, .trailing], 18)
+                        
+                        
+                        Text(vm.passwordAlert)
+                            .foregroundColor(.red)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.caption)
+                            .padding(.leading, 40)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        HStack {
+                            
+                            if vm.showConfirm {
+                                TextField("confirm password", text: $vm.passwordConfirm)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                            } else {
+                                SecureField("confirm password", text: $vm.passwordConfirm)
+                                    .focused($textIsFocused)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(Color.greenColor)
+                            }
+                            Button {
+                                vm.showConfirm.toggle()
+                               
+                            } label: {
+                                Image(systemName: vm.showConfirm ? "eye" : "eye.slash")
+                                    .resizable()
+                                    .foregroundColor(.greenColor)
+                                    .frame(width: 30, height: 20)
+                                    .padding(.trailing, 20)
+                            }
+
+                        }
                         .padding()
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color(uiColor: .white), lineWidth: 2)
+                        }
+                    .padding([.top, .leading, .trailing], 18)
+                        
+                        Text(vm.passwordConfirmAlert)
+                            .foregroundColor(.red)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.caption)
+                            .padding(.leading, 40)
+                    }
                     
                     Button {
                         
@@ -80,6 +162,7 @@ struct RegisterView: View {
                     }
                     
                     .padding([.horizontal, .vertical], 16)
+                    .opacity(vm.registrationAllowed ? 1 : 0.6)
 
                 }
                 .padding(.vertical, 30)

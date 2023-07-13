@@ -35,7 +35,8 @@ final class WorkoutViewViewModel: ObservableObject {
             warningAlert = true
         }
     }
- 
+    @Published var textDisabled = true
+    @Published var editMode = false
     
     enum WarningMessage {
         case emptySet
@@ -69,6 +70,11 @@ final class WorkoutViewViewModel: ObservableObject {
         updatedExercise.sets.append(OneSet(rep: updatedExercise.newItem, weight: updatedExercise.newItem2))
         workout = workout.filter { $0 != exercise }
         workout.append(updatedExercise)
+    }
+    
+    func deleteExerciseInWorkout(exercise1: OneExersice) {
+        workout = workout.filter { $0.id != exercise1.id }
+        self.editMode = false
     }
   
     func saveWorkout() {

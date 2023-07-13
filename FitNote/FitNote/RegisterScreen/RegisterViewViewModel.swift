@@ -14,6 +14,7 @@ final class RegisterViewViewModel: ObservableObject {
     
     @Published var email: String = ""
     @Published var password: String = ""
+    @Published var passwordConfirm: String = ""
     @Published var name: String = ""
     @Published var errorText: String = "" {
         didSet {
@@ -25,6 +26,35 @@ final class RegisterViewViewModel: ObservableObject {
     @Published  var isRegistered = false
     @Published var showingAlert = false
     @Published  var isLoading = false
+    @Published  var showPassword = false
+    @Published  var showConfirm = false
+    
+   var emailAlert: String {
+       return isEmailValid() ? "" : "Enter a valid email address"
+    }
+    
+    var passwordAlert: String {
+        return isPasswordValid() ? "" : "Must be more than 6 characters"
+    }
+    
+    var passwordConfirmAlert: String {
+        return password == passwordConfirm ? "" : "Password do not match"
+    }
+    
+    var nameAlert: String {
+        return isNameValid() ? "" : "Name cannot be empty" 
+    }
+    
+    var registrationAllowed: Bool {
+        if password != passwordConfirm ||
+        !isPasswordValid() ||
+        !isEmailValid() ||
+            !isNameValid() {
+            return false
+        }
+        return true
+    }
+    
     
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
@@ -68,4 +98,19 @@ final class RegisterViewViewModel: ObservableObject {
             }
         }
     }
+    
+    func isEmailValid() -> Bool {
+        let emailSample = NSPredicate(format: "SELF MATCHES %@",
+                                    "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
+        return emailSample.evaluate(with: email)
+    }
+    func isPasswordValid() -> Bool {
+        return password.count >= 6
+    }
+    func isNameValid() -> Bool {
+        return name.count > 0
+    }
+    
+    
+    
 }

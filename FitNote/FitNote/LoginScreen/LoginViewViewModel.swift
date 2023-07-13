@@ -24,6 +24,7 @@ final class LoginViewViewModel: ObservableObject {
     @Published  var isLogged = false
     @Published  var openRegisterScreen = false
     @Published var isLoading = false
+    @Published var showPassword = false
     
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     

@@ -12,16 +12,17 @@ struct WorkoutView: View {
     
     @ObservedObject var vm: WorkoutViewViewModel
     @FocusState private var textIsFocused: Bool
-    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        NavigationView {
         ZStack {
             Color.darkColor.ignoresSafeArea()
             VStack {
                 
                 Text("Today is: \(vm.currentDate.stringEnDate())")
                     .foregroundColor(.white)
-                    .padding()
+                    .padding(5)
                 
                 HStack {
                     
@@ -74,7 +75,7 @@ struct WorkoutView: View {
                                 HStack() {
                                     
                                     Text(vm.exerciseNumberText(exercise: exercise))
-                                        .font(.title2)
+                                        .font(.title3)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.white)
                                         .padding(.trailing, 10)
@@ -82,20 +83,34 @@ struct WorkoutView: View {
                                     
                                     
                                     Text(exercise.name)
-                                        .font(.title)
+                                        .font(.title2)
                                         .fontWeight(.bold)
                                         .minimumScaleFactor(0.8)
                                         .lineLimit(1)
                                         .foregroundColor(.white)
                                     Spacer()
+                                    
+                                    if vm.editMode {
+                                        Button(role: .destructive) {
+                                            vm.deleteExerciseInWorkout(exercise1: exercise)
+                                        } label: {
+                                            Image(systemName: "trash")
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 20, height: 20)
+                                                .foregroundColor(.red)
+                                            
+                                        }
+                                    }
                                 }
+                                .buttonStyle(PlainButtonStyle())
                                 .padding(5)
                                 
                                 
                                 
                                 Divider()
                                     .background(Color.greenColor)
-                                    .padding([.bottom, .top], 5)
+                                    .padding(.bottom, 5)
                                 
                                 
                                 
@@ -117,13 +132,13 @@ struct WorkoutView: View {
                                                 TextField("rep", text: $item.rep)
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
-                                                    .padding(3)
+                                                    .padding(2)
                                                     .overlay {
                                                         RoundedRectangle(cornerRadius: 24)
                                                             .stroke(Color.white, lineWidth: 1)
                                                         
                                                     }
-                                                    .disabled(vm.endedExercises.contains(exercise))
+                                                    .disabled(vm.textDisabled)
                                                 Text("r")
                                                     .foregroundColor(.greenColor)
                                             }
@@ -132,15 +147,15 @@ struct WorkoutView: View {
                                                 TextField("weight", text: $item.weight)
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
-                                                    .padding(3)
+                                                    .padding(2)
                                                     .overlay {
                                                         RoundedRectangle(cornerRadius: 24)
                                                             .stroke(Color.white, lineWidth: 1)
                                                     }
-                                                    .disabled(vm.endedExercises.contains(exercise))
+                                                    .disabled(vm.textDisabled)
                                                 Text("kg")
                                                     .foregroundColor(.greenColor)
-                                            }.padding(3)
+                                            }.padding(2)
                                         }
                                     }
                                 }
@@ -148,13 +163,13 @@ struct WorkoutView: View {
                                 if !exercise.sets.isEmpty {
                                     Divider()
                                         .background(Color.greenColor)
-                                        .padding([.bottom, .top], 5)
+                                        .padding([.top, .bottom], 2)
                                 }
                                 if !vm.endedExercises.contains(exercise) {
                                     HStack(alignment: .firstTextBaseline) {
                                         Text("New set:")
                                             .foregroundColor(.greenColor)
-                                            .padding(5)
+                                            .padding(3)
                                         
                                         VStack(spacing: 0) {
                                             TextField("New rep", text: $exercise.newItem)
@@ -163,7 +178,7 @@ struct WorkoutView: View {
                                                 .foregroundColor(.white)
                                                 .keyboardType(.decimalPad)
                                                 .disableAutocorrection(true)
-                                                .padding(.bottom, 3)
+                                                .padding(.bottom, 2)
                                             
                                             Divider()
                                                 .background(Color.greenColor)
@@ -180,7 +195,7 @@ struct WorkoutView: View {
                                                 .foregroundColor(.white)
                                                 .keyboardType(.decimalPad)
                                                 .disableAutocorrection(true)
-                                                .padding(.bottom, 3)
+                                                .padding(.bottom, 2)
                                             
                                             
                                             Divider()
@@ -193,23 +208,28 @@ struct WorkoutView: View {
                                             vm.addSet(exercise: exercise)
                                         } label: {
                                             Image(systemName: "plus")
-                                            
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 20, height: 20)
                                                 .foregroundColor(.greenColor)
                                         }
                                         .padding(5)
                                         
-                                    }.padding(.bottom, 8)
+                                    }.padding(.bottom, 3)
                                         .buttonStyle(PlainButtonStyle())
                                 }
-                            } .padding(5)
+                            }
+                            .padding(8)
                                 .listRowBackground(
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundColor(.secondaryDark)
-                                        .padding([.top, .bottom], 10)
+                                        .padding([.bottom, .top], 18)
+                                        .padding(.horizontal, 5)
                                     
                                 )
                                 .listRowSeparator(.hidden)
                         }
+                        .listStyle(.plain)
                         .background(Color.darkColor)
                         .scrollContentBackground(.hidden)
                         
@@ -217,55 +237,98 @@ struct WorkoutView: View {
                         
                         
                     }
+                    .padding(5)
+                
+                }
+                
+                
+                HStack {
+                    if !vm.workout.isEmpty {
+                        Button {
+                            vm.saveWorkout()
+                            if Constants.currentState == .loggedAsTrainer {
+                                dismiss()
+                            }
+                        } label: {
+                            
+                            Text("End Workout")
+                                .foregroundColor(.black)
+                                .fontDesign(.rounded)
+                                .frame(maxWidth: .infinity)
+                                .fontWeight(.bold)
+                                .padding(.vertical, 10)
+                                .background(Color.red)
+                                .clipShape(Capsule())
+                        }
+                        
+                        Spacer()
+                    }
+                   
                     
                     Button {
-                        vm.saveWorkout()
+                        vm.isPresented.toggle()
                     } label: {
                         
-                        Text("End Workout")
+                        Text("Add Exercise")
                             .foregroundColor(.black)
                             .fontDesign(.rounded)
+                            .frame(maxWidth: .infinity)
                             .fontWeight(.bold)
-                            .padding(.horizontal, 60)
-                            .padding(.vertical, 15)
+                            .padding(.vertical, 10)
                             .background(Color.greenColor)
                             .clipShape(Capsule())
                     }
-                    //end else
+                    
                 }
-                
-                
-                
+                .padding([.bottom, .trailing, .leading], 10)
                 
             }
-        }.navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(vm.workoutName)
-                        .font(.title)
-                        .foregroundColor(.greenColor)
-                }
+     
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(vm.workoutName)
+                    .font(.title2)
+                    .foregroundColor(.greenColor)
+            }
+            
+            if !vm.workout.isEmpty {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        vm.isPresented.toggle()
+                        vm.editMode.toggle()
                         
                     } label: {
-                        Image(systemName: "plus")
+                        Text(vm.editMode ? "Done" : "Edit")
+                            .font(.title3)
                         
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+            
+            if Constants.currentState == .loggedAsTrainer {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Close")
                             .foregroundColor(.greenColor)
                     }
                 }
             }
-            .sheet(isPresented: $vm.isPresented) {
-                ExercisesView(vm: vm.exerciseListVM)
-            }
-            .alert("", isPresented: $vm.warningAlert) {
-                Button("Ok", role: .cancel) {}
-            } message: {
-                Text(vm.warningText)
-            }
-            .onTapGesture {
-                textIsFocused = false
+        }
+    }
+                .sheet(isPresented: $vm.isPresented) {
+                    ExercisesView(vm: vm.exerciseListVM)
+                }
+                .alert("", isPresented: $vm.warningAlert) {
+                    Button("Ok", role: .cancel) {}
+                } message: {
+                    Text(vm.warningText)
+                }
+                .onTapGesture {
+                    textIsFocused = false
             }
     }
 }

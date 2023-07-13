@@ -21,7 +21,6 @@ final class HistoryViewViewModel: ObservableObject {
     // MARK:  - Methods -
     init(clientData: Client) {
         self.clientData = clientData
-        print(clientData)
     }
     
 

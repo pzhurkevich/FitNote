@@ -24,6 +24,7 @@ struct ClientTaskData: Identifiable, Codable {
     
     mutating func addTask(newClient: ClientTask){
         task.append(newClient)
+        task = task.sorted()
       }
     
 }

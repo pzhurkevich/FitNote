@@ -39,14 +39,7 @@ struct ClientView: View {
                             .foregroundColor(Color.secondaryDark)
                         
                         
-                        Button {
-                            
-                            vm.openCameraRoll = true
-                            
-                            
-                            
-                        } label: {
-                            
+                        ZStack(alignment: .bottomTrailing) {
                             
                             AsyncImage(url: vm.imageURL) { image in
                                 image
@@ -73,6 +66,18 @@ struct ClientView: View {
                                         .stroke(Color.greenColor, lineWidth: 10))
                                     .clipShape(Circle())
                             }
+                            
+                            Button() {
+                     
+                                vm.openCameraRoll = true
+                                
+                            } label : {
+                                Image(systemName: "plus.circle")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .scaledToFit()
+                            }
+                            
                         }
                         
                         .padding()
@@ -192,8 +197,8 @@ struct ClientView: View {
                             
                             Spacer()
                             
-                            NavigationLink {
-                                WorkoutView(vm: WorkoutViewViewModel(clientData: vm.clientData))
+                            Button {
+                                vm.isPresented.toggle()
                             } label: {
                                 HStack {
                                     Text("Workout")
@@ -263,11 +268,14 @@ struct ClientView: View {
         .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
         .accentColor(Color.greenColor) //для кнопки "back"
-        .onAppear {
-            vm.loadClientInfo()
-        }
+//        .onAppear {
+//            vm.loadClientInfo()
+//        }
         .onTapGesture {
             textIsFocused = false
+        }
+        .fullScreenCover(isPresented: $vm.isPresented) {
+            WorkoutView(vm: WorkoutViewViewModel(clientData: vm.clientData))
         }
         
     }

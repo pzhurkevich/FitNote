@@ -12,7 +12,6 @@ struct TrainerView: View {
     @StateObject var vm = TrainerViewViewModel()
     
     var body: some View {
-        NavigationView {
             ZStack {
                 
                 Color.darkColor.ignoresSafeArea()
@@ -27,7 +26,7 @@ struct TrainerView: View {
                             .frame(maxHeight: geometry.size.height * 0.85)
                             .foregroundColor(Color.secondaryDark)
                             .specificCornersRadius(radius: 30, coners: [.topLeft, .topRight])
-                    } .ignoresSafeArea(edges: .bottom)
+                    } //.ignoresSafeArea(edges: .bottom)
                     
                     VStack {
                         ZStack(alignment: .center) {
@@ -36,44 +35,46 @@ struct TrainerView: View {
                             Circle()
                                 .foregroundColor(Color.secondaryDark)
                             
-                            
-                            
-                            
-                            
-                            Button {
-                             
-                                vm.openCameraRoll = true
-                               
+
+                            ZStack(alignment: .bottomTrailing) {
                                 
+                                AsyncImage(url: vm.imageURL) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                        .foregroundColor(.white)
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                    
+                                    
+                                } placeholder: {
+                                    Image("user")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                    
+                                        .foregroundColor(.white)
+                                    
+                                    
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                }
                                 
-                            } label: {
+                                Button() {
+                         
+                                    vm.openCameraRoll = true
+                                    
+                                } label : {
+                                    Image(systemName: "plus.circle")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .scaledToFit()
+                                }
                                 
-                          
-                                    AsyncImage(url: vm.imageURL) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                            .foregroundColor(.white)
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                           
-                                        
-                                    } placeholder: {
-                                        Image("user")
-                                            .renderingMode(.template)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                        
-                                            .foregroundColor(.white)
-                                        
-                                        
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                    }
                             }
                             
                             .padding()
@@ -155,51 +156,7 @@ struct TrainerView: View {
                                 .padding(.horizontal, 20)
                                 .padding(.top, 20)
                             
-                            VStack(spacing: 20) {
-                                
-                                Spacer()
-                                
-                                NavigationLink {
-                                    ClientsListView()
-                                } label: {
-                                    HStack {
-                                        Text("Your clients")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 20)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                NavigationLink {
-                                    Planner()
-                                } label: {
-                                    HStack {
-                                        Text("Clients workouts planner")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 20)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                Spacer()
-                            }
-                            
+                            Spacer()
                         }
                         
                     }
@@ -207,7 +164,6 @@ struct TrainerView: View {
                 }
                 
             }
-        }
         .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()

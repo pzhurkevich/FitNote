@@ -42,6 +42,14 @@ extension Date {
            let date = formatter.string(from: self)
            return date
        }
+    
+    func stringTime() -> String {
+            let formatter = DateFormatter()
+           formatter.locale = Locale(identifier: "en")
+            formatter.dateFormat = "HH:mm"
+            let time = formatter.string(from: self)
+            return time
+    }
       
       func getDateComponents() -> DateComponents {
              let calendar = Calendar.current

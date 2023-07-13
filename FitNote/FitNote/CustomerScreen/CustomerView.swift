@@ -13,7 +13,6 @@ struct CustomerView: View {
    
     
     var body: some View {
-        NavigationView {
             ZStack {
                 
                 Color.darkColor.ignoresSafeArea()
@@ -28,7 +27,7 @@ struct CustomerView: View {
                             .frame(maxHeight: geometry.size.height * 0.85)
                             .foregroundColor(Color.secondaryDark)
                             .specificCornersRadius(radius: 30, coners: [.topLeft, .topRight])
-                    } .ignoresSafeArea(edges: .bottom)
+                    } //.ignoresSafeArea(edges: .bottom)
                     
                     VStack {
                         ZStack(alignment: .center) {
@@ -37,46 +36,47 @@ struct CustomerView: View {
                             Circle()
                                 .foregroundColor(Color.secondaryDark)
                             
-                            
-                            
-                            
-                            
-                            Button {
-                             
-                                vm.openCameraRoll = true
-                               
                                 
+                            ZStack(alignment: .bottomTrailing) {
                                 
-                            } label: {
+                                AsyncImage(url: vm.imageURL) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                        .foregroundColor(.white)
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                    
+                                    
+                                } placeholder: {
+                                    Image("user")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
+                                    
+                                        .foregroundColor(.white)
+                                    
+                                    
+                                        .overlay(Circle()
+                                            .stroke(Color.greenColor, lineWidth: 10))
+                                        .clipShape(Circle())
+                                }
                                 
-                          
-                                    AsyncImage(url: vm.imageURL) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                            .foregroundColor(.white)
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                           
-                                        
-                                    } placeholder: {
-                                        Image("user")
-                                            .renderingMode(.template)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2)
-                                        
-                                            .foregroundColor(.white)
-                                        
-                                        
-                                            .overlay(Circle()
-                                                .stroke(Color.greenColor, lineWidth: 10))
-                                            .clipShape(Circle())
-                                    }
+                                Button() {
+                         
+                                    vm.openCameraRoll = true
+                                    
+                                } label : {
+                                    Image(systemName: "plus.circle")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .scaledToFit()
+                                }
+                                
                             }
-                            
                             .padding()
                             .sheet(isPresented: $vm.openCameraRoll) {
                                 ImagePicker(imageUrl: $vm.imageURL, changeProfileImage: $vm.changeProfileImage, sourceType: .photoLibrary)
@@ -160,67 +160,12 @@ struct CustomerView: View {
                                 
                             Spacer()
                                 
-                                NavigationLink {
-                                    WorkoutView(vm: WorkoutViewViewModel(clientData: Client()))
-                                } label: {
-                                    HStack {
-                                        Text("Workout")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
                                 
-                                NavigationLink {
-                                    HistoryView(vm: HistoryViewViewModel(clientData: Client()))
-                                } label: {
-                                    HStack {
-                                        Text("Workouts history")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                
-                                NavigationLink {
-                                    StatisticsView()
-                                } label: {
-                                    HStack {
-                                        Text("Your statistic")
-                                            .fontDesign(.rounded)
-                                            .fontWeight(.bold)
-                                        
-                                        Image(systemName: "chevron.forward")
-                                            .fontWeight(.bold)
-                                    }
-                                    .tint(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.greenColor)
-                                    .clipShape(Capsule())
-                                }
-                                .padding(.horizontal, 20)
-                                                                
-                                Spacer()
+
                                 
                             }.padding(.bottom, 10)
                             
+                            Spacer()
                         }
                         
                     }
@@ -228,9 +173,6 @@ struct CustomerView: View {
                 }
 
             }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()
         }

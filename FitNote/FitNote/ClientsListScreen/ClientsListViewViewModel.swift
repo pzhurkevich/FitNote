@@ -31,10 +31,9 @@ final class ClientsListViewViewModel: ObservableObject {
         print("new client created")
     }
     
-    func deleteClient(indexSet: IndexSet) {
-        let index = indexSet[indexSet.startIndex]
-        fireBaseManager.deleteClientData(docId: clients[index].id)
-        self.clients.remove(atOffsets: indexSet)
+    func deleteClient(client: Client) {
+        fireBaseManager.deleteClientData(docId: client.id)
+        clients = clients.filter { $0.id != client.id}
         
     }
     
