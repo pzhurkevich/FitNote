@@ -16,7 +16,8 @@ struct MainBarView: View {
     var body: some View {
         NavigationView {
             TabView {
-                if Constants.currentState == .loggedAsTrainer {
+                switch Constants.currentState {
+                case .loggedAsTrainer:
                     TrainerView()
                         .tabItem {
                             Image(systemName: "house.fill")
@@ -34,7 +35,7 @@ struct MainBarView: View {
                             Image(systemName: "calendar")
                             Text("Planner")
                         }
-                } else {
+                case .loggedAsSelf:
                     CustomerView()
                         .tabItem {
                             Image(systemName: "house.fill")
@@ -50,6 +51,8 @@ struct MainBarView: View {
                             Image(systemName: "list.bullet.rectangle")
                             Text("History")
                         }
+                default:
+                    NetworkErrorView()
                 }
             }
             .accentColor(Color.greenColor)

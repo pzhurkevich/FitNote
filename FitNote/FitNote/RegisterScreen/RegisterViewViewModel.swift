@@ -30,35 +30,19 @@ final class RegisterViewViewModel: ObservableObject {
     @Published  var showConfirm = false
     
    var emailAlert: String {
-        if isEmailValid() {
-            return ""
-        } else {
-            return "Enter a valid email address"
-        }
+       return isEmailValid() ? "" : "Enter a valid email address"
     }
     
     var passwordAlert: String {
-        if isPasswordValid() {
-            return ""
-        } else {
-            return "Must be more than 6 characters"
-        }
+        return isPasswordValid() ? "" : "Must be more than 6 characters"
     }
     
     var passwordConfirmAlert: String {
-        if password == passwordConfirm {
-            return ""
-        } else {
-            return "Password do not match"
-        }
+        return password == passwordConfirm ? "" : "Password do not match"
     }
     
     var nameAlert: String {
-        if isNameValid() {
-            return ""
-        } else {
-            return "Name cannot be empty"
-        }
+        return isNameValid() ? "" : "Name cannot be empty" 
     }
     
     var registrationAllowed: Bool {
@@ -116,7 +100,9 @@ final class RegisterViewViewModel: ObservableObject {
     }
     
     func isEmailValid() -> Bool {
-        return email.contains("@") && email.contains(".")
+        let emailSample = NSPredicate(format: "SELF MATCHES %@",
+                                    "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
+        return emailSample.evaluate(with: email)
     }
     func isPasswordValid() -> Bool {
         return password.count >= 6

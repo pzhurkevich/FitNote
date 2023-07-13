@@ -69,7 +69,7 @@ struct TrainerView: View {
                                     vm.openCameraRoll = true
                                     
                                 } label : {
-                                    Image(systemName: "square.and.pencil")
+                                    Image(systemName: "plus.circle")
                                         .resizable()
                                         .frame(width: 30, height: 30)
                                         .scaledToFit()

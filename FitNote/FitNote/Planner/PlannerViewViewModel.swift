@@ -101,18 +101,18 @@ final class PlannerViewViewModel: ObservableObject {
         if tasks.isEmpty {
             tasks.append(taskData)
         } else {
-            tasks.forEach { clientTaskData in
+            tasks = tasks.map { clientTaskData -> ClientTaskData in
                 if clientTaskData.task.contains(where: { $0.time.getDateComponents() == selectedDate.getDateComponents() }) {
                     var updated = clientTaskData
                     updated.addTask(newClient: client)
-                    tasks = tasks.filter { $0.id != clientTaskData.id}
-                    tasks.append(updated)
+                    return updated
+                } else {
+                    return clientTaskData
                 }
-                else {
-                    if !tasks.contains(where: {$0.taskDate.getDateComponents() == selectedDate.getDateComponents()}) {
-                        tasks.append(taskData)
-                    }
-                }
+            }
+            
+            if !tasks.contains(where: { $0.taskDate.getDateComponents() == selectedDate.getDateComponents() }) {
+                tasks.append(taskData)
             }
         }
 
