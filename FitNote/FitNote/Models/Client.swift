@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Client: Identifiable, Codable {
+struct Client: Identifiable, Hashable, Codable {
     let id: String
     let name: String
     let instURL: String

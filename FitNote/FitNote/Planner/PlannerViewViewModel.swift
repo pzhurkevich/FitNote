@@ -27,7 +27,8 @@ final class PlannerViewViewModel: ObservableObject {
     }
     @Published var days: [String] = []
 
-   
+    @Published var clients: [Client] = []
+    @Published var selectedClient = Client()
     @Published var newClientName = ""
     
     @Published var tasks: [ClientTaskData] = []
@@ -35,6 +36,7 @@ final class PlannerViewViewModel: ObservableObject {
     
     @Published var isShown = false
     @Published var showAlert = false
+    @Published var emptyName = false
     
 // MARK:  - Methods -
     init() {
@@ -85,17 +87,52 @@ final class PlannerViewViewModel: ObservableObject {
     }
     
     
-    func addClientToPlanner() {
+    func addNewClientToPlanner() {
         let id = UUID().uuidString
         let idData = UUID().uuidString
-        
+        let idClient = UUID().uuidString
         guard !newClientName.isEmpty else {
-            showAlert.toggle()
+            emptyName.toggle()
             return
             
         }
+        let newClient = Client(id: idClient, name: newClientName, instURL: "-", number: "-", imageURL: "")
+        let client = ClientTask(id: id, client: newClient, time: selectedDate)
+        let taskData = ClientTaskData(id: idData, task: [client], taskDate: selectedDate)
         
-        let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
+        if tasks.isEmpty {
+            tasks.append(taskData)
+        } else {
+            tasks = tasks.map { clientTaskData -> ClientTaskData in
+                if clientTaskData.task.contains(where: { $0.time.getDateComponents() == selectedDate.getDateComponents() }) {
+                    var updated = clientTaskData
+                    updated.addTask(newClient: client)
+                    return updated
+                } else {
+                    return clientTaskData
+                }
+            }
+            
+            if !tasks.contains(where: { $0.taskDate.getDateComponents() == selectedDate.getDateComponents() }) {
+                tasks.append(taskData)
+            }
+        }
+
+        Task {
+            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+            await fireBaseManager.addClientFromPlanner(client: newClient)
+        }
+        
+        createNotification(client: client)
+        
+        isShown.toggle()
+    }
+    
+    func addExistingClientToPlanner() {
+        let id = UUID().uuidString
+        let idData = UUID().uuidString
+
+        let client = ClientTask(id: id, client: selectedClient, time: selectedDate)
         let taskData = ClientTaskData(id: idData, task: [client], taskDate: selectedDate)
         
         if tasks.isEmpty {
@@ -163,6 +200,17 @@ final class PlannerViewViewModel: ObservableObject {
         }
     }
     
+
+    func fetchClients() async {
+
+           
+            let clientsFromServer  =  await self.fireBaseManager.fetchClients()
+          
+            await MainActor.run {
+                self.clients = clientsFromServer
+            }
+      
+    }
     
     
     func checkCurrentAuthorizationSetting() async {
@@ -213,7 +261,7 @@ final class PlannerViewViewModel: ObservableObject {
             let content = UNMutableNotificationContent()
             let time = client.time.stringTime()
             content.title = "Workout reminder"
-            content.subtitle = "Workour with \(client.clientName) tomorrow at \(time)."
+            content.subtitle = "Workour with \(client.client.name) tomorrow at \(time)."
             content.sound = UNNotificationSound.default
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderTime, repeats: false)

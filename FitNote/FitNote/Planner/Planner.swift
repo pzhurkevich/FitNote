@@ -170,7 +170,7 @@ struct Planner: View {
                                             .foregroundColor(.white)
                                             .padding(.leading, 10)
                                         
-                                        Text(client.clientName)
+                                        Text(client.client.name)
                                             .font(.system(size: 18))
                                             .font(.title2.bold())
                                             .foregroundColor(.greenColor)
@@ -230,6 +230,7 @@ struct Planner: View {
                 }
                 .task {
                     await vm.fetchTasksToPlanner()
+                    await vm.fetchClients()
                 }
                 .alert("", isPresented: $vm.showAlert) {
                     Button("Ok", role: .cancel) {

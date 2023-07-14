@@ -32,6 +32,7 @@ protocol FirebaseManagerProtocol {
     func saveCustomerWorkout(name: String, date: Date, workout: [OneExersice]) async
     func fetchCustomerWorkouts() async -> [Workout]
     func saveClientsPlanner(allTasks: [ClientTaskData]) async
+    func addClientFromPlanner(client: Client) async
     func fetchClientsToPlanner() async -> [ClientTaskData]
     func deleteOneClientTask(docId: String)
 }
@@ -287,6 +288,18 @@ class FirebaseManager: FirebaseManagerProtocol {
             }
         } catch {
             print("ne poluchilos sohranit tvoi strukturi")
+            print (error.localizedDescription)
+      
+        }
+    }
+    
+    func addClientFromPlanner(client: Client) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        do {
+            let encodedClient = try Firestore.Encoder().encode(client)
+            try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(client.id).setData(encodedClient)
+            
+        } catch {
             print (error.localizedDescription)
       
         }
