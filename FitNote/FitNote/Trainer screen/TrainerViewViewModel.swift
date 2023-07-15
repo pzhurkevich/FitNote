@@ -23,6 +23,11 @@ final class TrainerViewViewModel: ObservableObject {
     @Published var openCameraRoll = false
     @Published var imageURL:  URL?
     @Published var openloginView: Bool = false
+    
+    @Published var todayClients : [ClientTask] = []
+    
+    
+    
 // MARK:  - Methods -
     
     init() {
@@ -92,4 +97,15 @@ final class TrainerViewViewModel: ObservableObject {
         }
     }
     
+    func fetchTasks() async {
+           
+           let clientsTasksFromServer  =  await self.fireBaseManager.fetchClientsToPlanner()
+           let today = Date()
+           let  todayClientsTasks = clientsTasksFromServer.first(where: { $0.taskDate.getDateComponents() == today.getDateComponents() })
+           guard let  clientList = todayClientsTasks?.task else {return}
+           
+           await MainActor.run {
+               self.todayClients = clientList
+           }
+       }
 }

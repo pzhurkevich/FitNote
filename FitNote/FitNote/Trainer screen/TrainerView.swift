@@ -155,7 +155,60 @@ struct TrainerView: View {
                                 .background(.white)
                                 .padding(.horizontal, 20)
                                 .padding(.top, 20)
+                            HStack {
+                                Text("Today:")
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.greenColor)
+                                    .padding(.leading, 20)
+                                
+                                Spacer()
+                            }
+                            .padding(.top, 20)
                             
+                            ScrollView {
+                                
+                                VStack {
+                                    
+                                    ForEach(vm.todayClients) { client in
+                                        
+                                        HStack {
+                                            
+                                            Text(client.time.stringTime())
+                                                .font(.title3.bold())
+                                                .foregroundColor(.darkColor)
+                                                .padding(10)
+                                                .background(Color.greenColor)
+                                                .padding(.leading, 20)
+                                            
+                                            VStack(alignment: .leading) {
+                                                
+                                                Text(client.client.name)
+                                                    .foregroundColor(.white)
+                                                    .font(.title3.bold())
+                                                
+                                                Spacer()
+                                                
+                                                Text("Last workout:")
+                                                    .foregroundColor(.white)
+                                                
+                                            }
+                                            .padding(.leading, 10)
+                                            
+                                            Spacer()
+                                            
+                                            Image(systemName: "figure.strengthtraining.traditional")
+                                                .foregroundColor(.greenColor)
+                                                .padding()
+                                        }
+                                        .padding(10)
+                                        
+                                        Divider()
+                                            .background(.white)
+                                            .padding(.horizontal, 20)
+                                    }
+                                }
+                            }
                             Spacer()
                         }
                         
@@ -167,6 +220,7 @@ struct TrainerView: View {
         .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()
+            await vm.fetchTasks()
         }
     }
 }
