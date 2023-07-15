@@ -20,8 +20,8 @@ struct CustomDatePicker: View {
                 HStack {
                     Text("Choose Date:")
                         .foregroundColor(.greenColor)
-                    .font(.title2.bold())
-                    .padding(.leading, 20)
+                        .font(.title2.bold())
+                        .padding(.leading, 20)
                     Spacer()
                 }
                 Divider()
@@ -29,21 +29,22 @@ struct CustomDatePicker: View {
                     .padding(.horizontal, 20)
                 
                 DatePicker("", selection: $vm.selectedDate, in: Date()..., displayedComponents: [.date, .hourAndMinute])
-                        .datePickerStyle(.wheel)
-                        .labelsHidden()
-                        .frame(maxWidth: .infinity)
-                        .colorScheme(.dark)
+                    .datePickerStyle(.wheel)
+                    .labelsHidden()
+                    .frame(maxWidth: .infinity)
+                    .colorScheme(.dark)
                     .accentColor(Color.greenColor)
                 
+                if !vm.clients.isEmpty {
                 Divider()
                     .background(.white)
                     .padding(.horizontal, 20)
-             
+                
                 HStack {
                     Text("Choose Client:")
                         .foregroundColor(.greenColor)
-                    .font(.title2.bold())
-                    .padding(.leading, 20)
+                        .font(.title2.bold())
+                        .padding(.leading, 20)
                     Spacer()
                 }
                 
@@ -54,24 +55,24 @@ struct CustomDatePicker: View {
                     Spacer()
                     
                     Picker("Client:", selection: $vm.selectedClient) {
-                            ForEach(vm.clients) { client in
-                                Text(client.name).tag(client)
-                            }
+                        ForEach(vm.clients) { client in
+                            Text(client.name).tag(client)
                         }
+                    }
                     .accentColor(Color.greenColor)
-                        .pickerStyle(.menu)
-                     
+                    .pickerStyle(.menu)
+                    
                 }
                 .padding(8)
                 .overlay {
                     RoundedRectangle(cornerRadius: 24)
-                    .stroke(Color(uiColor: .white), lineWidth: 2)
-            }
+                        .stroke(Color(uiColor: .white), lineWidth: 2)
+                }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 15)
                 
                 Button {
-                   
+                    
                     vm.addExistingClientToPlanner()
                     
                 } label: {
@@ -88,7 +89,7 @@ struct CustomDatePicker: View {
                 .padding(10)
                 .padding(.bottom, 10)
                 
-                
+            }
            
                 
                 

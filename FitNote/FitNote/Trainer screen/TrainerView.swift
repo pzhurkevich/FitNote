@@ -164,7 +164,7 @@ struct TrainerView: View {
                                 
                                 Spacer()
                             }
-                            .padding(.top, 20)
+                            .padding([.top, .bottom], 20)
                             
                             ScrollView {
                                 
@@ -189,19 +189,47 @@ struct TrainerView: View {
                                                 
                                                 Spacer()
                                                 
-                                                Text("Last workout:")
-                                                    .foregroundColor(.white)
+                                                HStack() {
+                                                    Text("Last workout:")
+                                                        .foregroundColor(.white)
+                                                    
+                                                    Text(vm.lastWorkouts[client.client.id] ?? "-")
+                                                        .foregroundColor(.greenColor)
+                                                        .padding(.leading, 10)
+                                                }
                                                 
                                             }
                                             .padding(.leading, 10)
                                             
                                             Spacer()
                                             
-                                            Image(systemName: "figure.strengthtraining.traditional")
-                                                .foregroundColor(.greenColor)
-                                                .padding()
+                                            AsyncImage(url: URL(string: client.client.imageURL)) { image in
+                                                image
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 50, height: 50)
+                                                    .foregroundColor(.white)
+                                                    .overlay(Circle()
+                                                        .stroke(Color.greenColor, lineWidth: 2))
+                                                    .clipShape(Circle())
+                                                
+                                                
+                                            } placeholder: {
+                                                Image("user")
+                                                    .renderingMode(.template)
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 50, height: 50)
+                                                
+                                                    .foregroundColor(.white)
+                                                
+                                                    .overlay(Circle()
+                                                        .stroke(Color.greenColor, lineWidth: 2))
+                                                    .clipShape(Circle())
+                                            }
+                                            .padding(.trailing, 20)
                                         }
-                                        .padding(10)
+                                        
                                         
                                         Divider()
                                             .background(.white)
@@ -221,6 +249,7 @@ struct TrainerView: View {
         .task {
             await vm.fetchAppUserinfo()
             await vm.fetchTasks()
+            await vm.lastWorkout()
         }
     }
 }

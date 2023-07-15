@@ -25,7 +25,8 @@ final class TrainerViewViewModel: ObservableObject {
     @Published var openloginView: Bool = false
     
     @Published var todayClients : [ClientTask] = []
-    
+    @Published var displayName: String = ""
+    @Published var lastWorkouts: Dictionary<String, String> = [:]
     
     
 // MARK:  - Methods -
@@ -108,4 +109,20 @@ final class TrainerViewViewModel: ObservableObject {
                self.todayClients = clientList
            }
        }
+
+    func lastWorkout() async {
+        
+        for clientTask in todayClients {
+            let workoutsFromServer = await self.fireBaseManager.fetchClientsWorkouts(clientID: clientTask.client.id)
+            if !workoutsFromServer.isEmpty {
+                let lastWorkout = workoutsFromServer.first(where: { $0.dateWorkout.timeIntervalSince1970 <= Date().timeIntervalSince1970 })
+                
+                guard let name = lastWorkout else { return }
+                await MainActor.run {
+                    lastWorkouts["\(clientTask.client.id)"] = name.nameWorkout
+                }
+                
+            }
+        }
+    }
 }

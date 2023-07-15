@@ -40,6 +40,7 @@ final class PlannerViewViewModel: ObservableObject {
     
 // MARK:  - Methods -
     init() {
+      
         fillDates()
         fillWeekDays()
     }
@@ -208,6 +209,9 @@ final class PlannerViewViewModel: ObservableObject {
           
             await MainActor.run {
                 self.clients = clientsFromServer
+                if let firstClient = clients.first {
+                    selectedClient = firstClient
+                }
             }
       
     }
