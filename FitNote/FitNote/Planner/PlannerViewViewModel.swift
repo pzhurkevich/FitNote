@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import UserNotifications
+import Combine
 
 final class PlannerViewViewModel: ObservableObject {
     
@@ -16,6 +17,7 @@ final class PlannerViewViewModel: ObservableObject {
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     let calendar = Calendar.current
     let notificationCenter = UNUserNotificationCenter.current()
+    private var cancellable =  Set<AnyCancellable>()
     
     @Published var currentDate: Date = Date()
     @Published var selectedDate: Date = Date()
@@ -28,6 +30,7 @@ final class PlannerViewViewModel: ObservableObject {
     @Published var days: [String] = []
 
     @Published var clients: [Client] = []
+    @Published var names: [String] = []
     @Published var selectedClient = Client()
     @Published var newClientName = ""
     
@@ -37,13 +40,49 @@ final class PlannerViewViewModel: ObservableObject {
     @Published var isShown = false
     @Published var showAlert = false
     @Published var emptyName = false
+    @Published var nameErrorText: nameError = .emptyName
+    
+    enum nameError: String {
+        
+        case emptyName = "Name cannot be empty"
+        case nameExist = "Client with same name is already exists"
+    }
     
 // MARK:  - Methods -
     init() {
       
         fillDates()
         fillWeekDays()
+        
+        $newClientName
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                emptyName = false
+                if newClientName.isEmpty {
+                    emptyName = true
+                    nameErrorText = .emptyName
+                }
+                if names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame})  {
+                    emptyName = true
+                    nameErrorText = .nameExist
+                }
+               
+            }
+            .store(in: &cancellable)
     }
+    
+   
+      
+        
+        
+
+    deinit {
+            cancellable.removeAll()
+        }
+    
+    
+    
+    
     
     func fillWeekDays() {
         days = Calendar.current.shortWeekdaySymbols
@@ -92,11 +131,10 @@ final class PlannerViewViewModel: ObservableObject {
         let id = UUID().uuidString
         let idData = UUID().uuidString
         let idClient = UUID().uuidString
-        guard !newClientName.isEmpty else {
-            emptyName.toggle()
+        guard !newClientName.isEmpty, !names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame}) else {
             return
-            
         }
+
         let newClient = Client(id: idClient, name: newClientName, instURL: "-", number: "-", imageURL: "")
         let client = ClientTask(id: id, client: newClient, time: selectedDate)
         let taskData = ClientTaskData(id: idData, task: [client], taskDate: selectedDate)
@@ -205,9 +243,9 @@ final class PlannerViewViewModel: ObservableObject {
     func fetchClients() async {
 
            
-            let clientsFromServer  =  await self.fireBaseManager.fetchClients()
-          
+        let clientsFromServer  =  await self.fireBaseManager.fetchClients()
             await MainActor.run {
+                self.names = clientsFromServer.map { $0.name }
                 self.clients = clientsFromServer
                 if let firstClient = clients.first {
                     selectedClient = firstClient

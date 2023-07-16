@@ -122,7 +122,7 @@ struct CustomDatePicker: View {
                             .stroke(Color(uiColor: .white), lineWidth: 2)
                         }
                     if vm.emptyName {
-                        Text("Name cannot be empty")
+                        Text(vm.nameErrorText.rawValue)
                             .foregroundColor(.red)
                     }
                     
@@ -132,7 +132,6 @@ struct CustomDatePicker: View {
                     
                 Button {
                    vm.addNewClientToPlanner()
-                    
                 } label: {
                     
                     Text("Add new")
