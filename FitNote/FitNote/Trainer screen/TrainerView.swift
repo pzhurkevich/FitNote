@@ -155,7 +155,93 @@ struct TrainerView: View {
                                 .background(.white)
                                 .padding(.horizontal, 20)
                                 .padding(.top, 20)
-                            
+                            HStack {
+                                Text("Today:")
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.greenColor)
+                                    .padding(.leading, 20)
+                                
+                                Spacer()
+                            }
+                            .padding([.top, .bottom], 20)
+                            if vm.todayClients.isEmpty {
+                                Text("There are no clients today")
+                                    .foregroundColor(.red)
+                                    .font(.title2.bold())
+                            } else {
+                                ScrollView {
+                                    
+                                    VStack {
+                                        
+                                        ForEach(vm.todayClients) { client in
+                                            
+                                            HStack {
+                                                
+                                                Text(client.time.stringTime())
+                                                    .font(.title3.bold())
+                                                    .foregroundColor(.darkColor)
+                                                    .padding(10)
+                                                    .background(Color.greenColor)
+                                                    .padding(.leading, 20)
+                                                
+                                                VStack(alignment: .leading) {
+                                                    
+                                                    Text(client.client.name)
+                                                        .foregroundColor(.white)
+                                                        .font(.title3.bold())
+                                                    
+                                                    Spacer()
+                                                    
+                                                    HStack() {
+                                                        Text("Last workout:")
+                                                            .foregroundColor(.white)
+                                                        
+                                                        Text(vm.lastWorkouts[client.client.id] ?? "-")
+                                                            .foregroundColor(.greenColor)
+                                                            .padding(.leading, 10)
+                                                    }
+                                                    
+                                                }
+                                                .padding(.leading, 10)
+                                                
+                                                Spacer()
+                                                
+                                                AsyncImage(url: URL(string: client.client.imageURL)) { image in
+                                                    image
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 50, height: 50)
+                                                        .foregroundColor(.white)
+                                                        .overlay(Circle()
+                                                            .stroke(Color.greenColor, lineWidth: 2))
+                                                        .clipShape(Circle())
+                                                    
+                                                    
+                                                } placeholder: {
+                                                    Image("user")
+                                                        .renderingMode(.template)
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 50, height: 50)
+                                                    
+                                                        .foregroundColor(.white)
+                                                    
+                                                        .overlay(Circle()
+                                                            .stroke(Color.greenColor, lineWidth: 2))
+                                                        .clipShape(Circle())
+                                                }
+                                                .padding(.trailing, 20)
+                                            }
+                                            
+                                            
+                                            Divider()
+                                                .background(.white)
+                                                .padding(.horizontal, 20)
+                                        }
+                                    }
+                                }
+                            }
                             Spacer()
                         }
                         
@@ -167,6 +253,8 @@ struct TrainerView: View {
         .accentColor(Color.greenColor) //для кнопки "back"
         .task {
             await vm.fetchAppUserinfo()
+            await vm.fetchTasks()
+            await vm.lastWorkout()
         }
     }
 }

@@ -8,12 +8,17 @@
 import Foundation
 
 struct ClientTask: Identifiable, Codable, Comparable {
+    static func == (lhs: ClientTask, rhs: ClientTask) -> Bool {
+        return lhs.id == rhs.id && lhs.time == rhs.time
+
+    }
+    
     static func < (lhs: ClientTask, rhs: ClientTask) -> Bool {
         return lhs.time < rhs.time
     }
     
     let id: String
-    var clientName: String
+    var client: Client
     var time: Date    
 }
 

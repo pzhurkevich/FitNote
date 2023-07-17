@@ -13,11 +13,30 @@ final class ClientsListViewViewModel: ObservableObject {
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
     @Published var clients: [Client] = []
+    @Published var names: [String] = []
     @Published var showingAlert = false
+    @Published var nameAlert = false
     @Published var newClientName = ""
+    
+    @Published var nameErrorText: nameError = .emptyName
+    
+    enum nameError: String {
+        
+        case emptyName = "Name cannot be empty"
+        case nameExist = "Client with same name is already exists"
+    }
+    
+    
     // MARK:  - Methods -
     
     func addNewClient() {
+        
+        guard !newClientName.isEmpty, !names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame}) else {
+               self.nameErrorText = self.newClientName.isEmpty ? .emptyName : .nameExist
+               self.nameAlert = true
+            return
+        }
+        
         Task { [weak self] in
             guard let self = self else {return}
             
@@ -43,6 +62,7 @@ final class ClientsListViewViewModel: ObservableObject {
             let clientsFromServer  =  await self.fireBaseManager.fetchClients()
           
             await MainActor.run {
+                self.names = clientsFromServer.map { $0.name }
                 self.clients = clientsFromServer
             }
       

@@ -32,6 +32,7 @@ protocol FirebaseManagerProtocol {
     func saveCustomerWorkout(name: String, date: Date, workout: [OneExersice]) async
     func fetchCustomerWorkouts() async -> [Workout]
     func saveClientsPlanner(allTasks: [ClientTaskData]) async
+    func addClientFromPlanner(client: Client) async
     func fetchClientsToPlanner() async -> [ClientTaskData]
     func deleteOneClientTask(docId: String)
 }
@@ -292,6 +293,18 @@ class FirebaseManager: FirebaseManagerProtocol {
         }
     }
     
+    func addClientFromPlanner(client: Client) async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        do {
+            let encodedClient = try Firestore.Encoder().encode(client)
+            try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(client.id).setData(encodedClient)
+            
+        } catch {
+            print (error.localizedDescription)
+      
+        }
+    }
+    
     
     func fetchClientsToPlanner() async -> [ClientTaskData] {
         guard let uid = Auth.auth().currentUser?.uid else { return [] }
@@ -334,7 +347,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         guard let uid = Auth.auth().currentUser?.uid else { return [] }
         var allWorkouts: [Workout] = []
         do {
-            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").getDocuments()
+            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").order(by: "dateWorkout", descending: true).getDocuments()
             
             allWorkouts = try snapshot.documents.map { try $0.data(as: Workout.self) }
         } catch {

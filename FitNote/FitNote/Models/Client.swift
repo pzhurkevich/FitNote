@@ -23,3 +23,11 @@ struct Client: Identifiable, Codable {
     }
 
 }
+
+
+
+extension Client: Hashable {
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }    
+}

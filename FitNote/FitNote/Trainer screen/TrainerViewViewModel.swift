@@ -23,6 +23,12 @@ final class TrainerViewViewModel: ObservableObject {
     @Published var openCameraRoll = false
     @Published var imageURL:  URL?
     @Published var openloginView: Bool = false
+    
+    @Published var todayClients : [ClientTask] = []
+    @Published var displayName: String = ""
+    @Published var lastWorkouts: Dictionary<String, String> = [:]
+    
+    
 // MARK:  - Methods -
     
     init() {
@@ -92,4 +98,31 @@ final class TrainerViewViewModel: ObservableObject {
         }
     }
     
+    func fetchTasks() async {
+           
+           let clientsTasksFromServer  =  await self.fireBaseManager.fetchClientsToPlanner()
+           let today = Date()
+           let  todayClientsTasks = clientsTasksFromServer.first(where: { $0.taskDate.getDateComponents() == today.getDateComponents() })
+           guard let  clientList = todayClientsTasks?.task else {return}
+           
+           await MainActor.run {
+               self.todayClients = clientList
+           }
+       }
+
+    func lastWorkout() async {
+        
+        for clientTask in todayClients {
+            let workoutsFromServer = await self.fireBaseManager.fetchClientsWorkouts(clientID: clientTask.client.id)
+            if let lastWorkout = workoutsFromServer.first {
+                
+                await MainActor.run {
+                    lastWorkouts["\(clientTask.client.id)"] = lastWorkout.nameWorkout
+                   
+                }
+                
+            }
+        }
+    }
+
 }

@@ -112,16 +112,20 @@ struct ClientsListView: View {
             }
         }
         .toolbarBackground(Color.darkColor)
+        .alert("", isPresented: $vm.nameAlert) {
+            Button("Ok", role: .cancel) {vm.showingAlert = true}
+        } message: {
+            Text(vm.nameErrorText.rawValue)
+        }
         
-    
-            .alert("Add Client", isPresented: $vm.showingAlert) {
-                TextField("name", text: $vm.newClientName)
-                    .disableAutocorrection(true)
-                Button("Add", action: vm.addNewClient)
-                Button("Cancel", role: .cancel) {}
-            } message: {
-                Text("Enter only client name to continue")
-            }
+        .alert("Add Client", isPresented: $vm.showingAlert) {
+            TextField("name", text: $vm.newClientName)
+                .disableAutocorrection(true)
+            Button("Add", action: vm.addNewClient)
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Enter unic client name to continue")
+        }
             .task {
                 await vm.fetchClients()
             }

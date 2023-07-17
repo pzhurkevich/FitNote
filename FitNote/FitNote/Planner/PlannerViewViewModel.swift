@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import UserNotifications
+import Combine
 
 final class PlannerViewViewModel: ObservableObject {
     
@@ -16,6 +17,7 @@ final class PlannerViewViewModel: ObservableObject {
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     let calendar = Calendar.current
     let notificationCenter = UNUserNotificationCenter.current()
+    private var cancellable =  Set<AnyCancellable>()
     
     @Published var currentDate: Date = Date()
     @Published var selectedDate: Date = Date()
@@ -27,7 +29,9 @@ final class PlannerViewViewModel: ObservableObject {
     }
     @Published var days: [String] = []
 
-   
+    @Published var clients: [Client] = []
+    @Published var names: [String] = []
+    @Published var selectedClient = Client()
     @Published var newClientName = ""
     
     @Published var tasks: [ClientTaskData] = []
@@ -35,12 +39,50 @@ final class PlannerViewViewModel: ObservableObject {
     
     @Published var isShown = false
     @Published var showAlert = false
+    @Published var emptyName = false
+    @Published var nameErrorText: nameError = .emptyName
+    
+    enum nameError: String {
+        
+        case emptyName = "Name cannot be empty"
+        case nameExist = "Client with same name is already exists"
+    }
     
 // MARK:  - Methods -
     init() {
+      
         fillDates()
         fillWeekDays()
+        
+        $newClientName
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                emptyName = false
+                if newClientName.isEmpty {
+                    emptyName = true
+                    nameErrorText = .emptyName
+                }
+                if names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame})  {
+                    emptyName = true
+                    nameErrorText = .nameExist
+                }
+               
+            }
+            .store(in: &cancellable)
     }
+    
+   
+      
+        
+        
+
+    deinit {
+            cancellable.removeAll()
+        }
+    
+    
+    
+    
     
     func fillWeekDays() {
         days = Calendar.current.shortWeekdaySymbols
@@ -85,17 +127,51 @@ final class PlannerViewViewModel: ObservableObject {
     }
     
     
-    func addClientToPlanner() {
+    func addNewClientToPlanner() {
         let id = UUID().uuidString
         let idData = UUID().uuidString
-        
-        guard !newClientName.isEmpty else {
-            showAlert.toggle()
+        let idClient = UUID().uuidString
+        guard !newClientName.isEmpty, !names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame}) else {
             return
+        }
+
+        let newClient = Client(id: idClient, name: newClientName, instURL: "-", number: "-", imageURL: "")
+        let client = ClientTask(id: id, client: newClient, time: selectedDate)
+        let taskData = ClientTaskData(id: idData, task: [client], taskDate: selectedDate)
+        
+        if tasks.isEmpty {
+            tasks.append(taskData)
+        } else {
+            tasks = tasks.map { clientTaskData -> ClientTaskData in
+                if clientTaskData.task.contains(where: { $0.time.getDateComponents() == selectedDate.getDateComponents() }) {
+                    var updated = clientTaskData
+                    updated.addTask(newClient: client)
+                    return updated
+                } else {
+                    return clientTaskData
+                }
+            }
             
+            if !tasks.contains(where: { $0.taskDate.getDateComponents() == selectedDate.getDateComponents() }) {
+                tasks.append(taskData)
+            }
+        }
+
+        Task {
+            await fireBaseManager.saveClientsPlanner(allTasks: tasks)
+            await fireBaseManager.addClientFromPlanner(client: newClient)
         }
         
-        let client = ClientTask(id: id, clientName: newClientName, time: selectedDate)
+        createNotification(client: client)
+        
+        isShown.toggle()
+    }
+    
+    func addExistingClientToPlanner() {
+        let id = UUID().uuidString
+        let idData = UUID().uuidString
+
+        let client = ClientTask(id: id, client: selectedClient, time: selectedDate)
         let taskData = ClientTaskData(id: idData, task: [client], taskDate: selectedDate)
         
         if tasks.isEmpty {
@@ -163,6 +239,21 @@ final class PlannerViewViewModel: ObservableObject {
         }
     }
     
+
+    func fetchClients() async {
+
+           
+        let clientsFromServer  =  await self.fireBaseManager.fetchClients()
+        let allNames = clientsFromServer.map { $0.name }
+            await MainActor.run {
+                self.names = allNames
+                self.clients = clientsFromServer
+                if let firstClient = clients.first {
+                    selectedClient = firstClient
+                }
+            }
+      
+    }
     
     
     func checkCurrentAuthorizationSetting() async {
@@ -213,7 +304,7 @@ final class PlannerViewViewModel: ObservableObject {
             let content = UNMutableNotificationContent()
             let time = client.time.stringTime()
             content.title = "Workout reminder"
-            content.subtitle = "Workour with \(client.clientName) tomorrow at \(time)."
+            content.subtitle = "Workour with \(client.client.name) tomorrow at \(time)."
             content.sound = UNNotificationSound.default
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderTime, repeats: false)
