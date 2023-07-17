@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Client: Identifiable, Hashable, Codable {
+struct Client: Identifiable, Codable {
     let id: String
     let name: String
     let instURL: String
@@ -22,4 +22,12 @@ struct Client: Identifiable, Hashable, Codable {
         self.imageURL = imageURL
     }
 
+}
+
+
+
+extension Client: Hashable {
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }    
 }

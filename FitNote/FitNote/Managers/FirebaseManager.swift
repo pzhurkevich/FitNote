@@ -347,7 +347,7 @@ class FirebaseManager: FirebaseManagerProtocol {
         guard let uid = Auth.auth().currentUser?.uid else { return [] }
         var allWorkouts: [Workout] = []
         do {
-            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").getDocuments()
+            let snapshot = try await Firestore.firestore().collection("clientsDB").document(uid).collection("clients").document(clientID).collection("workouts").order(by: "dateWorkout", descending: true).getDocuments()
             
             allWorkouts = try snapshot.documents.map { try $0.data(as: Workout.self) }
         } catch {

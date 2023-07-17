@@ -32,10 +32,8 @@ final class ClientsListViewViewModel: ObservableObject {
     func addNewClient() {
         
         guard !newClientName.isEmpty, !names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame}) else {
-            DispatchQueue.main.async {
                self.nameErrorText = self.newClientName.isEmpty ? .emptyName : .nameExist
                self.nameAlert = true
-            }
             return
         }
         

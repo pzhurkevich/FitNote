@@ -114,15 +114,15 @@ final class TrainerViewViewModel: ObservableObject {
         
         for clientTask in todayClients {
             let workoutsFromServer = await self.fireBaseManager.fetchClientsWorkouts(clientID: clientTask.client.id)
-            if !workoutsFromServer.isEmpty {
-                let lastWorkout = workoutsFromServer.first(where: { $0.dateWorkout.timeIntervalSince1970 <= Date().timeIntervalSince1970 })
+            if let lastWorkout = workoutsFromServer.first {
                 
-                guard let name = lastWorkout else { return }
                 await MainActor.run {
-                    lastWorkouts["\(clientTask.client.id)"] = name.nameWorkout
+                    lastWorkouts["\(clientTask.client.id)"] = lastWorkout.nameWorkout
+                   
                 }
                 
             }
         }
     }
+
 }

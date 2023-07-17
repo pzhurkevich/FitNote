@@ -244,8 +244,9 @@ final class PlannerViewViewModel: ObservableObject {
 
            
         let clientsFromServer  =  await self.fireBaseManager.fetchClients()
+        let allNames = clientsFromServer.map { $0.name }
             await MainActor.run {
-                self.names = clientsFromServer.map { $0.name }
+                self.names = allNames
                 self.clients = clientsFromServer
                 if let firstClient = clients.first {
                     selectedClient = firstClient
