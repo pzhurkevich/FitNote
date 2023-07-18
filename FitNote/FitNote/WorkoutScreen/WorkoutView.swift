@@ -334,9 +334,9 @@ struct WorkoutView: View {
                 } message: {
                     Text(vm.warningText)
                 }
-//                .onTapGesture {
-//                    textIsFocused = false
-//            }
+                .onTapGesture {
+                    textIsFocused = false
+            }
     }
 }
 
