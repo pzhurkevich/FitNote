@@ -31,37 +31,53 @@ struct ExercisesView: View {
                                 Button {
                                     
                                     
-                                    vm.tappedID = exercise.id
-                                    
+                                   // vm.tappedID = exercise.id
+                                    vm.collapseRow(id: exercise.id)
                                     
                                 } label: {
-                                    
-                                    HStack(spacing: 20) {
-                                        AsyncImage(url: vm.imageURL(source: exercise)) { image in
-                                            image
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 100, height: 70)
-                                                .cornerRadius(5)
-                                        } placeholder: {
-                                            ProgressView()
-                                                .frame(width: 100, height: 70, alignment: .center)
+                                    if   !vm.expandedIDs.contains(exercise.id) {
+                                        HStack(spacing: 20) {
+                                            AsyncImage(url: vm.imageURL(source: exercise)) { image in
+                                                image
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 100, height: 70)
+                                                    .cornerRadius(5)
+                                            } placeholder: {
+                                                ProgressView()
+                                                    .frame(width: 100, height: 70, alignment: .center)
+                                            }
+                                            
+                                            
+                                            
+                                            VStack (alignment: .leading, spacing: 5) {
+                                                Text(exercise.name)
+                                                    .foregroundColor(.white)
+                                                    .fontWeight(.semibold)
+                                                    .lineLimit(2)
+                                                    .minimumScaleFactor(0.5)
+                                                Text("Primary muscles:")
+                                                    .foregroundColor(.white)
+                                                    .font(.system(size: 12))
+                                                Text(exercise.primaryMuscles.first?.rawValue ?? "-")
+                                                    .foregroundColor(.greenColor)
+                                                
+                                            }
                                         }
-                                        
-                                        
-                                        VStack (alignment: .leading, spacing: 5) {
+                                    } else {
+                                        HStack {
+                                            Spacer()
                                             Text(exercise.name)
+                                                .font(.title3)
                                                 .foregroundColor(.white)
                                                 .fontWeight(.semibold)
-                                                .lineLimit(2)
+                                                .lineLimit(1)
                                                 .minimumScaleFactor(0.5)
-                                            
-                                            Text(exercise.primaryMuscles.first?.rawValue ?? "-")
-                                                .foregroundColor(.greenColor)
-                                            
+                                                
+                                          Spacer()
                                         }
+                                        .padding(10)
                                     }
-                                    
                                 }
                                 .padding(.leading, 20)
                                 
@@ -83,10 +99,33 @@ struct ExercisesView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                             // доп инструкции
-                            if vm.tappedID == exercise.id {
-                                
+                           // if vm.tappedID == exercise.id {
+                             if   vm.expandedIDs.contains(exercise.id) {
                                 VStack {
-                                    
+                                    HStack {
+                                       
+                                            AsyncImage(url: vm.imageURL(source: exercise)) { image in
+                                                image
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 120, height: 80)
+                                                    .cornerRadius(5)
+                                            } placeholder: {
+                                                ProgressView()
+                                                    .frame(width: 120, height: 80, alignment: .center)
+                                            }
+                                          
+                                                AsyncImage(url: vm.secondImageURL(source: exercise)) { image in
+                                                    image
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 120, height: 80)
+                                                        .cornerRadius(5)
+                                                } placeholder: {
+                                                    ProgressView()
+                                                        .frame(width: 120, height: 80, alignment: .center)
+                                                }
+                                    }
                                     Text("Instructions:")
                                         .padding()
                                     
@@ -94,10 +133,33 @@ struct ExercisesView: View {
                                         
                                         ForEach(exercise.instructions, id: \.self) { text in
                                             Text(text)
+                                                .font(.system(size: 14))
                                                 .foregroundColor(.white)
                                         }
                                     }
                                     .padding(.horizontal, 10)
+                                    
+                                    HStack {
+                                        
+                                        Text("Involved muscles:")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 12))
+                                        
+                                        ForEach(exercise.primaryMuscles, id: \.self) { text in
+                                            Text(text.rawValue)
+                                                .foregroundColor(.greenColor)
+                                                .font(.system(size: 12))
+                                        }
+                                     
+                               
+                                        ForEach(exercise.secondaryMuscles, id: \.self) { text in
+                                            Text(text.rawValue)
+                                                .foregroundColor(.greenColor)
+                                                .font(.system(size: 12))
+                                        }
+                                    }
+                                    .padding(5)
+                                  
                                 }
                             }
                             

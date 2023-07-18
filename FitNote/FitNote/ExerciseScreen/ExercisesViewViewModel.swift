@@ -16,6 +16,7 @@ final class ExercisesViewViewModel: ObservableObject {
     
     @Published var exercises: [Exercise] = []
     @Published var exercisesTemp: [Exercise] = []
+    @Published var expandedIDs: [UUID] = []
     @Published var workoutExercise: Exercise?
     @Published var exerciseCategories: [ExerciseCategory] = [
         ExerciseCategory(name: "ALL", img: "all"),
@@ -70,6 +71,12 @@ final class ExercisesViewViewModel: ObservableObject {
    
         return url
     }
+    func secondImageURL(source: Exercise) -> URL? {
+        guard let previewImage = source.images.last,
+              let url = URL(string: "\(Constants.imgDB)\(previewImage)") else { return nil }
+   
+        return url
+    }
     
     
     func addToWorkout(exercise: Exercise) {
@@ -85,4 +92,13 @@ final class ExercisesViewViewModel: ObservableObject {
         }
         currentMuscles = muscle.name
     }
+    
+    func collapseRow(id: UUID) {
+        if expandedIDs.contains(id) {
+            expandedIDs = expandedIDs.filter { $0 != id }
+        } else {
+            expandedIDs.append(id)
+        }
+    }
+    
 }
