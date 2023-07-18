@@ -31,7 +31,7 @@ final class ClientsListViewViewModel: ObservableObject {
     
     func addNewClient() {
         
-        guard !newClientName.isEmpty, !names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame}) else {
+        guard !newClientName.isEmpty, !names.contains(where: {$0.caseInsensitiveCompare(self.newClientName.trimmingCharacters(in: .whitespacesAndNewlines)) == .orderedSame}) else {
                self.nameErrorText = self.newClientName.isEmpty ? .emptyName : .nameExist
                self.nameAlert = true
             return

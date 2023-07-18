@@ -41,7 +41,7 @@ struct ExercisesView: View {
                                                 image
                                                     .resizable()
                                                     .scaledToFit()
-                                                    .frame(width: 100, height: 70)
+                                                    .frame(width: 110, height: 80)
                                                     .cornerRadius(5)
                                             } placeholder: {
                                                 ProgressView()
@@ -79,7 +79,7 @@ struct ExercisesView: View {
                                         .padding(10)
                                     }
                                 }
-                                .padding(.leading, 20)
+                                .padding(.leading, 5)
                                 
                                 
                                 Spacer()
@@ -139,27 +139,34 @@ struct ExercisesView: View {
                                     }
                                     .padding(.horizontal, 10)
                                     
-                                    HStack {
+                                    VStack {
                                         
                                         Text("Involved muscles:")
                                             .foregroundColor(.white)
                                             .font(.system(size: 12))
                                         
-                                        ForEach(exercise.primaryMuscles, id: \.self) { text in
-                                            Text(text.rawValue)
-                                                .foregroundColor(.greenColor)
-                                                .font(.system(size: 12))
+                                        HStack {
+                                            
+                                            ForEach(exercise.primaryMuscles, id: \.self) { text in
+                                                Text(text.rawValue)
+                                                    .foregroundColor(.greenColor)
+                                                    .font(.system(size: 12))
+                                                    .lineLimit(1)
+                                                    .minimumScaleFactor(0.2)
+                                            }
                                         }
-                                     
-                               
-                                        ForEach(exercise.secondaryMuscles, id: \.self) { text in
-                                            Text(text.rawValue)
-                                                .foregroundColor(.greenColor)
-                                                .font(.system(size: 12))
+                                        HStack {
+                                            ForEach(exercise.secondaryMuscles, id: \.self) { text in
+                                                Text(text.rawValue)
+                                                    .foregroundColor(.greenColor)
+                                                    .font(.system(size: 12))
+                                                    .lineLimit(1)
+                                                    .minimumScaleFactor(0.2)
+                                            }
                                         }
                                     }
-                                    .padding(5)
-                                  
+                                        .padding(5)
+                                    
                                 }
                             }
                             
@@ -178,7 +185,7 @@ struct ExercisesView: View {
                 .toolbarBackground(Color.darkColor)
                     
                     
-                    VStack {
+                    VStack (spacing: 0) {
                         HStack {
                             Image(systemName: "chevron.left")
                                 .font(.title2)
@@ -215,16 +222,16 @@ struct ExercisesView: View {
                                                 .foregroundColor(.white)
                                                 
                                         }
-                                        .padding(20)
+                                        .padding(10)
                                         .background(Color.secondaryDark)
-                                        .cornerRadius(30)
+                                        .cornerRadius(20)
                                         //.frame(width: 120, height: 120)
                                     }
 
                                        
                                     }
                                 }
-                            .frame(height: 120)
+                            .frame(height: 100)
                         }
                         .scrollIndicators(.hidden)
                         .padding(5)

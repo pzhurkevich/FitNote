@@ -43,7 +43,6 @@ struct AppRoleView: View {
                                 Button {
                                     
                                     vm.updateRoleForUser(role: .loggedAsTrainer)
-                                    vm.roleScreen = .trainer
                                 } label: {
                                     
                                     Text("I train others")
@@ -74,7 +73,6 @@ struct AppRoleView: View {
                                 Button {
                                     
                                     vm.updateRoleForUser(role: .loggedAsSelf)
-                                    vm.roleScreen = .customer
                                    
                                 } label: {
                                     
@@ -111,13 +109,16 @@ struct AppRoleView: View {
             
             
         }
-        .fullScreenCover(item: $vm.roleScreen) { item in
-            switch item {
-            case .customer:
-                CustomerView()
-            case .trainer:
-                TrainerView()
-            }
+//        .fullScreenCover(item: $vm.roleScreen) { item in
+//            switch item {
+//            case .customer:
+//                CustomerView()
+//            case .trainer:
+//                TrainerView()
+//            }
+//        }
+        .fullScreenCover(isPresented: $vm.showMainTab) {
+            MainBarView()
         }
     }
 }

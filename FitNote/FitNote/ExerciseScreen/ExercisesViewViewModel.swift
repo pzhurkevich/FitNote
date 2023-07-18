@@ -84,6 +84,7 @@ final class ExercisesViewViewModel: ObservableObject {
     }
     
     func filterExercises(muscle: ExerciseCategory) {
+        expandedIDs = []
         if muscle.img == "all" {
             exercises = exercisesTemp
         } else {

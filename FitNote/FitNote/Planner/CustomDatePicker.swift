@@ -81,6 +81,8 @@ struct CustomDatePicker: View {
                         .background(Color.greenColor)
                         .clipShape(Capsule())
                 }.padding(10)
+                    .opacity(vm.emptyName ? 0.6 : 1)
+                    .disabled(vm.emptyName)
                 
                 if !vm.clients.isEmpty {
                 Divider()

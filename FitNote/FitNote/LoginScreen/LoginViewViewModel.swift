@@ -28,6 +28,16 @@ final class LoginViewViewModel: ObservableObject {
     
     let fireBaseManager: FirebaseManagerProtocol = FirebaseManager()
     
+    var emailAlert: String {
+        return isEmailValid() ? "" : "Enter a valid email address"
+     }
+    
+    var loginAllowed: Bool {
+        
+            return isEmailValid()
+       
+    }
+    
 // MARK:  - Methods -
     
     func logIn() {
@@ -74,6 +84,12 @@ final class LoginViewViewModel: ObservableObject {
                     
             }
         }
+    }
+    
+    func isEmailValid() -> Bool {
+        let emailSample = NSPredicate(format: "SELF MATCHES %@",
+                                    "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
+        return emailSample.evaluate(with: email)
     }
     
     

@@ -162,6 +162,7 @@ struct RegisterView: View {
                     }
                     
                     .padding([.horizontal, .vertical], 16)
+                    .disabled(!vm.registrationAllowed)
                     .opacity(vm.registrationAllowed ? 1 : 0.6)
 
                 }
