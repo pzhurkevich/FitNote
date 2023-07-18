@@ -15,10 +15,25 @@ final class ExercisesViewViewModel: ObservableObject {
     var apiProvider: ProviderProtocol = AlamofireProvider()
     
     @Published var exercises: [Exercise] = []
+    @Published var exercisesTemp: [Exercise] = []
     @Published var workoutExercise: Exercise?
+    @Published var exerciseCategories: [ExerciseCategory] = [
+        ExerciseCategory(name: "ALL", img: "all"),
+        ExerciseCategory(name: "Abs", img: "abdominals"),
+        ExerciseCategory(name: "Back", img: "back"),
+        ExerciseCategory(name: "Biceps", img: "biceps"),
+        ExerciseCategory(name: "Calves", img: "calves"),
+        ExerciseCategory(name: "Chest", img: "chest"),
+        ExerciseCategory(name: "Forearm", img: "forearm"),
+        ExerciseCategory(name: "Shoulders", img: "shoulder"),
+        ExerciseCategory(name: "Neck", img: "neck"),
+        ExerciseCategory(name: "Triceps", img: "triceps")
+    ]
     
     var searchResults: [Exercise] {
+       
         if searchText.isEmpty {
+           
                     return exercises
                 } else {
                     return exercises.filter { $0.name.contains(searchText) }
@@ -26,6 +41,7 @@ final class ExercisesViewViewModel: ObservableObject {
     }
     
     @Published var searchText = ""
+    @Published var currentMuscles = "All"
     @Published var tappedID: UUID?
    
     
@@ -38,6 +54,7 @@ final class ExercisesViewViewModel: ObservableObject {
           
             await MainActor.run {
                 self.exercises = data
+                self.exercisesTemp = data
             }
                 
         } catch {
@@ -57,5 +74,15 @@ final class ExercisesViewViewModel: ObservableObject {
     
     func addToWorkout(exercise: Exercise) {
         self.workoutExercise = exercise
+    }
+    
+    func filterExercises(muscle: ExerciseCategory) {
+        if muscle.img == "all" {
+            exercises = exercisesTemp
+        } else {
+            exercises = exercisesTemp
+            exercises = exercises.filter {$0.primaryMuscles.contains(where: { $0.rawValue.contains(muscle.img)})}
+        }
+        currentMuscles = muscle.name
     }
 }
