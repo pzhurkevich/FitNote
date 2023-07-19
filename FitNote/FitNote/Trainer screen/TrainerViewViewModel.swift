@@ -27,6 +27,7 @@ final class TrainerViewViewModel: ObservableObject {
     @Published var todayClients : [ClientTask] = []
     @Published var displayName: String = ""
     @Published var lastWorkouts: Dictionary<String, String> = [:]
+    @Published var updatedImages: Dictionary<String, String> = [:]
     
     
 // MARK:  - Methods -
@@ -103,14 +104,21 @@ final class TrainerViewViewModel: ObservableObject {
            let clientsTasksFromServer  =  await self.fireBaseManager.fetchClientsToPlanner()
            let today = Date()
            let  todayClientsTasks = clientsTasksFromServer.first(where: { $0.taskDate.getDateComponents() == today.getDateComponents() })
-           guard let  clientList = todayClientsTasks?.task else {return}
+           guard let  clientList = todayClientsTasks?.task else {
+               await MainActor.run {
+                   self.todayClients = []
+               }
+               
+               return
+               
+           }
            
            await MainActor.run {
                self.todayClients = clientList
            }
        }
 
-    func lastWorkout() async {
+    func getClientsData() async {
         
         for clientTask in todayClients {
             let workoutsFromServer = await self.fireBaseManager.fetchClientsWorkouts(clientID: clientTask.client.id)
@@ -122,6 +130,13 @@ final class TrainerViewViewModel: ObservableObject {
                 }
                 
             }
+            let imageFormServer = await self.fireBaseManager.getCurrentClientInfo(id: clientTask.client.id)
+            
+            await MainActor.run {
+                updatedImages["\(clientTask.client.id)"] = imageFormServer?.imageURL
+               
+            }
+            
         }
     }
 

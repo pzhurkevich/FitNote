@@ -62,7 +62,7 @@ final class PlannerViewViewModel: ObservableObject {
                     emptyName = true
                     nameErrorText = .emptyName
                 }
-                if names.contains(where: {$0.caseInsensitiveCompare(self.newClientName) == .orderedSame})  {
+                if names.contains(where: {$0.caseInsensitiveCompare(self.newClientName.trimmingCharacters(in: .whitespacesAndNewlines)) == .orderedSame})  {
                     emptyName = true
                     nameErrorText = .nameExist
                 }

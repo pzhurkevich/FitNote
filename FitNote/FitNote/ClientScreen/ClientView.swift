@@ -201,12 +201,17 @@ struct ClientView: View {
                                 vm.isPresented.toggle()
                             } label: {
                                 HStack {
+                                  
                                     Text("Workout")
                                         .fontDesign(.rounded)
                                         .fontWeight(.bold)
+                                        .padding(.leading, 25)
+                                    
+                                    Spacer()
                                     
                                     Image(systemName: "chevron.forward")
                                         .fontWeight(.bold)
+                                        .padding(.trailing, 10)
                                 }
                                 .tint(.black)
                                 .frame(maxWidth: .infinity)
@@ -220,12 +225,17 @@ struct ClientView: View {
                                 HistoryView(vm: HistoryViewViewModel(clientData: vm.clientData))
                             } label: {
                                 HStack {
+                                  
                                     Text("Workouts history")
                                         .fontDesign(.rounded)
                                         .fontWeight(.bold)
+                                        .padding(.leading, 25)
+                                    
+                                    Spacer()
                                     
                                     Image(systemName: "chevron.forward")
                                         .fontWeight(.bold)
+                                        .padding(.trailing, 10)
                                 }
                                 .tint(.black)
                                 .frame(maxWidth: .infinity)
@@ -239,12 +249,17 @@ struct ClientView: View {
                                 StatisticsView()
                             } label: {
                                 HStack {
+                                    
                                     Text("Client statistic")
                                         .fontDesign(.rounded)
                                         .fontWeight(.bold)
+                                        .padding(.leading, 25)
+                                    
+                                    Spacer()
                                     
                                     Image(systemName: "chevron.forward")
                                         .fontWeight(.bold)
+                                        .padding(.trailing, 10)
                                 }
                                 .tint(.black)
                                 .frame(maxWidth: .infinity)

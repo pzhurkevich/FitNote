@@ -166,9 +166,11 @@ struct TrainerView: View {
                             }
                             .padding([.top, .bottom], 20)
                             if vm.todayClients.isEmpty {
+                                Spacer()
                                 Text("There are no clients today")
                                     .foregroundColor(.red)
                                     .font(.title2.bold())
+                                Spacer()
                             } else {
                                 ScrollView {
                                     
@@ -195,19 +197,24 @@ struct TrainerView: View {
                                                     
                                                     HStack() {
                                                         Text("Last workout:")
+                                                            .font(.system(size: 12))
+                                                            .font(.caption)
                                                             .foregroundColor(.white)
                                                         
                                                         Text(vm.lastWorkouts[client.client.id] ?? "-")
                                                             .foregroundColor(.greenColor)
-                                                            .padding(.leading, 10)
+                                                            .font(.system(size: 12))
+                                                            .lineLimit(2)
+                                                            .padding(.leading, 5)
                                                     }
                                                     
                                                 }
                                                 .padding(.leading, 10)
+                                                .padding(.trailing, 5)
                                                 
                                                 Spacer()
                                                 
-                                                AsyncImage(url: URL(string: client.client.imageURL)) { image in
+                                                AsyncImage(url: URL(string: vm.updatedImages[client.client.id] ?? "")) { image in
                                                     image
                                                         .resizable()
                                                         .scaledToFill()
@@ -231,7 +238,7 @@ struct TrainerView: View {
                                                             .stroke(Color.greenColor, lineWidth: 2))
                                                         .clipShape(Circle())
                                                 }
-                                                .padding(.trailing, 20)
+                                                .padding(.trailing, 30)
                                             }
                                             
                                             
@@ -254,7 +261,7 @@ struct TrainerView: View {
         .task {
             await vm.fetchAppUserinfo()
             await vm.fetchTasks()
-            await vm.lastWorkout()
+            await vm.getClientsData()
         }
     }
 }

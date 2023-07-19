@@ -232,7 +232,14 @@ struct WorkoutView: View {
                         .listStyle(.plain)
                         .background(Color.darkColor)
                         .scrollContentBackground(.hidden)
-                        
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()
+                                Button("Done") {
+                                    textIsFocused = false
+                                }
+                            }
+                        }
                         
                         
                         
@@ -293,7 +300,7 @@ struct WorkoutView: View {
                     .foregroundColor(.greenColor)
             }
             
-            if !vm.workout.isEmpty {
+            if !vm.workout.isEmpty, textIsFocused == false {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         vm.editMode.toggle()

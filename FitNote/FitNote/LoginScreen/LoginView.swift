@@ -38,16 +38,27 @@ struct LoginView: View {
                             .font(.largeTitle)
                             .foregroundColor(.white)
                         
-                        TextField("email", text: $vm.email)
-                            .focused($textIsFocused)
-                            .autocorrectionDisabled(true)
-                            .foregroundColor(Color.greenColor)
-                            .padding()
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 24)
-                                    .stroke(Color(uiColor: .white), lineWidth: 2)
-                            }
-                            .padding()
+                        VStack(alignment: .leading) {
+                            TextField("email", text: $vm.email)
+                                .focused($textIsFocused)
+                                .autocorrectionDisabled(true)
+                                .foregroundColor(Color.greenColor)
+                                .padding()
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .stroke(Color(uiColor: .white), lineWidth: 2)
+                                }
+                                .padding([.leading, .trailing], 16)
+                            
+                            Text(vm.emailAlert)
+                                .foregroundColor(.red)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .font(.caption)
+                                .padding(.leading, 40)
+                            
+                        }
+                        
+                        
                         HStack {
                             if vm.showPassword {
                                 TextField ("password", text: $vm.password)
@@ -100,6 +111,8 @@ struct LoginView: View {
                                 .background(Color.greenColor)
                                 .clipShape(Capsule())
                         }
+                        .disabled(!vm.loginAllowed)
+                        .opacity(vm.loginAllowed ? 1 : 0.6)
                         
                         .padding([.horizontal, .vertical], 16)
                         

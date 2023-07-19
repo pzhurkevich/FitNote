@@ -36,8 +36,6 @@ struct HistoryView: View {
                                 
                                 Button {
                                     
-                                    
-                                    // vm.tappedID = workout.id
                                     vm.collapseRow(id: workout.id)
                                     
                                 } label: {
@@ -45,7 +43,6 @@ struct HistoryView: View {
                                     HStack(spacing: 20) {
                                         
                                         Text(workout.nameWorkout)
-                                        //                                            .minimumScaleFactor(0.2)
                                             .lineLimit(2)
                                             .font(.title2)
                                             .foregroundColor(.white)
