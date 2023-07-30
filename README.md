@@ -2,7 +2,7 @@
 
 FitNote is an application written in SwiftUI using MVVM architecture that is designed to help trainers and gym instructors organize their clients' workouts.
 
-The application has a simple and intuitive interface, and Firebase is used to organize the database - all information about trainer, clients, workouts, and their photos stored in the cloud, so that data is available online from any device.  
+The application has a simple and intuitive interface. Firebase is used to organize all information about trainer, clients, workouts stored in the cloud, it's available online from any device.  
 
 Let's take a brief look at the main screens of the app:
 
