@@ -20,4 +20,4 @@ Let's take a brief look at the main screens of the app:
 
 - Workout screen: _The main screen of the current workout where you can add or delete exercises, manage reps and weights for each rep._
 
-![workout](/uploads/1083100a047077de74ced650e751ac30/workout.png)
+![main3](/uploads/6f6b0de8912381a962f19ea2894277e4/main3.png)
