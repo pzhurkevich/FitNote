@@ -10,14 +10,14 @@ Let's take a brief look at the main screens of the app:
 - Clients list screen:  _This is a list of all clients, with the ability to delete them and add new ones._
 - Clients Planner screen: _This is a powerful calendar for signing up new or existing clients for specific times on different days, with the ability to manage appointments and add notifications for upcoming workouts._
 
-![main1](/uploads/be78f5d3534bb74c9aba1683aaa7fd2e/main1.png)
+![main1](https://github.com/pzhurkevich/FitNote/blob/dev/main1.png)
 
 - Client screen: _A screen of the selected client where you can edit his photo and contact information, start a new workout or view the history of already completed ones._
 - Workouts history screen: _Designed to view previous workouts and their result, and to plan the next one._
 - Exercises screen: _A catalog of over 800 exercises, searchable and categorized by primary muscle group._
 
-![main2](/uploads/6aa02bb2a7d169874ef5fe7a77e79b83/main2.png)
+![main2](https://github.com/pzhurkevich/FitNote/blob/dev/main2.png)
 
 - Workout screen: _The main screen of the current workout where you can add or delete exercises, manage reps and weights for each rep._
 
-![main3](/uploads/6f6b0de8912381a962f19ea2894277e4/main3.png)
+![main3](https://github.com/pzhurkevich/FitNote/blob/dev/main3.png)
